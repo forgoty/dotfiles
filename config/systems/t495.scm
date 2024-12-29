@@ -13,6 +13,7 @@
 	     (nongnu packages linux)
 	     (gnu system)
 	     (gnu system nss)
+	     (gnu system privilege)
 	     (gnu system setuid)
 	     (nongnu system linux-initrd))
 
@@ -50,6 +51,15 @@
 					  "video"
 					  "lp")))
                 %base-user-accounts))
+  (sudoers-file (plain-file "sudoers" "\
+# aliases
+Cmnd_Alias HALT = /run/current-system/profile/sbin/reboot, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/shutdown
+Cmnd_Alias LOGINCTL = /run/current-system/profile/bin/loginctl
+Cmnd_Alias SLOCK = /home/nikita/.guix-home/profile/bin/slock
+
+root ALL=(ALL) ALL
+%wheel ALL=(ALL) ALL
+nikita ALL=NOPASSWD: HALT, LOGINCTL, SLOCK"))
   (packages
     (cons* bluez
 	   bluez-alsa
