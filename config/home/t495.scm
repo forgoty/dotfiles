@@ -53,27 +53,14 @@
              (gnu services)
              (gnu packages emacs)
              (gnu packages emacs-xyz)
-	     (forgoty packages st)
-	     (forgoty packages dmenu)
-	     (forgoty packages dwm)
-	     (forgoty packages dwmblocks))
+	     (forgoty packages suckless))
 
 (home-environment
   ;; Below is the list of packages that will show up in your
   ;; Home profile, under ~/.guix-home/profile.
-  (packages (list zsh-syntax-highlighting
+  (packages (list
+		  ; Xorg and Window Management
 		  xdg-utils
-		  neovim
-		  qutebrowser
-		  blueman
-		  curl
-		  zathura
-		  zathura-pdf-mupdf
-		  redshift
-		  mpv
-		  lf
-		  wget
-		  bat
 		  libnotify
 		  setxkbmap
 		  xinit
@@ -81,60 +68,80 @@
 		  xmodmap
 		  xrandr
 		  xrdb
-		  polkit
-		  file
-		  font-adobe-source-han-sans
-		  font-google-noto
-		  font-google-noto-emoji
-		  bc
-		  transmission
-		  tree-sitter
-		  xcompmgr
-		  ncurses
-		  dosfstools
-		  wireplumber
-		  dunst
-		  calcurse
-		  nsxiv
 		  xwallpaper
-		  ffmpeg
 		  xprop
 		  xwininfo
-		  python-ueberzug
-		  python-qdarkstyle
-		  yt-dlp
-		  man-db
-		  newsboat
-		  pulsemixer
-		  sc-im
-		  poppler
-		  mediainfo
-		  atool
-		  fzf
 		  xbacklight
+		  xclip
 		  unclutter-xfixes
 		  xdotool
+		  xcompmgr
+		  dunst
+		  slock
+		  ;; Forgoty
+		  forgoty-st
+		  forgoty-dwm
+		  forgoty-dwmblocks
+		  luke-dmenu
+
+		  ; Shell and CLI tools
+		  zsh-syntax-highlighting
+		  file
+		  bat
+		  neovim
+		  lf
+		  wget
+		  bc
+		  fzf
+		  calcurse
 		  maim
 		  ripgrep
 		  git-delta
 		  zip
 		  socat
 		  moreutils
-		  telegram-desktop
 		  unzip
-		  xclip
 		  htop
 		  tesseract-ocr
 		  translate-shell
-		  emacs
 		  zsh-syntax-highlighting
+		  atool
 		  rsync
-		  slock
+		  sc-im
+		  newsboat
+		  yt-dlp
+		  curl
+		  transmission
 
-		  forgoty-st
-		  forgoty-dwm
-		  forgoty-dwmblocks
-		  luke-dmenu
+		  ; Apps and Tools
+		  qutebrowser
+		  zathura
+		  zathura-pdf-mupdf
+		  redshift
+		  mpv
+		  nsxiv
+		  ffmpeg
+		  telegram-desktop
+
+		  ; Support
+		  python-ueberzug
+		  python-qdarkstyle
+		  man-db
+		  pulsemixer
+		  poppler
+		  mediainfo
+		  polkit
+		  blueman
+		  font-adobe-source-han-sans
+		  font-google-noto
+		  font-google-noto-emoji
+		  tree-sitter
+		  ncurses
+		  dosfstools
+		  wireplumber
+
+		  ; Emacs
+		  emacs
 
 		  ;; Tools
 		  emacs-flycheck
@@ -170,8 +177,12 @@
 		  emacs-package-lint
 		  emacs-zig-mode
 
+		  ;; Org
+		  emacs-org-super-agenda
+
 		  ;; UI
 		  emacs-nerd-icons
+		  emacs-golden-ratio
 		  emacs-elisp-demos
 		  emacs-helpful
 		  emacs-doom-themes
