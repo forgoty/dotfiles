@@ -104,7 +104,6 @@
 		  htop
 		  tesseract-ocr
 		  translate-shell
-		  zsh-syntax-highlighting
 		  atool
 		  rsync
 		  sc-im
