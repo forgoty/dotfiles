@@ -8,6 +8,7 @@
              (gnu packages)
 	     (gnu home services shells)
 	     (gnu home services sound)
+	     (gnu home services dotfiles)
 	     (gnu home services desktop)
 	     (guix gexp)
 	     (gnu packages rsync)
@@ -49,6 +50,7 @@
 	     (gnu packages freedesktop)
 	     (gnu packages disk)
 	     (gnu packages vim)
+	     (gnu packages version-control)
 	     (gnu home services)
              (gnu services)
              (gnu packages emacs)
@@ -86,10 +88,12 @@
 
 		  ; Shell and CLI tools
 		  zsh-syntax-highlighting
+		  zsh-completions
 		  file
 		  bat
 		  neovim
 		  lf
+		  git
 		  wget
 		  bc
 		  fzf
@@ -200,6 +204,10 @@
      (service home-zsh-service-type)
      (service home-dbus-service-type)
      (service home-pipewire-service-type)
+     (service home-dotfiles-service-type
+	      (home-dotfiles-configuration
+		(excluded '("README.md" ".stow-local-ignore" ".zprofile"))
+		(directories '("../../files/dotfiles"))))
      (simple-service 'some-useful-env-vars-service
 	home-environment-variables-service-type
 	`(("EDITOR" . "nvim")
@@ -219,9 +227,11 @@
 	  ("ANDROID_SDK_HOME" . "$XDG_CONFIG_HOME/android")
 	  ("CARGO_HOME" . "$XDG_DATA_HOME/cargo")
 	  ("GOPATH" . "$XDG_DATA_HOME/go")
-	  ("GUIX_PACKAGE_PATH" . "$HOME/.dotfiles/config/packages")
+	  ("GUIX_PACKAGE_PATH" . "$HOME/guix-config/config/packages")
 	  ("GUILE_LOAD_PATH" . "$GUILE_LOAD_PATH:$(echo $GUIX_PACKAGE_PATH)")
 	  ("GOMODCACHE" . "$XDG_CACHE_HOME/go/mod")
+	  ("ZSH_DIR" . "$HOME/.guix-home/profile/share/zsh")
+	  ("BASH_COMPLETIONS_DIR" . "$HOME/.guix-home/profile/etc/bash_completion.d")
 	  ("ANSIBLE_CONFIG" . "$XDG_CONFIG_HOME/ansible/ansible.cfg")
 	  ("UNISON" . "$XDG_DATA_HOME/unison")
 	  ("HISTFILE" . "$XDG_DATA_HOME/history")
@@ -245,6 +255,5 @@
 	  ("AWT_TOOLKIT" . "MToolkit wmname LG3D") ; May have to install wmname
 	  ("PATH" . "$PATH:$(echo $GOPATH/bin)")
 	  ("PATH" . "$PATH:$(echo $HOME/.local/bin)")
-	  ("PATH" . "$PATH:$(echo $HOME/.local/bin/cron)")
 	  ("PATH" . "$PATH:$(echo $HOME/.local/bin/statusbar)")
 	  ("_JAVA_AWT_WM_NONREPARENTING" . #t))))))

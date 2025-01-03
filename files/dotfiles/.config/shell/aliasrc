@@ -1,0 +1,82 @@
+#!/bin/sh
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+[ -f "$MBSYNCRC" ] && alias mbsync="mbsync -c $MBSYNCRC"
+
+# sudo not required for some system commands
+for command in mount umount updatedb su shutdown reboot loginctl ; do
+	alias $command="sudo $command"
+done; unset command
+
+se() {
+	choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
+	[ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+	}
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -riv" \
+	mv="mv -iv" \
+	rm="rm -rvI" \
+	bc="bc -ql" \
+	rsync="rsync -vrPlu" \
+	mkdir="mkdir -pv" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Colorize commands when possible.
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	g="git" \
+	trem="transmission-remote" \
+	sdn="shutdown -h now" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	p="pacman" \
+	z="zathura" \
+	magit="nvim -c MagitOnly" \
+	lf="lfub" \
+	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
+
+# Nikitas aliases
+
+alias \
+	mkcd='_(){ mkdir -p $1; cd $1; }; _' \
+	gc="git checkout" \
+	gcm="git commit" \
+	gs="git status" \
+	gd="DELTA_FEATURES=+side-by-side git diff" \
+	gds="DELTA_FEATURES=+side-by-side git diff --cached" \
+	gaa="git add -u" \
+	ga="git add" \
+	gca="git checkout -- ." \
+	gp="git push" \
+	grm="git rm" \
+	gb='git for-each-ref --sort=committerdate refs/heads/ --format="%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))"' \
+	gf='git fetch' \
+	gpo="git push origin HEAD" \
+	gst="git stash" \
+	gstp="git stash pop" \
+	grs="git restore --staged" \
+	grsa="git restore --staged ." \
+	gl="git log" \
+	gm="git merge" \
+	gpl="git pull" \
+	gplr="git pull --rebase" \
+	gacm="git add -u && git commit -m" \
+	xo="xdg-open" \
+	history="history 1" \
+	xclip="xclip -selection clipboard" \
+	dcs="docker compose" \

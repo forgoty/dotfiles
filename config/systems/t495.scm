@@ -71,7 +71,6 @@ nikita ALL=NOPASSWD: HALT, LOGINCTL, SLOCK"))
 	   libva-utils
 	   vim
 	   stow
-	   git
 	%base-packages))
 
   (services (cons*
