@@ -41,10 +41,9 @@ alias \
 	ka="killall" \
 	g="git" \
 	trem="transmission-remote" \
-	sdn="shutdown -h now" \
+	sdn="shutdown" \
 	e="$EDITOR" \
 	v="$EDITOR" \
-	p="pacman" \
 	z="zathura" \
 	magit="nvim -c MagitOnly" \
 	lf="lfub" \
