@@ -69,7 +69,6 @@ nikita ALL=NOPASSWD: HALT, LOGINCTL, SLOCK
 (define default-system-services
   (list (service slim-service-type
                  (slim-configuration (auto-login? #t)
-                                     (display ":0")
                                      (vt "vt1")
                                      (xorg-configuration (xorg-configuration (keyboard-layout
                                                                               default-keyboard-layout)))
