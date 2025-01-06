@@ -1,0 +1,32 @@
+#!/bin/sh
+
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
+NC='\033[0m'
+
+update_home() {
+    echo
+    echo -e "${GREEN}Updating $HOME for ${BLUE}$(hostname)${GREEN}...${NC}"
+    echo
+    RUNNING_GUIX_HOME=1 guix home -L ~/.dotfiles/guix reconfigure ~/.dotfiles/guix/forgoty/home/$(hostname).scm
+}
+
+update_system() {
+    echo
+    echo -e "${GREEN}Updating ${BLUE}$(hostname)${GREEN}...${NC}"
+    echo
+    sudo guix system -L ~/.dotfiles/guix reconfigure ~/.dotfiles/guix/forgoty/systems/$(hostname).scm
+}
+
+case "$1" in
+    home)
+        update_home
+        ;;
+    system)
+        update_system
+        ;;
+    *)
+        echo "Usage: $0 {home|system}"
+        exit 1
+        ;;
+esac
