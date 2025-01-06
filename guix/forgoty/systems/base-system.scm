@@ -12,6 +12,7 @@
                      docker
                      xorg
                      audio
+		     ssh
                      virtualization)
 (use-package-modules admin
                      fonts
@@ -74,6 +75,9 @@ nikita ALL=NOPASSWD: HALT, LOGINCTL, SLOCK
                                                                               default-keyboard-layout)))
                                      (default-user "nikita")))
         (service docker-service-type)
+	(service openssh-service-type
+		 (openssh-configuration
+		   (port-number 2222)))
         (service containerd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration (auto-enable? #t)))
