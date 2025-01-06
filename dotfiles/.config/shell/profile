@@ -23,6 +23,7 @@ export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
 export HISTFILE="$XDG_DATA_HOME/history"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
+export CEREBRUM_PATH="$HOME/cerebrum"
 
 ## zsh and bash dirs needed for completion path.
 ## Even if you use zsh, bash completions is needed.
