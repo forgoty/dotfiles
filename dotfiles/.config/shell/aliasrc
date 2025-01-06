@@ -41,7 +41,7 @@ alias \
 	ka="killall" \
 	g="git" \
 	trem="transmission-remote" \
-	sdn="shutdown" \
+	sdn="sudo shutdown" \
 	e="$EDITOR" \
 	v="$EDITOR" \
 	z="zathura" \
