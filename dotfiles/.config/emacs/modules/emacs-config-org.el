@@ -4,6 +4,12 @@
 (setq org-agenda-files (list org-directory))
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
+;; Save org buffers on org-agenda-redo (redraw agenda)
+(advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
+
+;; Done task have timestamps attached
+(setq org-log-done 'time)
+
 (defun org-agenda-todo-next ()
     "Org agenda todo next cycle"
     (interactive)
@@ -40,6 +46,16 @@
                       ("work" . ?w)
                       (:endgroup)))
 
+;; Clock in/out when task state changes to/from IN-PROGRESS
+(defun org-clock-toggle-by-state ()
+  (if (and (string= org-state "IN-PROGRESS")
+           (not (org-clock-is-active)))
+      (org-clock-in)
+    (when (org-clock-is-active)
+      (org-clock-out))))
+
+(add-hook 'org-after-todo-state-change-hook #'org-clock-toggle-by-state)
+
 ;; Custom agenda views
 (org-super-agenda-mode)
 (setq org-agenda-custom-commands
@@ -68,6 +84,11 @@
                 ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "In-Progress")))
+          (tags "CLOSED>=\"<today>\""
+                ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
+                 (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-overriding-header "Completed Today")))
           (todo "DONE"
                 ((org-agenda-max-entries 10)
                  (org-agenda-sorting-strategy '(timestamp-down))

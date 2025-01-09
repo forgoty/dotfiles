@@ -14,7 +14,7 @@ tab-indent."
 (define-key copilot-mode-map (kbd "<backtab>") 'custom/copilot-tab)
 (define-key copilot-mode-map (kbd "M-k") #'copilot-next-completion)
 (define-key copilot-mode-map (kbd "M-j") #'copilot-previous-completion)
-
+(setq copilot-max-char-warning-disable t)
 (setq copilot-indent-offset-warning-disable t)
 (add-hook 'emacs-startup-hook
           (lambda ()

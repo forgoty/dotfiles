@@ -1,6 +1,6 @@
 ;; Tools
 (add-to-list 'package-selected-packages 'flycheck-google-cpplint)
-(add-to-list 'load-path (expand-file-name "site-lisp/copilot" user-emacs-directory))
+(add-to-list 'package-selected-packages 'copilot)
 (add-to-list 'package-selected-packages 'flycheck)
 (add-to-list 'package-selected-packages 'flycheck-pos-tip)
 (add-to-list 'package-selected-packages 'restart-emacs)

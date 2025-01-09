@@ -36,7 +36,21 @@
 ;; Golden Ratio
 (golden-ratio-mode t)
 (add-hook 'window-selection-change-functions 'golden-ratio)
-(setq golden-ratio-exclude-modes '(ediff-mode))
+
+;; Ediff
+;;; turn off ancestor window
+(setq ediff-show-ancestor nil)
+
+;;; golden-ratio fixes for Ediff
+(defun custom/ediff-startup-hook ()
+  (ediff-toggle-split)
+  (ediff-toggle-split))
+(defun custom/ediff-comparison-buffer ()
+  (and (boundp 'ediff-this-buffer-ediff-sessions)
+       ediff-this-buffer-ediff-sessions))
+(add-hook 'ediff-startup-hook 'custom/ediff-startup-hook)
+(add-to-list 'golden-ratio-exclude-modes "ediff-mode")
+(add-to-list 'golden-ratio-inhibit-functions 'custom/ediff-comparison-buffer)
 
 ;; Workspaces
 (with-eval-after-load 'tabspaces
