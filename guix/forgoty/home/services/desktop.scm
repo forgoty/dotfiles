@@ -19,6 +19,7 @@
   #:use-module (gnu packages telegram)
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu packages curl)
+  #:use-module (gnu packages mail)
   #:use-module (gnu packages ncurses)
   #:use-module (gnu packages networking)
   #:use-module (gnu packages bittorrent)
@@ -120,6 +121,7 @@
    ;; Apps
    qutebrowser
    telegram-desktop
+   neomutt
    zathura
    zathura-pdf-mupdf
    mpv))
