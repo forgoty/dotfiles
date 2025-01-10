@@ -4,6 +4,7 @@
   #:use-module (gnu home services shells)
   #:use-module (gnu home services desktop)
   #:use-module (gnu home services sound)
+  #:use-module (gnu home services ssh)
   #:use-module (gnu home services dotfiles)
   #:use-module (guix gexp)
   #:use-module (forgoty home services desktop)
@@ -19,6 +20,14 @@
 
    ;; Pipewire
    (service home-pipewire-service-type)
+
+   ;; OpenSSH service (used mainly for git push)
+   (service home-openssh-service-type
+	    (home-openssh-configuration
+	      (hosts
+		(list (openssh-host (name "github.com")
+				    (identity-file "~/.ssh/github_forgoty"))))
+	      (add-keys-to-agent "yes")))
 
    ;; Run user dbus session
    (service home-dbus-service-type)
