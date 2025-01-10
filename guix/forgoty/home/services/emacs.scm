@@ -3,6 +3,7 @@
   #:use-module (gnu home services)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages emacs-xyz)
+  #:use-module (forgoty packages emacs)
   #:export (home-emacs-config-service-type))
 
 (define (home-emacs-configuration config)
@@ -10,6 +11,7 @@
         ;; Tools
         emacs-flycheck
         emacs-restart-emacs
+	emacs-github-com-forgoty-flycheck-golangci-lint
         emacs-google-c-style
 
         ;; Search and Completion

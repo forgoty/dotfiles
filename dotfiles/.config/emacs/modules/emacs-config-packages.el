@@ -5,8 +5,8 @@
 (add-to-list 'package-selected-packages 'flycheck-pos-tip)
 (add-to-list 'package-selected-packages 'restart-emacs)
 (add-to-list 'package-selected-packages 'magit)
-(add-to-list 'load-path (expand-file-name "site-lisp/flycheck-golangci-lint" user-emacs-directory))
 (add-to-list 'package-selected-packages 'flycheck-eglot)
+(add-to-list 'package-selected-packages 'flycheck-golangci-lint)
 
 ;; Search and Completion
 (add-to-list 'package-selected-packages 'cape)
