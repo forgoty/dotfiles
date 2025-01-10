@@ -1,6 +1,3 @@
 (add-hook 'tex-mode-hook 'flyspell-mode)
 (add-hook 'tex-mode-hook #'eglot-ensure)
-(add-hook 'text-mode-hook 'copilot-mode)
-(add-hook 'tex-mode-hook 'copilot-mode)
-(add-hook 'rst-mode 'copilot-mode)
 (provide 'emacs-config-writing)

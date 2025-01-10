@@ -16,9 +16,15 @@ tab-indent."
 (define-key copilot-mode-map (kbd "M-j") #'copilot-previous-completion)
 (setq copilot-max-char-warning-disable t)
 (setq copilot-indent-offset-warning-disable t)
+
+(defun copilot-mode-custom-hook ()
+  (unless (member major-mode '(org-mode))
+    (copilot-mode 1)))
+
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (add-hook 'prog-mode-hook 'copilot-mode)))
+            (add-hook 'text-mode-hook #'copilot-mode-custom-hook)
+            (add-hook 'prog-mode-hook #'copilot-mode-custom-hook)))
 
 ;;;; Common flycheck
 (defun custom/toggle-flycheck-error-list ()
