@@ -11,9 +11,8 @@
 (add-to-list 'load-path (expand-file-name "./modules/ide-modes/" user-emacs-directory))
 
 ;; Packages phase
+;; I decided to turn off the automatic download of packages. It's easy to do at startup.
 (require 'emacs-config-packages)
-;;; Install the packages listed in the `package-selected-packages' list.
-(package-install-selected-packages :noconfirm)
 
 ;; Configuration phase
 (require 'emacs-config-configuration)
