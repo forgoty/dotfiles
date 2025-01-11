@@ -11,8 +11,11 @@
         ;; Tools
         emacs-flycheck
         emacs-restart-emacs
-	emacs-github-com-forgoty-flycheck-golangci-lint
+	emacs-flycheck-golangci-lint
         emacs-google-c-style
+	emacs-copilot
+	emacs-flycheck-pos-tip
+	emacs-flycheck-eglot
 
         ;; Search and Completion
         emacs-magit
@@ -21,6 +24,7 @@
         emacs-corfu
         emacs-corfu-terminal
         emacs-embark
+	emacs-embark-consult
         emacs-marginalia
         emacs-orderless
         emacs-vertico
@@ -32,6 +36,10 @@
         emacs-evil-anzu
         emacs-evil-surround
         emacs-evil-visualstar
+	emacs-embrace
+	emacs-evil-embrace
+	emacs-evil-iedit-state
+	emacs-evil-textobj-tree-sitter
 
         ;; Input
         emacs-general
@@ -42,6 +50,10 @@
         emacs-aggressive-indent
         emacs-package-lint
         emacs-zig-mode
+	emacs-flycheck-cpplint
+	emacs-ibuffer-project
+	emacs-protobuf-ts-mode
+	emacs-package-lint-flymake
 
         ;; Org
         emacs-org-super-agenda
@@ -54,6 +66,8 @@
         emacs-doom-themes
         emacs-doom-modeline
         emacs-popwin
+	emacs-winum
+	emacs-tabspaces
 
         ;; Writing
         emacs-markdown-mode
