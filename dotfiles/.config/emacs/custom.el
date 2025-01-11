@@ -1,18 +1,3 @@
-;; Kill all other buffers.
-(defun custom/kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-
-;; Saves all buffers silently
-(defun save-all ()
-  "Saves all buffers silently."
-  (interactive)
-  (save-some-buffers t))
-
-(setq project-vc-extra-root-markers
-      '("package.json" "requirements.txt" ".git" "build.zig"))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

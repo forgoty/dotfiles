@@ -151,6 +151,18 @@
   "8" '(winum-select-window-8 :which-key "select window 8")
   "9" '(winum-select-window-9 :which-key "select window 9"))
 
+;; Kill all other buffers.
+(defun custom/kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+;; Saves all buffers silently
+(defun save-all ()
+  "Saves all buffers silently."
+  (interactive)
+  (save-some-buffers t))
+
 ;; same as previous but this keybindings shouldn't be overriden by any modes
 ;; for example as dired-mode
 (general-define-key

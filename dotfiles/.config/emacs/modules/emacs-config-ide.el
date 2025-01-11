@@ -58,6 +58,11 @@
 (when (require 'editorconfig nil :noerror)
   (add-hook 'prog-mode-hook #'editorconfig-mode))
 
+;; Project related
+(setq project-vc-extra-root-markers
+      '("package.json" "requirements.txt" ".git" "build.zig"))
+
+
 ;; PlantUML
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
 (add-to-list 'auto-mode-alist '("\\.puml\\'" . plantuml-mode))
