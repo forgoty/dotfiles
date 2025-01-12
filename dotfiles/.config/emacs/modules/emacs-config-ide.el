@@ -60,7 +60,7 @@
 
 ;; Project related
 (setq project-vc-extra-root-markers
-      '("package.json" "requirements.txt" ".git" "build.zig"))
+      '("package.json" "requirements.txt" ".git" "build.zig" "go.mod"))
 
 
 ;; PlantUML
