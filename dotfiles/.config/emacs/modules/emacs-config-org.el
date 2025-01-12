@@ -102,8 +102,12 @@
                      '((:auto-parent t)))))))))
 
 ;; Capture templates
+(defun org-goto-headlines ()
+  (let ((org-goto-interface 'outline-path-completion))
+    (org-goto)))
+
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+function org-default-notes-file org-goto)
+      '(("t" "Todo" entry (file+function org-default-notes-file org-goto-headlines)
          "* TODO %? %^g\n %u\n")))
 
 (provide 'emacs-config-org)
