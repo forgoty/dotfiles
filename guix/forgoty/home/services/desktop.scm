@@ -59,7 +59,7 @@
    xwallpaper
    xprop
    xwininfo
-   xbacklight
+   lm-sensors
    unclutter-xfixes
    xdotool
    xclip
