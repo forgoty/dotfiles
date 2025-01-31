@@ -4,4 +4,4 @@
 
 (home-environment
   (services
-   common-desktop-home-services))
+   (append common-desktop-home-services %base-home-services)))
