@@ -60,7 +60,7 @@
 
 (define-public forgoty-dwmblocks
   (let ((revision "1")
-        (commit "1c9744ac7ded4fff8171169bc0b9736f3acd4cfe"))
+        (commit "cdda6c439f95c9b9e3fc77766700919ed50c5223"))
     (package
       (name "forgoty-dwmblocks")
       (source
@@ -70,7 +70,7 @@
                (url "https://github.com/forgoty/dwmblocks.git")
                (commit "master")))
          (sha256
-          (base32 "0zj2avxzr6bj8pnclh3vpxvpng3fcn4p0rd8fx8pw3gdzf2q47sn"))))
+          (base32 "0byqzpvrzh347lsg36bdc1adg86rgvd36cq3nipc4mmqgwdrsha7"))))
       (version (git-version "0" revision commit))
       (build-system gnu-build-system)
       (arguments
@@ -82,9 +82,16 @@
                                            (assoc-ref %build-inputs "freetype")
                                            "/include/freetype2"))
          #:phases (modify-phases %standard-phases
-                    (delete 'configure)))) ;no configure script
+                    (delete 'configure) ;no configure script
+		    (add-after 'install 'install-scripts
+			       (lambda* (#:key outputs #:allow-other-keys)
+					(let* ((out (assoc-ref outputs "out"))
+					       (bin (string-append out "/bin")))
+					  (mkdir-p bin)
+					  (copy-recursively "scripts" bin)
+					  #t))))))
       (inputs (list freetype libxft-bgra libx11 libxinerama))
-      (home-page "https://github.com/LukeSmithxyz/dwmblocks.git")
+      (home-page "https://github.com/forgoty/dwmblocks.git")
       (description "forgoty's dwmblocks")
       (license license:x11)
       (synopsis "forgoty's dwmblocks"))))
