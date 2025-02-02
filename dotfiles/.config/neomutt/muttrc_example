@@ -1,0 +1,19 @@
+# Default account
+## replace account.com.example.user to the correct one
+source "~/.config/neomutt/account.com.example.user"
+
+# Folder hooks
+folder-hook 'account.com.example.user' 'source ~/.config/neomutt/user.example.com'
+
+# Macros to switch accounts
+macro index <f3> "<enter-command>unmailboxes *<enter><enter-command>source ~/.config/neomutt/account.com.example.user<enter><sync-mailbox><change-folder>!<enter>"
+
+# Mappings
+
+## urlscan support
+macro index,pager \cb "<pipe-message>urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry>urlscan<Enter>" "call urlscan to extract URLs out of a message"
+
+# General settings
+set editor='nvim'
+source colors.muttrc

@@ -1,0 +1,26 @@
+set imap_user = "user@example.com"
+set imap_pass = "imap-password"
+set smtp_url = "smtp://user@smtp.example.com:587/"
+set smtp_pass = "smtp-password"
+
+set from = "user@example.com"
+set realname = "user"
+
+set folder = "imaps://$imap_user@imap.example.com:993"
+set spoolfile = "+INBOX"
+
+# for gmail
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent"
+set trash = "+[Gmail]/Trash"
+
+# Be sure to `mkdir -p` the following paths
+set header_cache =~/.config/neomutt/com.example.user/cache/headers
+set message_cachedir =~/.config/neomutt/com.example.user/cache/bodies
+set certificate_file =~/.config/neomutt/com.example.user/certificates
+
+set move = no
+set imap_keepalive = 900
+
+set sort = reverse-threads
+set sort_aux = last-date-received
