@@ -117,6 +117,7 @@
    mediainfo
    polkit
    ncurses
+   bmon
 
    ;; Apps
    qutebrowser
