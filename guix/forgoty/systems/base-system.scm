@@ -44,13 +44,14 @@
 (define sudoers-file
   (plain-file "sudoers"
    "# aliases
-Cmnd_Alias HALT = /run/current-system/profile/sbin/reboot, /run/current-system/profile/sbin/halt, /run/current-system/profile/sbin/shutdown
 Cmnd_Alias LOGINCTL = /run/current-system/profile/bin/loginctl
 Cmnd_Alias SLOCK = /home/nikita/.guix-home/profile/bin/slock
+Cmnd_Alias MOUNT = /run/privileged/bin/mount,/run/privileged/bin/umount
+Cmnd_Alias BRIGHTNESS = /run/current-system/profile/bin/brightnessctl
 
 root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
-nikita ALL=NOPASSWD: HALT, LOGINCTL, SLOCK
+nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
 "))
 
 (define default-keyboard-layout
