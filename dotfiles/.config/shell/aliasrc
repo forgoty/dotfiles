@@ -9,20 +9,15 @@
 [ -f "$MBSYNCRC" ] && alias mbsync="mbsync -c $MBSYNCRC"
 
 # sudo not required for some system commands
-for command in mount umount updatedb su shutdown reboot loginctl ; do
+for command in mount umount updatedb su loginctl ; do
 	alias $command="sudo $command"
 done; unset command
 
-se() {
-	choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
-	[ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
-	}
-
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-	cp="cp -riv" \
+	cp="cp -iv" \
 	mv="mv -iv" \
-	rm="rm -rvI" \
+	rm="rm -vI" \
 	bc="bc -ql" \
 	rsync="rsync -vrPlu" \
 	mkdir="mkdir -pv" \
@@ -41,7 +36,6 @@ alias \
 	ka="killall" \
 	g="git" \
 	trem="transmission-remote" \
-	sdn="sudo shutdown" \
 	e="$EDITOR" \
 	v="$EDITOR" \
 	z="zathura" \
@@ -49,9 +43,12 @@ alias \
 	lf="lfub" \
 	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
 
-# Nikitas aliases
+# forgoty aliases
 
 alias \
+	sdn="sudo loginctl poweroff" \
+	shutdown="sudo loginctl poweroff" \
+	reboot="sudo loginctl reboot" \
 	mkcd='_(){ mkdir -p $1; cd $1; }; _' \
 	gc="git checkout" \
 	gcm="git commit" \

@@ -14,7 +14,7 @@ case "$(printf "🔒 lock\n🚪 leave $WM\n♻️ renew $WM\n🔃 reboot\n🖥�
 	"🚪 leave $WM") kill -TERM "$(wmpid)" ;;
 	"♻️ renew $WM") kill -HUP "$(wmpid)" ;;
 	'💤 sleep') sudo loginctl suspend && sudo slock ;;
-	'🔃 reboot') sudo reboot ;;
-	'🖥️shutdown') sudo shutdown ;;
+	'🔃 reboot') sudo loginctl reboot ;;
+	'🖥️shutdown') sudo loginctl poweroff ;;
 	*) exit 1 ;;
 esac
