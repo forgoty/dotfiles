@@ -3,5 +3,4 @@
   #:use-module (forgoty home common-desktop))
 
 (home-environment
-  (services
-   (append common-desktop-home-services %base-home-services)))
+  (services common-desktop-home-services))
