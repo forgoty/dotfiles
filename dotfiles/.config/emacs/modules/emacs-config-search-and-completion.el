@@ -109,7 +109,7 @@
 
 
 (setq consult-ripgrep-args
-  "/bin/rg --null --line-buffered --color=never --max-columns=1000 --path-separator /\
+  "rg --null --line-buffered --color=never --max-columns=1000 --path-separator /\
    --smart-case --no-heading --with-filename --line-number --hidden --glob \"!{.git,node_modules,vendor,.venv,site-lisp}/*\"")
 
 ;; Skip directories in a project from search
