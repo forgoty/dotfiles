@@ -69,16 +69,10 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
         vim))
 
 (define default-system-services
-  (list (service slim-service-type
-                 (slim-configuration (auto-login? #t)
-                                     (vt "vt1")
-                                     (xorg-configuration (xorg-configuration (keyboard-layout
-                                                                              default-keyboard-layout)))
-                                     (default-user "nikita")))
-        (service docker-service-type)
-	(service openssh-service-type
-		 (openssh-configuration
-		   (port-number 2222)))
+  (list (service docker-service-type)
+        (service openssh-service-type
+                 (openssh-configuration
+                  (port-number 2222)))
         (service containerd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration (auto-enable? #t)))
@@ -101,7 +95,7 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
     (services
      (append default-system-services
              (modify-services %desktop-services
-               (delete gdm-service-type))))
+                              (delete gdm-service-type))))
 
     ;; The bootloader and file-systems fields here will be replaced by
     ;; actual operating system configuration

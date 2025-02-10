@@ -1,6 +1,9 @@
 (define-module (forgoty home services desktop)
+  #:use-module (guix gexp)
   #:use-module (gnu home)
   #:use-module (gnu home services)
+  #:use-module (gnu home services desktop)
+  #:use-module (gnu home services shells)
   #:use-module (gnu packages)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages web-browsers)
@@ -48,10 +51,10 @@
 (define (home-desktop-configuration config)
   (list
    ;; Xorg and Desktop environment
+   util-linux
    xdg-utils
    libnotify
    setxkbmap
-   xinit
    xset
    xmodmap
    xrandr
@@ -151,7 +154,11 @@
   (service-type (name 'home-desktop)
                 (description "Desktop environment configuration")
                 (extensions (list (service-extension home-profile-service-type
-                                   home-desktop-configuration)
+                                                     home-desktop-configuration)
+                                  (service-extension home-shell-profile-service-type
+                                                     (const (list (plain-file
+                                                                   "startx"
+                                                                   "[ $(tty) = /dev/tty1 ] && exec startx"))))
                                   (service-extension
                                    home-environment-variables-service-type
                                    home-desktop-environment-variables)))
