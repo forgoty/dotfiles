@@ -5,7 +5,7 @@
 
 USER_ID=${USER_ID:-$UID}
 
-CONTAINER_ID=$(docker ps --format "{{.ID}} {{.Names}}" | grep "$1" | cut -d ' ' -f 1)
+CONTAINER_ID=$(podman ps --format "{{.ID}} {{.Names}}" | grep "$1" | cut -d ' ' -f 1)
 
-docker exec -u ${USER_ID} -it ${CONTAINER_ID} /bin/bash ||
-docker exec -u ${USER_ID} -it ${CONTAINER_ID} /bin/sh
+podman exec -u ${USER_ID} -it ${CONTAINER_ID} /bin/bash ||
+podman exec -u ${USER_ID} -it ${CONTAINER_ID} /bin/sh

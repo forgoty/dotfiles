@@ -70,4 +70,5 @@ alias \
 	xo="xdg-open" \
 	history="history 1" \
 	xclip="xclip -selection clipboard" \
-	dcs="docker compose" \
+	docker="podman" \
+	dcs="podman compose" \

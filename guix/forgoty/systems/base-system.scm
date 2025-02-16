@@ -9,7 +9,6 @@
 
 (use-service-modules desktop
                      linux
-                     docker
                      xorg
                      audio
 		     ssh
@@ -35,7 +34,6 @@
     (shell (file-append zsh "/bin/zsh"))
     (supplementary-groups '("wheel" "netdev"
                             "audio"
-                            "docker"
                             "input"
                             "tty"
                             "video"
@@ -69,11 +67,9 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
         vim))
 
 (define default-system-services
-  (list (service docker-service-type)
-        (service openssh-service-type
+  (list (service openssh-service-type
                  (openssh-configuration
                   (port-number 2222)))
-        (service containerd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration (auto-enable? #t)))
         (service libvirt-service-type
