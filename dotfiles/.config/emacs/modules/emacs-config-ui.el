@@ -32,6 +32,7 @@
 
 ;; Enable window numbers in modeline
 (winum-mode)
+(setq winum-scope 'frame-local)
 
 ;; Golden Ratio
 (golden-ratio-mode t)
