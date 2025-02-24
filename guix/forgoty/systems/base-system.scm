@@ -1,6 +1,8 @@
 (define-module (forgoty systems base-system)
   #:use-module (gnu)
   #:use-module (gnu system)
+  #:use-module (gnu services base)
+  #:use-module (guix store)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd)
   #:export (default-user-account default-keyboard-layout
@@ -11,7 +13,7 @@
                      linux
                      xorg
                      audio
-		     ssh
+                     ssh
                      virtualization)
 (use-package-modules admin
                      fonts
@@ -68,8 +70,7 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
 
 (define default-system-services
   (list (service openssh-service-type
-                 (openssh-configuration
-                  (port-number 2222)))
+                 (openssh-configuration (port-number 2222)))
         (service bluetooth-service-type
                  (bluetooth-configuration (auto-enable? #t)))
         (service libvirt-service-type
@@ -91,7 +92,17 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
     (services
      (append default-system-services
              (modify-services %desktop-services
-                              (delete gdm-service-type))))
+               (delete gdm-service-type)
+               (guix-service-type config =>
+                                  (guix-configuration (inherit config)
+                                                      (substitute-urls (append
+                                                                        (list
+                                                                         "https://substitutes.nonguix.org")
+                                                                        %default-substitute-urls))
+                                                      (authorized-keys (append
+                                                                        (list (local-file
+                                                                               "./nonguix-signing-key.pub"))
+                                                                        %default-authorized-guix-keys)))))))
 
     ;; The bootloader and file-systems fields here will be replaced by
     ;; actual operating system configuration
