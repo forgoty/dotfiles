@@ -13,6 +13,7 @@
   #:use-module (forgoty home services emacs)
   #:use-module (forgoty home services dotfiles)
   #:use-module (forgoty home services containers)
+  #:use-module (forgoty home services shellutils)
   #:use-module (forgoty systems base-system)
   #:export (common-desktop-home-services))
 
@@ -29,8 +30,9 @@
            ;; Run user dbus session
            (service home-dbus-service-type)
 
-           ;; Zsh
-           (service home-zsh-service-type)
+           ;; Shell
+	   (service home-zsh-service-type)
+	   (service forgoty-direnv-service-type)
 
            ;; Dotfiles
            (service home-forgoty-dotfiles-service-type)

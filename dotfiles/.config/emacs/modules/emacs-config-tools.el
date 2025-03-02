@@ -1,6 +1,6 @@
-;;;; Copilot
 (require 'copilot)
 (require 'tramp)
+(require 'direnv)
 
 (defun custom/copilot-tab ()
   "Tab command that will complet with copilot if a completion is
@@ -49,5 +49,8 @@ If the error list is visible, hide it.  Otherwise, show it."
 
 ;; TRAMP
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+;; direnv
+(direnv-mode)
 
 (provide 'emacs-config-tools)

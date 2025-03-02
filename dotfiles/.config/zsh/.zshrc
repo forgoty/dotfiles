@@ -103,5 +103,8 @@ fzf-history-widget-with-date() {
 zle -N fzf-history-widget-with-date
 bindkey '^R' fzf-history-widget-with-date
 
+# Direnv
+eval "$(command -v direnv > /dev/null && direnv hook zsh)"
+
 # Load syntax highlighting; should be last.
 source $ZSH_DIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
