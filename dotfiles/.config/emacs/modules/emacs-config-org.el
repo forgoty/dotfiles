@@ -1,6 +1,6 @@
 (require 'org-super-agenda)
 
-(setq org-directory "~/.local/share/org/")
+(setq org-directory (expand-file-name "org" (getenv "CEREBRUM_PATH")))
 (setq org-agenda-files (list org-directory))
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
