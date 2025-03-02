@@ -72,3 +72,4 @@ alias \
 	xclip="xclip -selection clipboard" \
 	docker="podman" \
 	dcs="podman compose" \
+	guixgc="guix gc -d 2m -F 10G" \
