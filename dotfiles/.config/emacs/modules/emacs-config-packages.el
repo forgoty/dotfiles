@@ -7,6 +7,7 @@
 (add-to-list 'package-selected-packages 'magit)
 (add-to-list 'package-selected-packages 'flycheck-eglot)
 (add-to-list 'package-selected-packages 'flycheck-golangci-lint)
+(add-to-list 'package-selected-packages 'direnv)
 
 ;; Search and Completion
 (add-to-list 'package-selected-packages 'cape)
