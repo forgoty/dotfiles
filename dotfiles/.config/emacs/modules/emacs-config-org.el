@@ -2,7 +2,7 @@
 
 (setq org-directory (expand-file-name "org" (getenv "CEREBRUM_PATH")))
 (setq org-agenda-files (list org-directory))
-(setq org-default-notes-file (concat org-directory "notes.org"))
+(setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
