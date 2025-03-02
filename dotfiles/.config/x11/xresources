@@ -8,7 +8,7 @@
 Emacs.font: Mono
 
 !! custom scaling
-st.font: Mono-20
+st.font: Mono-14
 st.alpha: 0.9
 dmenu.font: Mono-14
 dwmblocks.font: Mono-14
