@@ -18,7 +18,7 @@
         emacs-copilot
         emacs-flycheck-pos-tip
         emacs-flycheck-eglot
-	emacs-direnv
+        emacs-direnv
 
         ;; Search and Completion
         emacs-magit
