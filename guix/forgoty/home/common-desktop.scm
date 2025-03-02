@@ -47,6 +47,7 @@
            (list (openssh-host (name "github.com")
                    (identity-file "~/.ssh/github_forgoty"))))
                (add-keys-to-agent "yes")))
+	   (service home-ssh-agent-service-type)
 
            ;; Emacs configuration
            (service home-emacs-config-service-type)
