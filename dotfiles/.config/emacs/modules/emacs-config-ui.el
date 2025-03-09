@@ -57,6 +57,7 @@
 (with-eval-after-load 'tabspaces
   (customize-set-variable 'tabspaces-use-filtered-buffers-as-default t)
   (customize-set-variable 'tabspaces-remove-to-default t)
+  (customize-set-variable 'tabspaces-initialize-project-with-todo nil)
   (customize-set-variable 'tabspaces-include-buffers '("*scratch*")))
 ;;; Activate workspaces
 (customize-set-variable 'tabspaces-mode t)
