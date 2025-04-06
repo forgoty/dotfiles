@@ -26,7 +26,7 @@
              (url "https://github.com/forgoty/st.git")
              (commit "master")))
        (sha256
-        (base32 "1bzxm284r0k0b09k2bh89jm4h4b67b7mdr26ivgdii9g0p15lr8z"))))))
+        (base32 "01qkshh4c0b0vd9360w6cz8pa5lly9al9arbyi8q1sssbbm340ss"))))))
 
 (define-public luke-dmenu
   (package
