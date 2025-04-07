@@ -63,7 +63,6 @@
    xprop
    xwininfo
    lm-sensors
-   unclutter-xfixes
    xdotool
    xclip
    xcompmgr

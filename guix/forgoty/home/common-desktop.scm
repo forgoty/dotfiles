@@ -2,6 +2,7 @@
   #:use-module (gnu services)
   #:use-module (gnu home)
   #:use-module (gnu)
+  #:use-module (gnu packages xdisorg)
   #:use-module (gnu services xorg)
   #:use-module (gnu home services)
   #:use-module (gnu home services desktop)
@@ -41,6 +42,13 @@
 
            ;; Set up desktop environment
            (service home-desktop-service-type)
+
+           ;; Run unclutter
+           (service home-x11-service-type) ;; wait x11 to start
+           (service home-unclutter-service-type
+                    (home-unclutter-configuration
+                     (unclutter unclutter-xfixes)
+                     (idle-timeout 2)))
 
            ;; OpenSSH service (used mainly for git push)
            (service home-openssh-service-type
