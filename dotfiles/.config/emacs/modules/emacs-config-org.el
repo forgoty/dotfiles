@@ -2,13 +2,22 @@
 
 (setq org-directory (expand-file-name "org" (getenv "CEREBRUM_PATH")))
 (setq org-agenda-files (list org-directory))
+
+;; Set up org directory
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
+(setq inbox-file (expand-file-name "inbox.org" org-directory))
+(setq recycle-bin-file (expand-file-name "recycle-bin.org" org-directory))
+(setq backlog-file (expand-file-name "backlog.org" org-directory))
+(setq projects-file (expand-file-name "projects.org" org-directory))
 
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
 
 ;; Done task have timestamps attached
 (setq org-log-done 'time)
+
+;; Turn on tag inheritance
+(setq org-use-tag-inheritance t)
 
 (defun org-agenda-todo-next ()
     "Org agenda todo next cycle"
@@ -28,23 +37,15 @@
 
 ;; Define todo keywords
 (setq org-todo-keywords
-      '((sequence "BACKLOG(b)" "WEEKLY(w)" "WAITING(h)" "TODO(t)" "NEXT(n)" "IN-PROGRESS(i)" "|" "DONE(d)")))
+      '((sequence "WAITING(w)" "TODO(t)" "NEXT(n)" "IN-PROGRESS(i)" "|" "DONE(d)")))
 
 ;; custom faces for todo keywords
 (setq org-todo-keyword-faces
-      '(("BACKLOG" . (:foreground "gray" :weight bold))
-        ("WEEKLY" . (:foreground "purple" :weight bold))
-        ("TODO" . (:foreground "white" :weight bold))
+      '(("TODO" . (:foreground "white" :weight bold))
         ("NEXT" . (:foreground "yellow" :weight bold))
         ("IN-PROGRESS" . (:foreground "orange" :weight bold))
         ("WAITING" . (:foreground "blue" :weight bold))
         ("DONE" . (:foreground "green" :weight bold))))
-
-;; Define tags
-(setq org-tag-alist '((:startgroup)
-                      ("personal" . ?p)
-                      ("work" . ?w)
-                      (:endgroup)))
 
 ;; Clock in/out when task state changes to/from IN-PROGRESS
 (defun org-clock-toggle-by-state ()
@@ -53,61 +54,99 @@
       (org-clock-in)
     (when (org-clock-is-active)
       (org-clock-out))))
-
 (add-hook 'org-after-todo-state-change-hook #'org-clock-toggle-by-state)
 
 ;; Custom agenda views
 (org-super-agenda-mode)
 (setq org-agenda-custom-commands
-      '(("c" "Tasks"
-         ((todo "BACKLOG"
+      '(("g" "Get Things Done (GTD)"
+         ((agenda ""
+                  ((org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'deadline))
+                   (org-deadline-warning-days 0)))
+          (todo "NEXT"
+                ((org-agenda-skip-function
+                  '(org-agenda-skip-entry-if 'deadline))
+                 (org-agenda-sorting-strategy '(timestamp-down)
+                 (org-agenda-prefix-format "  %i %-12:c [%e] ")
+                 (org-agenda-overriding-header "\nNext TODO\n"))))
+          (agenda nil
+                  ((org-agenda-entry-types '(:deadline))
+                   (org-agenda-format-date "")
+                   (org-deadline-warning-days 7)
+                   (org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'notregexp "\\* NEXT"))
+                   (org-agenda-overriding-header "\nDeadlines")))
+          (tags "inbox"
+                     ((org-agenda-prefix-format "  %?-12t% s")
+                      (org-agenda-files (list inbox-file))
+                      (org-agenda-sorting-strategy '(timestamp-down)
+                      (org-agenda-overriding-header "\nInbox\n")))
+          (tags "CLOSED>=\"<today>\""
+                ((org-agenda-overriding-header "\nCompleted today\n"))))))
+        ("c" "Tasks"
+          ((todo "WAITING"
                 ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
-                 (org-agenda-breadcrumbs-separator "")
-                 (org-agenda-overriding-header "Backlog")))
-          (todo "WEEKLY"
-                ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
-                 (org-agenda-breadcrumbs-separator "")
-                 (org-agenda-overriding-header "Weekly")))
-          (todo "WAITING"
-                ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
+                 (org-agenda-files (list projects-file))
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "Waiting (on hold)")))
           (todo "TODO"
                 ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "TODO")))
           (todo "NEXT"
                 ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Next TODO")))
           (todo "IN-PROGRESS"
                 ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "In-Progress")))
           (tags "CLOSED>=\"<today>\""
                 ((org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Completed Today")))
           (todo "DONE"
                 ((org-agenda-max-entries 10)
                  (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-prefix-format "%?-12(car (org-get-outline-path)) %t %s")
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Completed")))))
         ("p" "Projects"
-         ((todo ""
                 ((org-agenda-prefix-format "%t %s")
-                 (org-super-agenda-groups
-                     '((:auto-parent t)))))))))
+                 (org-super-agenda-groups '((:auto-parent t)))))
+        ("B" "Backlog Items"
+         ((tags "backlog"
+                ((org-agenda-overriding-header "Backlog Items")
+                  (org-agenda-files (list backlog-file))
+                  (org-agenda-todo-ignore-with-date t)))))))
 
-;; Capture templates
-(defun org-goto-headlines ()
-  (let ((org-goto-interface 'outline-path-completion))
-    (org-goto)))
+;; Refile settings
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
+(setq org-refile-targets
+      '((org-default-notes-file :maxlevel . 1)
+        (backlog-file :maxlevel . 1)
+        (projects-file :maxlevel . 2)
+        (recycle-bin-file :maxlevel . 1)))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+function org-default-notes-file org-goto-headlines)
-         "* TODO %? %^g\n %u\n")))
+      '(("i" "New Inbox" entry (file inbox-file)
+         "* TODO %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
+         :empty-lines 1)
+        ("p" "New Project" entry
+         (file projects-file)
+         "* %^{Project Name} %^g\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Brief Description}\n:END:"
+         :empty-lines 1)
+        ("n" "Note" entry (file org-default-notes-file)
+         "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
+         :jump-to-captured t
+         :empty-lines 1)))
 
 (provide 'emacs-config-org)
