@@ -16,8 +16,9 @@
 ;; Done task have timestamps attached
 (setq org-log-done 'time)
 
-;; Turn on tag inheritance
+;; Tag inheritance
 (setq org-use-tag-inheritance t)
+(setq org-tags-exclude-from-inheritance '("PROJECT"))
 
 (defun org-agenda-todo-next ()
     "Org agenda todo next cycle"
@@ -145,13 +146,17 @@
 (setq archive-directory (expand-file-name "archive" org-directory))
 (setq org-archive-location (concat archive-directory "/%s_archive::"))
 
+;; Stucked projects
+(setq org-stuck-projects
+      '("PROJECT" ("NEXT" "IN-PROGRESS") nil ""))
+
 (setq org-capture-templates
       '(("i" "New Inbox" entry (file inbox-file)
          "* TODO %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
          :empty-lines 1)
         ("p" "New Project" entry
          (file projects-file)
-         "* %^{Project Name} %^g\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Brief Description}\n:DEFINITION-OF-DONE: %^{Definition of Done}\n:END:"
+         "* %^{Project Name} %^g:PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Brief Description}\n:DEFINITION-OF-DONE: %^{Definition of Done}\n:END:"
          :empty-lines 1)
         ("n" "Note" entry (file org-default-notes-file)
          "* %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
