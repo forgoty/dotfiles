@@ -124,7 +124,7 @@
                 ((org-agenda-prefix-format "%t %s")
                  (org-super-agenda-groups '((:auto-parent t)))))))
         ("B" "Backlog Items"
-         ((tags "backlog"
+         ((tags "LEVEL=1+backlog"
                 ((org-agenda-overriding-header "Backlog Items")
                   (org-agenda-files (list backlog-file))
                   (org-agenda-todo-ignore-with-date t)))))))
