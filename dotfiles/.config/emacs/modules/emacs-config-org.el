@@ -119,8 +119,9 @@
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Completed")))))
         ("p" "Projects"
+         ((todo ""
                 ((org-agenda-prefix-format "%t %s")
-                 (org-super-agenda-groups '((:auto-parent t)))))
+                 (org-super-agenda-groups '((:auto-parent t)))))))
         ("B" "Backlog Items"
          ((tags "backlog"
                 ((org-agenda-overriding-header "Backlog Items")
