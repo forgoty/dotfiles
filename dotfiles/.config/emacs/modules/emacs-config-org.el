@@ -66,11 +66,14 @@
                     '(org-agenda-skip-entry-if 'deadline))
                    (org-deadline-warning-days 0)))
           (todo "NEXT"
-                ((org-agenda-skip-function
-                  '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-sorting-strategy '(timestamp-down)
-                 (org-agenda-prefix-format "  %i %-25:c [%e] ")
-                 (org-agenda-overriding-header "\nNext TODO\n"))))
+                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+                 (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-overriding-header "Ready to Pick Up")))
+          (todo "IN-PROGRESS"
+                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t")
+                 (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-overriding-header "In Progress")))
           (agenda nil
                   ((org-agenda-entry-types '(:deadline))
                    (org-agenda-format-date "")
