@@ -64,7 +64,9 @@
          ((agenda ""
                   ((org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'deadline))
-                   (org-deadline-warning-days 0)))
+                   (org-deadline-warning-days 0)
+                  (org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t")
+                  (org-agenda-breadcrumbs-separator "")))
           (todo "NEXT"
                 ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
