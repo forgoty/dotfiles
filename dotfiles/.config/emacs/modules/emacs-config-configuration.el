@@ -9,4 +9,8 @@
 (require 'emacs-config-writing)
 (require 'emacs-config-input)
 
+;; Darwin related
+(when (equal system-type 'darwin)
+  (require 'emacs-config-darwin))
+
 (provide 'emacs-config-configuration)

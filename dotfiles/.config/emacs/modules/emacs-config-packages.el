@@ -68,4 +68,8 @@
 ;; Org-Mode
 (add-to-list 'package-selected-packages 'org-super-agenda)
 
+;; Darwin related
+(when (equal system-type 'darwin)
+  (require 'emacs-config-packages-darwin))
+
 (provide 'emacs-config-packages)
