@@ -59,60 +59,65 @@
 
 ;; Custom agenda views
 (org-super-agenda-mode)
+(defconst default-agenda-prefix-format "%-25:b %t")
 (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
                   ((org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'deadline))
-                   (org-deadline-warning-days 0)
-                  (org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t")
+                  (org-deadline-warning-days 0)
+                  (org-agenda-remove-tags t)
+                  (org-agenda-prefix-format (concat default-agenda-prefix-format " "))
                   (org-agenda-breadcrumbs-separator "")))
           (todo "NEXT"
-                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "Ready to Pick Up")))
           (todo "IN-PROGRESS"
-                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t")
+                ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "In Progress")))
-          (agenda nil
+          (agenda ""
                   ((org-agenda-entry-types '(:deadline))
                    (org-agenda-format-date "")
                    (org-deadline-warning-days 7)
                    (org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'todo '("NEXT")))
-                   (org-agenda-overriding-header "\nDeadlines")))
+                   (org-agenda-overriding-header "Deadlines")))
           (tags "inbox"
-                     ((org-agenda-prefix-format "  %?-25t% s")
-                      (org-agenda-files (list inbox-file))
-                      (org-agenda-sorting-strategy '(timestamp-down)
-                      (org-agenda-overriding-header "\nInbox\n")))
+                     ((org-agenda-files (list inbox-file))
+                      (org-agenda-remove-tags t)
+                      (org-agenda-prefix-format "")
+                      (org-agenda-sorting-strategy '(timestamp-down))
+                      (org-agenda-overriding-header "Inbox")))
           (tags "CLOSED>=\"<today>\""
-                ((org-agenda-overriding-header "\nCompleted today\n"))))))
+                ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-overriding-header "Completed today")))))
         ("c" "Tasks"
           ((todo "WAITING"
-                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-files (list projects-file))
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "Waiting (on hold)")))
           (todo "TODO"
-                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "TODO")))
           (todo "NEXT"
-                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Next TODO")))
           (todo "IN-PROGRESS"
-                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "In-Progress")))
           (tags "CLOSED>=\"<today>\""
-                ((org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
@@ -120,18 +125,19 @@
           (todo "DONE"
                 ((org-agenda-max-entries 10)
                  (org-agenda-sorting-strategy '(timestamp-down))
-                 (org-agenda-prefix-format "%?-25(car (org-get-outline-path)) %t %s")
+                 (org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Completed")))))
         ("p" "Projects"
          ((todo ""
-                ((org-agenda-prefix-format "%t %s")
+                ((org-agenda-prefix-format "%t")
                  (org-super-agenda-groups '((:auto-parent t)))))))
         ("B" "Backlog Items"
          ((tags "LEVEL=1+backlog"
                 ((org-agenda-overriding-header "Backlog Items")
                   (org-agenda-files (list backlog-file))
+                  (org-agenda-prefix-format "")
                   (org-agenda-todo-ignore-with-date t)))))))
 
 ;; Refile settings
