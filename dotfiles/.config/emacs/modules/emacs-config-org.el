@@ -69,6 +69,11 @@
                   (org-agenda-remove-tags t)
                   (org-agenda-prefix-format (concat default-agenda-prefix-format " "))
                   (org-agenda-breadcrumbs-separator "")))
+          (todo "WAITING"
+                ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+                 (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-overriding-header "Waiting (on hold")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
