@@ -96,10 +96,10 @@
                       (org-agenda-prefix-format "")
                       (org-agenda-sorting-strategy '(timestamp-down))
                       (org-agenda-overriding-header "Inbox")))
-          (tags "CLOSED>=\"<today>\""
+          (tags "CLOSED>=\"<-1d>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-breadcrumbs-separator "")
-                 (org-agenda-overriding-header "Completed today")))))
+                 (org-agenda-overriding-header "Completed Recently (Last 24h)")))))
         ("c" "Tasks"
           ((todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
