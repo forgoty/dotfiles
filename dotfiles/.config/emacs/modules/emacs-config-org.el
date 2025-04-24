@@ -73,20 +73,24 @@
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-overriding-header "Waiting (on hold")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-overriding-header "Ready to Pick Up")))
           (todo "IN-PROGRESS"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-breadcrumbs-separator "")
+                 (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-overriding-header "In Progress")))
           (agenda ""
                   ((org-agenda-entry-types '(:deadline))
                    (org-agenda-format-date "")
                    (org-deadline-warning-days 7)
+                   (org-agenda-sorting-strategy '(timestamp-down))
                    (org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'todo '("NEXT")))
                    (org-agenda-overriding-header "Deadlines")))
@@ -98,6 +102,7 @@
                       (org-agenda-overriding-header "Inbox")))
           (tags "CLOSED>=\"<-1d>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "Completed Recently (Last 24h)")))))
         ("c" "Tasks"
