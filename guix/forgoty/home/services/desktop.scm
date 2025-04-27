@@ -46,6 +46,7 @@
   #:use-module (gnu packages vim)
   #:use-module (gnu packages version-control)
   #:use-module (forgoty packages suckless)
+  #:use-module (forgoty packages ocr)
   #:export (home-desktop-service-type))
 
 (define (home-desktop-configuration config)
@@ -101,6 +102,8 @@
    calcurse
    rsync
    tesseract-ocr
+   (make-tesseract-ocr-language-package "pol" "0d1nj5f4hgbkc1c9mgda1imppslavxbr91w4k6kwlp469ryagd8h")
+   (make-tesseract-ocr-language-package "rus" "0h4cw4zl7r1dj6yxhfzcia15xad707pbbi779ssn2xj1pjmvgfgx")
    sc-im
    newsboat
    wireplumber
