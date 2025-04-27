@@ -19,7 +19,6 @@
   #:use-module (gnu packages polkit)
   #:use-module (gnu packages wget)
   #:use-module (gnu packages file)
-  #:use-module (gnu packages telegram)
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages mail)
@@ -126,7 +125,6 @@
 
    ;; Apps
    qutebrowser
-   telegram-desktop
    neomutt
    zathura
    zathura-pdf-mupdf
