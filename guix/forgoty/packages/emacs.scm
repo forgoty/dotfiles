@@ -875,16 +875,16 @@ Kaleem] <https://github.com/mohkale>.")
 (define-public emacs-copilot
   (package
     (name "emacs-copilot")
-    (version "20250105.1949")
+    (version "v0.2.0")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/copilot-emacs/copilot.el.git")
-             (commit "be6c274562e150e4acf5253968d1b434c40d368b")))
+             (commit "11b0739da1f74285dd661914c0ef92e24f9c4aa7")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "1m9ramdjdph2girqa6jssapmd6y4qr5fnqrvjns85k7b3z74b2a1"))))
+        (base32 "1pf5j3xhhcrv4dj2cgp7627s67wsw4hm308szqyr4f58snlkx044"))))
     (build-system emacs-build-system)
     (arguments
        `(#:include (cons "^dist\\/" %default-include)))
