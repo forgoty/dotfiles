@@ -34,12 +34,15 @@
     (group "users")
     (home-directory "/home/nikita")
     (shell (file-append zsh "/bin/zsh"))
-    (supplementary-groups '("wheel" "netdev"
+    (supplementary-groups '("wheel"
+                            "netdev"
                             "audio"
                             "input"
                             "tty"
                             "video"
-                            "lp"))))
+                            "lp"
+                            "kvm"
+                            "libvirt"))))
 
 (define sudoers-file
   (plain-file "sudoers"
@@ -73,6 +76,7 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
                  (openssh-configuration (port-number 2222)))
         (service bluetooth-service-type
                  (bluetooth-configuration (auto-enable? #t)))
+        (service virtlog-service-type)
         (service libvirt-service-type
                  (libvirt-configuration (unix-sock-group "libvirt")))))
 

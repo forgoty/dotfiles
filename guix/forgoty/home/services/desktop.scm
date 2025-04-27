@@ -44,6 +44,7 @@
   #:use-module (gnu packages disk)
   #:use-module (gnu packages vim)
   #:use-module (gnu packages version-control)
+  #:use-module (gnu packages virtualization)
   #:use-module (forgoty packages suckless)
   #:use-module (forgoty packages ocr)
   #:export (home-desktop-service-type))
@@ -128,7 +129,11 @@
    neomutt
    zathura
    zathura-pdf-mupdf
-   mpv))
+   mpv
+
+   ;; Virtualization
+   qemu
+   virt-manager))
 
 (define (home-desktop-environment-variables config)
   '(("XINITRC" . "$XDG_CONFIG_HOME/x11/xinitrc")
