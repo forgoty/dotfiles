@@ -60,7 +60,7 @@
 
 (define-public forgoty-dwmblocks
   (let ((revision "1")
-        (commit "460ae791bbb009a827338a925bc454ad0e5a77af"))
+        (commit "6801242d65473949f863caba091b73ab968b8c9f"))
     (package
       (name "forgoty-dwmblocks")
       (source
@@ -70,7 +70,7 @@
                (url "https://github.com/forgoty/dwmblocks.git")
                (commit "master")))
          (sha256
-          (base32 "0pbm7d2k3lk8js63wixa3xvwr2f494hjbwi361gsbncjqi30shpc"))))
+          (base32 "0hk2rs05cf239znwhmmfmp2rq4v21z0ayfg26dgdx4zzvvln6h1c"))))
       (version (git-version "0" revision commit))
       (build-system gnu-build-system)
       (arguments

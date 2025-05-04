@@ -10,7 +10,6 @@
   #:use-module (gnu packages shellutils)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages wm)
-  #:use-module (gnu packages calcurse)
   #:use-module (gnu packages gnome)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages python-xyz)
@@ -99,7 +98,6 @@
    htop
    translate-shell
    atool
-   calcurse
    rsync
    tesseract-ocr
    (make-tesseract-ocr-language-package "pol" "0d1nj5f4hgbkc1c9mgda1imppslavxbr91w4k6kwlp469ryagd8h")
