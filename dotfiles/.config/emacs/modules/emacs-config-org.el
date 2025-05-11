@@ -31,6 +31,9 @@
     (org-call-with-arg 'org-agenda-todo 'left))
 
 ;; Define priority faces
+(setq org-highest-priority ?A)
+(setq org-lowest-priority ?C)
+(setq org-priority-start-cycle-with-default nil)
 (setq org-priority-faces
       '((?A . (:foreground "red" :weight bold))
         (?B . (:foreground "orange"))
@@ -73,16 +76,16 @@
           (todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-sorting-strategy '(timestamp-down))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Waiting (on hold")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-sorting-strategy '(timestamp-down))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Ready to Pick Up")))
           (todo "IN-PROGRESS"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-sorting-strategy '(timestamp-down))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "In Progress")))
           (agenda ""
                   ((org-agenda-entry-types '(:deadline))
@@ -106,18 +109,22 @@
           ((todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-files (list projects-file))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Waiting (on hold)")))
           (todo "TODO"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-files (list projects-file))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "TODO")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-files (list projects-file))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Next TODO")))
           (todo "IN-PROGRESS"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-files (list projects-file))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "In-Progress")))
           (tags "CLOSED>=\"<today>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
