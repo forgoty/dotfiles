@@ -59,8 +59,9 @@
 
 ;; Custom agenda views
 (org-super-agenda-mode)
-(defconst default-agenda-prefix-format "%-25:b %t")
+(defconst default-agenda-prefix-format "%-25b %t")
 (setq org-agenda-sort-notime-is-late nil)
+(setq org-agenda-breadcrumbs-separator ":")
 (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
@@ -68,23 +69,19 @@
                     '(org-agenda-skip-entry-if 'deadline))
                   (org-deadline-warning-days 0)
                   (org-agenda-remove-tags t)
-                  (org-agenda-prefix-format (concat default-agenda-prefix-format " "))
-                  (org-agenda-breadcrumbs-separator "")))
+                  (org-agenda-prefix-format (concat default-agenda-prefix-format " "))))
           (todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-overriding-header "Waiting (on hold")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-overriding-header "Ready to Pick Up")))
           (todo "IN-PROGRESS"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-overriding-header "In Progress")))
           (agenda ""
@@ -104,40 +101,33 @@
           (tags "CLOSED>=\"<-1d>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-sorting-strategy '(timestamp-down))
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "Completed Recently (Last 24h)")))))
         ("c" "Tasks"
           ((todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-files (list projects-file))
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-overriding-header "Waiting (on hold)")))
           (todo "TODO"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "TODO")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Next TODO")))
           (todo "IN-PROGRESS"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "In-Progress")))
           (tags "CLOSED>=\"<today>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Completed Today")))
           (todo "DONE"
                 ((org-agenda-max-entries 10)
                  (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-breadcrumbs-separator "")
                  (org-agenda-files (list projects-file))
                  (org-agenda-overriding-header "Completed")))))
         ("p" "Projects"
