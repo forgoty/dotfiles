@@ -32,6 +32,7 @@
 
 ;; Define priority faces
 (setq org-highest-priority ?A)
+(setq org-default-priority ?D)
 (setq org-lowest-priority ?C)
 (setq org-priority-start-cycle-with-default nil)
 (setq org-priority-faces
