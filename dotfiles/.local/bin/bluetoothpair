@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# List available devices
+devices=$(bluetoothctl devices | awk '{$1=""; $2=""; print substr($0,3)}')
+
+# Select device from dmenu
+device_name=$(echo "$devices" | dmenu -i -p "Select device to pair:")
+
+# Get MAC address of selected device
+mac=$(bluetoothctl devices | grep "$device_name" | awk '{print $2}')
+
+# Attempt to pair
+if [ -n "$mac" ]; then
+    echo -e "pair $mac\ntrust $mac\nconnect $mac\nquit" | bluetoothctl &> /dev/null | tee /tmp/bt_pair.log
+    notify-send "Bluetooth" "Attempted to pair with $device_name ($mac)"
+else
+    notify-send "Bluetooth" "No device selected or MAC not found"
+fi

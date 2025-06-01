@@ -6,6 +6,7 @@
   #:use-module (gnu home services shells)
   #:use-module (gnu packages)
   #:use-module (gnu packages rsync)
+  #:use-module (gnu packages web)
   #:use-module (gnu packages web-browsers)
   #:use-module (gnu packages shellutils)
   #:use-module (gnu packages xorg)
@@ -112,6 +113,7 @@
    dosfstools
    pulsemixer
    yt-dlp
+   jq
    curl
    transmission
    python-ueberzug
