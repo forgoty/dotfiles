@@ -90,11 +90,11 @@
                  (org-agenda-overriding-header "In Progress")))
           (agenda ""
                   ((org-agenda-entry-types '(:deadline))
-                   (org-agenda-format-date "")
-                   (org-deadline-warning-days 7)
-                   (org-agenda-sorting-strategy '(timestamp-down))
+                   (org-deadline-warning-days 0)
+                   (org-agenda-remove-tags t)
+                   (org-agenda-sorting-strategy '(priority-down timestamp-down))
                    (org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'todo '("NEXT")))
+                    '(org-agenda-skip-entry-if 'todo '("DONE")))
                    (org-agenda-overriding-header "Deadlines")))
           (tags "inbox"
                      ((org-agenda-files (list inbox-file))
