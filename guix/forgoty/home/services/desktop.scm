@@ -44,6 +44,7 @@
   #:use-module (gnu packages disk)
   #:use-module (gnu packages vim)
   #:use-module (gnu packages version-control)
+  #:use-module (gnu packages package-management)
   #:use-module (gnu packages virtualization)
   #:use-module (forgoty packages suckless)
   #:use-module (forgoty packages ocr)
@@ -123,6 +124,7 @@
    polkit
    ncurses
    bmon
+   flatpak
 
    ;; Apps
    qutebrowser
