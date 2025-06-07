@@ -67,6 +67,25 @@
 
 (add-hook 'org-after-todo-state-change-hook #'org-clock-toggle-by-state)
 
+;; Org Delegate
+(defun org-delegate ()
+  "Set DELEGATED_TO and DELEGATED_AT properties, and tag with the delegatee."
+  (interactive)
+  (let ((who (read-string "Delegated to: "))
+        (now (format-time-string (org-time-stamp-format t t))))
+    (org-set-property "DELEGATED_TO" who)
+    (org-set-property "DELEGATED_AT" now)
+    (org-set-tags (cons who (org-get-tags)))))
+
+(defun org-agenda-delegate ()
+  (interactive)
+  (org-agenda-check-no-diary)
+  (let ((marker (or (org-get-at-bol 'org-hd-marker)
+                    (org-agenda-error))))
+    (with-current-buffer (marker-buffer marker)
+      (goto-char marker)
+      (org-delegate))
+    (org-agenda-redo)))
 
 ;; Custom agenda views
 (org-super-agenda-mode)
