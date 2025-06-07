@@ -52,14 +52,21 @@
         ("IN-PROGRESS" . (:foreground "orange" :weight bold))
         ("DONE" . (:foreground "green" :weight bold))))
 
-;; Clock in/out when task state changes to/from IN-PROGRESS
+;; Clock configuration
+(setq org-clock-persist-file (expand-file-name "org-clock-save.el" org-directory))
+(setq org-clock-persist t)
+(setq org-clock-in-resume t)
+
 (defun org-clock-toggle-by-state ()
-  (if (and (string= org-state "IN-PROGRESS")
-           (not (org-clock-is-active)))
-      (org-clock-in)
-    (when (org-clock-is-active)
-      (org-clock-out))))
+  (when (and (not (string= org-state "IN-PROGRESS"))
+             (org-clocking-p))
+    (org-clock-out))
+  (when (and (string= org-state "IN-PROGRESS")
+             (not (org-clocking-p)))
+    (org-clock-in)))
+
 (add-hook 'org-after-todo-state-change-hook #'org-clock-toggle-by-state)
+
 
 ;; Custom agenda views
 (org-super-agenda-mode)
