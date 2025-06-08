@@ -59,6 +59,7 @@
 
 (defun org-clock-toggle-by-state ()
   (when (and (not (string= org-state "IN-PROGRESS"))
+             (fboundp 'org-clocking-p)
              (org-clocking-p))
     (org-clock-out))
   (when (and (string= org-state "IN-PROGRESS")
