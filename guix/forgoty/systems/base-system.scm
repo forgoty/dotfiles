@@ -101,7 +101,7 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
                                   (guix-configuration (inherit config)
                                                       (substitute-urls (append
                                                                         (list
-                                                                         "https://substitutes.nonguix.org")
+                                                                         "https://nonguix-proxy.ditigal.xyz")
                                                                         %default-substitute-urls))
                                                       (authorized-keys (append
                                                                         (list (local-file
