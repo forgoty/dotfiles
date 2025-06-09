@@ -202,11 +202,14 @@
       '(("i" "New Inbox" entry (file inbox-file)
          "* TODO %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
          :empty-lines 1)
+        ("m" "New Meeting" entry (file inbox-file)
+         "* %?\n%^{DateTime}T\n:PROPERTIES:\n:CREATED: %U\n:END:"
+         :empty-lines 1)
         ("p" "New Project" entry
          (file projects-file)
          "* %^{Project Name} %^g:PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Brief Description}\n:DEFINITION-OF-DONE: %^{Definition of Done}\n:END:"
          :empty-lines 1)
-        ("n" "Note" entry (file org-default-notes-file)
+        ("n" "New Note" entry (file org-default-notes-file)
          "* %? \n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
          :jump-to-captured t
          :empty-lines 1)))
