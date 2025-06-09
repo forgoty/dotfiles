@@ -63,7 +63,8 @@
              (org-clocking-p))
     (org-clock-out))
   (when (and (string= org-state "IN-PROGRESS")
-             (not (org-clocking-p)))
+             (not (and (fboundp 'org-clocking-p)
+                       (org-clocking-p))))
     (org-clock-in)))
 
 (add-hook 'org-after-todo-state-change-hook #'org-clock-toggle-by-state)
@@ -97,7 +98,7 @@
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
                   ((org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'deadline))
+                    '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
                   (org-deadline-warning-days 0)
                   (org-agenda-remove-tags t)
                   (org-agenda-prefix-format (concat default-agenda-prefix-format " "))))
