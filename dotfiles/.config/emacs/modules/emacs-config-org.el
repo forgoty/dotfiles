@@ -95,7 +95,7 @@
 
 ;; Custom agenda views
 (org-super-agenda-mode)
-(defconst default-agenda-prefix-format "%-25b %t")
+(defconst default-agenda-prefix-format "%-25 b % t")
 (setq org-agenda-sort-notime-is-late nil)
 (setq org-agenda-breadcrumbs-separator "❱")
 (setq org-agenda-custom-commands
@@ -105,7 +105,7 @@
                     '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
                   (org-deadline-warning-days 0)
                   (org-agenda-remove-tags t)
-                  (org-agenda-prefix-format (concat default-agenda-prefix-format " "))))
+                  (org-agenda-prefix-format default-agenda-prefix-format)))
           (todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
