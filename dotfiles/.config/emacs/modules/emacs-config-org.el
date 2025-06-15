@@ -94,8 +94,15 @@
     (org-agenda-redo)))
 
 ;; Custom agenda views
+(defun truncated-breadcrumbs (size)
+  "Like regular org-agenda breadcrumbs, but truncated to SIZE characters and without prefixed separator."
+  (org-with-point-at (org-get-at-bol 'org-marker)
+    (let ((s (org-display-outline-path nil nil org-agenda-breadcrumbs-separator t)))
+      (if (eq "" s) "" (concat (s-truncate size s))))))
+
+(defconst default-agenda-prefix-format "%-50 (truncated-breadcrumbs 50) % t")
+
 (org-super-agenda-mode)
-(defconst default-agenda-prefix-format "%-25 b % t")
 (setq org-agenda-sort-notime-is-late nil)
 (setq org-agenda-breadcrumbs-separator "❱")
 (setq org-agenda-custom-commands
