@@ -48,6 +48,7 @@
   #:use-module (gnu packages virtualization)
   #:use-module (forgoty packages suckless)
   #:use-module (forgoty packages ocr)
+  #:use-module (forgoty packages python-xyz)
   #:export (home-desktop-service-type))
 
 (define (home-desktop-configuration config)
@@ -117,7 +118,7 @@
    jq
    curl
    transmission
-   python-ueberzug
+   python-ueberzug-18.3.1
    python-qdarkstyle
    man-db
    mediainfo
