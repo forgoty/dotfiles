@@ -97,7 +97,7 @@
 (org-super-agenda-mode)
 (defconst default-agenda-prefix-format "%-25b %t")
 (setq org-agenda-sort-notime-is-late nil)
-(setq org-agenda-breadcrumbs-separator ":")
+(setq org-agenda-breadcrumbs-separator "❱")
 (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
