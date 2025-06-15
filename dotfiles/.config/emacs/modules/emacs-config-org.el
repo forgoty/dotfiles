@@ -53,6 +53,10 @@
         ("DONE" . (:foreground "green" :weight bold))))
 
 ;; Clock configuration
+(org-clock-persistence-insinuate)
+(setq org-clock-history-length 23)
+(setq org-clock-out-remove-zero-time-clocks t)
+(setq org-clock-report-include-clocking-task t)
 (setq org-clock-persist-file (expand-file-name "org-clock-save.el" org-directory))
 (setq org-clock-persist t)
 (setq org-clock-in-resume t)
