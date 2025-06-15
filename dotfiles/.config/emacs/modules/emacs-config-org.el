@@ -104,7 +104,7 @@
 
 (org-super-agenda-mode)
 (setq org-agenda-sort-notime-is-late nil)
-(setq org-agenda-breadcrumbs-separator "❱")
+(setq org-agenda-breadcrumbs-separator ">")
 (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
