@@ -56,7 +56,7 @@
              (url "https://github.com/forgoty/dwm.git")
              (commit "master")))
        (sha256
-        (base32 "0cjiw7fad6amracsibsglc78ibpgjfj5rlvwqdj7ciksz5rd19xn"))))))
+        (base32 "1bv3qh6mmfcfi152q6bkcayn07nmql8rws6ig5m4knc4x0fdhfyq"))))))
 
 (define-public forgoty-dwmblocks
   (let ((revision "1")
