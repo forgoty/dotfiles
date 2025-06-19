@@ -13,8 +13,16 @@
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
 
-;; Done task have timestamps attached
+;; Log
+;;; Done task have timestamps attached
 (setq org-log-done 'time)
+
+;;; Place manual notes into NOTES drawer
+(define-advice org-log-into-drawer (:filter-return (result) force-notes-outside-drawer)
+  "Force manual notes to NOTES drawer."
+  (if (eq org-log-note-purpose 'note)
+      "NOTES"
+    result))
 
 ;; Tag inheritance
 (setq org-use-tag-inheritance t)
