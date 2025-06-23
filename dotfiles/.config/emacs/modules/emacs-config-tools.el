@@ -43,6 +43,12 @@ If the error list is visible, hide it.  Otherwise, show it."
     (flycheck-list-errors)
     (switch-to-buffer-other-window flycheck-error-list-buffer)))
 
+;; Other
+(defun copy-file-path ()
+  (interactive)
+  (kill-new (buffer-file-name))
+  (message "File name copied to clipboard: %s" (buffer-file-name)))
+
 ;; Dired
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-listing-switches "-lah --group-directories-first")
