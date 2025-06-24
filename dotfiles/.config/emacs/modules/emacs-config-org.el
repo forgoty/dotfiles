@@ -125,7 +125,7 @@
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
-                 (org-agenda-overriding-header "Waiting (on hold")))
+                 (org-agenda-overriding-header "Waiting (on hold)")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
