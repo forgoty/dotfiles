@@ -1,14 +1,18 @@
 (require 'org-super-agenda)
+(require 'org-habit)
 
-(setq org-directory (expand-file-name "org" (getenv "CEREBRUM_PATH")))
-(setq org-agenda-files (list org-directory))
+;; Add additional org-modules
+(add-to-list 'org-modules 'org-habit t)
 
 ;; Set up org directory
+(setq org-directory (expand-file-name "org" (getenv "CEREBRUM_PATH")))
+(setq org-agenda-files (list org-directory))
 (setq org-default-notes-file (expand-file-name "notes.org" org-directory))
 (setq inbox-file (expand-file-name "inbox.org" org-directory))
 (setq recycle-bin-file (expand-file-name "recycle-bin.org" org-directory))
 (setq backlog-file (expand-file-name "backlog.org" org-directory))
 (setq projects-file (expand-file-name "projects.org" org-directory))
+(setq habits-file (expand-file-name "habits.org" org-directory))
 
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
