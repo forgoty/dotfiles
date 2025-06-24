@@ -194,7 +194,12 @@
                 ((org-agenda-overriding-header "Backlog Items")
                   (org-agenda-files (list backlog-file))
                   (org-agenda-prefix-format "")
-                  (org-agenda-todo-ignore-with-date t)))))))
+                  (org-agenda-todo-ignore-with-date t)))))
+        ("N" "Notes"
+         ((tags "*"
+                ((org-agenda-overriding-header "Notes")
+                  (org-agenda-files (list org-default-notes-file))
+                  (org-agenda-prefix-format "")))))))
 
 ;; Refile settings
 ;;; refile to the top level
