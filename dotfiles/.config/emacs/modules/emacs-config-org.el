@@ -54,7 +54,8 @@
 
 ;; Define todo keywords
 (setq org-todo-keywords
-      '((sequence "WAITING(w)" "TODO(t)" "NEXT(n)" "IN-PROGRESS(i)" "|" "DONE(d)")))
+      '((sequence "WAITING(w)" "TODO(t)" "NEXT(n)" "IN-PROGRESS(i)" "|" "DONE(d)")
+        (sequence "TODO" "|" "DONE")))
 
 ;; custom faces for todo keywords
 (setq org-todo-keyword-faces
@@ -116,33 +117,45 @@
 
 (org-super-agenda-mode)
 (setq org-agenda-sort-notime-is-late nil)
+(setq org-habit-graph-column 40)
 (setq org-agenda-breadcrumbs-separator ">")
 (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
+                  ((org-agenda-span 'day)
+                   (org-habit-show-habits-only-for-today t)
+                   (org-habit-show-done-already nil)
+                   (org-agenda-overriding-header "Habits for Today")
+                   (org-agenda-files (list habits-file))))
+          (agenda ""
                   ((org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
                   (org-deadline-warning-days 0)
+                  (org-agenda-files (list projects-file))
                   (org-agenda-remove-tags t)
                   (org-agenda-prefix-format default-agenda-prefix-format)))
           (todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+                 (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Waiting (on hold)")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+                 (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Ready to Pick Up")))
           (todo "IN-PROGRESS"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "In Progress")))
           (agenda ""
                   ((org-agenda-entry-types '(:deadline))
                    (org-deadline-warning-days 0)
                    (org-agenda-remove-tags t)
+                   (org-agenda-files (list projects-file))
                    (org-agenda-sorting-strategy '(priority-down timestamp-down))
                    (org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'todo '("DONE")))
@@ -155,6 +168,7 @@
                       (org-agenda-overriding-header "Inbox")))
           (tags "CLOSED>=\"<-1d>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(timestamp-down))
                  (org-agenda-overriding-header "Completed Recently (Last 24h)")))))
         ("c" "Tasks"
