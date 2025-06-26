@@ -117,13 +117,12 @@
 
 (org-super-agenda-mode)
 (setq org-agenda-sort-notime-is-late nil)
-(setq org-habit-graph-column 40)
+(setq org-habit-graph-column 100)
 (setq org-agenda-breadcrumbs-separator ">")
 (setq org-agenda-custom-commands
       '(("g" "Get Things Done (GTD)"
          ((agenda ""
-                  ((org-agenda-span 'day)
-                   (org-habit-show-habits-only-for-today t)
+                  ((org-agenda-span 2)
                    (org-habit-show-done-already nil)
                    (org-agenda-overriding-header "Habits for Today")
                    (org-agenda-files (list habits-file))))
