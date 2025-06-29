@@ -131,6 +131,7 @@
                   ((org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
                   (org-deadline-warning-days 0)
+                  (org-agenda-start-on-weekday nil)
                   (org-agenda-files (list projects-file))
                   (org-agenda-remove-tags t)
                   (org-agenda-prefix-format default-agenda-prefix-format)))
