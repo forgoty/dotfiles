@@ -5,6 +5,7 @@
   #:use-module (gnu home services shepherd)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages emacs-xyz)
+  #:use-module (gnu packages emacs-build)
   #:use-module (forgoty packages emacs)
   #:export (home-emacs-config-service-type))
 

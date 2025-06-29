@@ -6,6 +6,7 @@
   #:use-module (guix build-system emacs)
   #:use-module ((guix licenses)
                 #:prefix license:)
+  #:use-module (gnu packages emacs-build)
   #:use-module (gnu packages emacs-xyz)
   #:use-module (guix git-download))
 
@@ -1177,6 +1178,7 @@ integration.  For more info visit: https://github.com/syl20bnr/evil-iedit-state.
                    "^doc/[^/]+.texinfo$"
                    "^queries$"
                    "^treesit-queries$")
+       #:tests? #f
        #:exclude '("^.dir-locals.el$" "^test.el$" "^tests.el$"
                    "^[^/]+-test.el$" "^[^/]+-tests.el$")))
     (home-page "https://github.com/meain/evil-textobj-tree-sitter")
@@ -1307,6 +1309,7 @@ modules.")
     (propagated-inputs (list emacs-package-lint))
     (arguments
      '(#:include '("^package-lint-flymake.el$")
+       #:tests? #f
        #:exclude '()))
     (home-page "https://github.com/purcell/package-lint")
     (synopsis "A package-lint Flymake backend")
