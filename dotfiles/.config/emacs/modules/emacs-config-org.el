@@ -13,6 +13,7 @@
 (setq backlog-file (expand-file-name "backlog.org" org-directory))
 (setq projects-file (expand-file-name "projects.org" org-directory))
 (setq habits-file (expand-file-name "habits.org" org-directory))
+(setq reading-list-file (expand-file-name "reading-list.org" org-directory))
 
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
@@ -253,6 +254,9 @@
         ("n" "New Note" entry (file org-default-notes-file)
          "* %? \n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
          :jump-to-captured t
+         :empty-lines 1)
+        ("r" "To Reading List" entry (file reading-list-file)
+         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:END:\n"
          :empty-lines 1)))
 
 (provide 'emacs-config-org)
