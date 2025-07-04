@@ -416,7 +416,6 @@ This is written mainly to be used as `beginning-of-defun-function' for Zig."
 
 
 (add-hook 'zig-ts-mode-hook #'eglot-ensure)
-(add-hook 'zig-ts-mode-hook 'flycheck-mode)
 (add-hook 'zig-ts-mode-hook #'hs-minor-mode)
 (add-hook 'zig-ts-mode-hook 'zig//hooks)
 

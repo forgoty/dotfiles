@@ -6,10 +6,6 @@
                 ((buildFlags . ["-tags=unit,integration,e2e"])
                  (gofumpt . t)))))
 
-;; Glue between flycheck and eglot
-(require 'flycheck-eglot)
-(global-flycheck-eglot-mode 1)
-
 ;; Shutdown server when last managed buffer is killed
 (customize-set-variable 'eglot-autoshutdown t)
 

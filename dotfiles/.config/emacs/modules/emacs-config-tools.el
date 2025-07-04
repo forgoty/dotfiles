@@ -26,23 +26,6 @@ tab-indent."
             (add-hook 'text-mode-hook #'copilot-mode-custom-hook)
             (add-hook 'prog-mode-hook #'copilot-mode-custom-hook)))
 
-;;;; Common flycheck
-(defun custom/toggle-flycheck-error-list ()
-  "Toggle flycheck's error list window.
-If the error list is visible, hide it.  Otherwise, show it."
-  (interactive)
-  (if-let ((window (flycheck-get-error-list-window)))
-      (save-selected-window (quit-window nil window))
-    (flycheck-list-errors)))
-
-(defun custom/goto-flycheck-error-list ()
-  "Open and go to the error list buffer."
-  (interactive)
-  (if (flycheck-get-error-list-window)
-      (switch-to-buffer flycheck-error-list-buffer)
-    (flycheck-list-errors)
-    (switch-to-buffer-other-window flycheck-error-list-buffer)))
-
 ;; Other
 (defun copy-file-path ()
   (interactive)

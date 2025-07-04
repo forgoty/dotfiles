@@ -1,12 +1,7 @@
 ;; Tools
-(add-to-list 'package-selected-packages 'flycheck-google-cpplint)
 (add-to-list 'package-selected-packages 'copilot)
-(add-to-list 'package-selected-packages 'flycheck)
-(add-to-list 'package-selected-packages 'flycheck-pos-tip)
 (add-to-list 'package-selected-packages 'restart-emacs)
 (add-to-list 'package-selected-packages 'magit)
-(add-to-list 'package-selected-packages 'flycheck-eglot)
-(add-to-list 'package-selected-packages 'flycheck-golangci-lint)
 (add-to-list 'package-selected-packages 'direnv)
 
 ;; Search and Completion

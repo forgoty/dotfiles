@@ -65,18 +65,10 @@
           (single (insert "import " line "\n"))
           (none (insert "\nimport (\n\t" line "\n)\n")))))))
 
-(defvar-local flycheck-local-checkers nil)
-(defun +flycheck-checker-get(fn checker property)
-  (or (alist-get property (alist-get checker flycheck-local-checkers))
-      (funcall fn checker property)))
-(advice-add 'flycheck-checker-get :around '+flycheck-checker-get)
-
 (defun go//hooks ()
   "Call this when go-ts-mode is enabled."
   (setq-local tab-width go-tab-width)
   (setq-local evil-shift-width go-tab-width)
-  (flycheck-golangci-lint-setup)
-  (setq flycheck-local-checkers '((eglot-check . ((next-checkers . ((warning . golangci-lint)))))))
   ;; Turn off copilot mode for protobuf files
   (add-hook 'find-file-hook (lambda ()
                               (when (and (buffer-file-name)
@@ -101,7 +93,6 @@
 
 (add-hook 'go-ts-mode-hook 'go//hooks)
 (add-hook 'go-ts-mode-hook #'eglot-ensure)
-(add-hook 'go-ts-mode-hook 'flycheck-mode)
 
 ;; Enable folding
 (add-hook 'go-ts-mode-hook #'hs-minor-mode)
