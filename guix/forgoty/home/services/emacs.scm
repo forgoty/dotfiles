@@ -12,13 +12,9 @@
 (define (home-emacs-configuration config)
   (list emacs
         ;; Tools
-        emacs-flycheck
         emacs-restart-emacs
-        emacs-flycheck-golangci-lint
         emacs-google-c-style
         emacs-copilot
-        emacs-flycheck-pos-tip
-        emacs-flycheck-eglot
         emacs-direnv
 
         ;; Search and Completion
@@ -54,7 +50,6 @@
         emacs-aggressive-indent
         emacs-package-lint
         emacs-zig-mode
-        emacs-flycheck-cpplint
         emacs-ibuffer-project
         emacs-protobuf-ts-mode
         emacs-package-lint-flymake

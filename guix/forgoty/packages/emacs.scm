@@ -10,29 +10,6 @@
   #:use-module (gnu packages emacs-xyz)
   #:use-module (guix git-download))
 
-(define-public emacs-flycheck-golangci-lint
-  (let ((commit "4277523d57469c3a686e5a0403a49cdb11c52a17")
-        (revision "0"))
-    (package
-      (name "emacs-flycheck-golangci-lint")
-      (version (git-version "0" revision commit))
-      (source
-       (origin
-         (method git-fetch)
-         (uri (git-reference
-               (url "https://github.com/forgoty/flycheck-golangci-lint")
-               (commit commit)))
-         (file-name (git-file-name name version))
-         (sha256
-          (base32 "01aqsdzwkczspr12qlfbrcgfpq10n7930y8ipg05ik3vzcsm2zzj"))))
-      (build-system emacs-build-system)
-      (propagated-inputs (list emacs-flycheck))
-      (home-page "https://github.com/forgoty/flycheck-golangci-lint")
-      (synopsis "flycheck integration with golangci-lint")
-      (description
-       "Fork of https://github.com/weijiangan/flycheck-golangci-lint with some improvements")
-      (license license:gpl3+))))
-
 (define-public emacs-embark-consult
   (package
     (name "emacs-embark-consult")
@@ -896,28 +873,6 @@ Kaleem] <https://github.com/mohkale>.")
     (description "An unofficial Copilot plugin for Emacs.")
     (license #f)))
 
-(define-public emacs-flycheck-pos-tip
-  (package
-    (name "emacs-flycheck-pos-tip")
-    (version "20200516.1600")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/flycheck/flycheck-pos-tip.git")
-             (commit "dc57beac0e59669926ad720c7af38b27c3a30467")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "15h4m5cfk0vh1g630vlwfxmcpa1jdalrrldnvijsqla99mb2jm1w"))))
-    (build-system emacs-build-system)
-    (propagated-inputs (list emacs-flycheck emacs-pos-tip))
-    (home-page "https://github.com/flycheck/flycheck-pos-tip")
-    (synopsis "Display Flycheck errors in GUI tooltips")
-    (description
-     "Provide an error display function to show errors in a tooltip. ;; Setup
-(with-eval-after-load flycheck (flycheck-pos-tip-mode)).")
-    (license #f)))
-
 (define-public emacs-embrace
   (package
     (name "emacs-embrace")
@@ -1382,31 +1337,4 @@ the example of .latexmkrc to use \"LATEXENC\": # .latexmkrc starts $kanji =
 \"-kanji=$ENV{\\\"LATEXENC\\\"}\" if defined $ENV{\"LATEXENC\"}; $latex = \"platex
 $kanji\"; $bibtex = \"pbibtex $kanji\"; $dvipdf = dvipdfmx -o %D %S'; $pdf_mode =
 3; # .latexmkrc ends.")
-    (license #f)))
-
-(define-public emacs-flycheck-eglot
-  (package
-    (name "emacs-flycheck-eglot")
-    (version "20240927.2343")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/flycheck/flycheck-eglot.git")
-             (commit "18d0c9869585e6a9ea5c40678f266cf7f5bb2d2e")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "0ilhf3jlknkmkqm67vc5r5n43gqzjxjxgj29p3ax5bp4g82lh327"))))
-    (build-system emacs-build-system)
-    (propagated-inputs (list emacs-eglot emacs-flycheck))
-    (home-page "https://github.com/flycheck/flycheck-eglot")
-    (synopsis "Flycheck support for eglot")
-    (description
-     "This package provides a simple \"glue\" minor mode that allows Flycheck and Eglot
-to work together.  You just need to enable `global-flycheck-eglot-mode'.  Put
-the following in your init file: (require flycheck-eglot)
-(global-flycheck-eglot-mode 1) By default, the Flycheck-Eglot considers the
-Eglot to be the only provider of syntax checks.  Other Flycheck checkers are
-ignored.  There is a variable `flycheck-eglot-exclusive that controls this.  You
-can override it system-wide or for some major modes.")
     (license #f)))
