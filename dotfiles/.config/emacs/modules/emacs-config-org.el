@@ -3,6 +3,7 @@
 
 ;; Add additional org-modules
 (add-to-list 'org-modules 'org-habit t)
+(add-to-list 'org-modules 'org-id t)
 
 ;; Set up org directory
 (setq org-directory (expand-file-name "org" (getenv "CEREBRUM_PATH")))
@@ -244,21 +245,21 @@
 
 (setq org-capture-templates
       '(("i" "New Inbox" entry (file inbox-file)
-         "* TODO %? \n:PROPERTIES:\n:CREATED: %U\n:END:"
+         "* TODO %? \n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
          :empty-lines 1)
         ("m" "New Meeting" entry (file inbox-file)
-         "* %?\n%^{DateTime}T\n:PROPERTIES:\n:CREATED: %U\n:END:"
+         "* %?\n%^{DateTime}T\n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
          :empty-lines 1)
         ("p" "New Project" entry
          (file projects-file)
-         "* %^{Project Name} %^g:PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Brief Description}\n:DEFINITION-OF-DONE: %^{Definition of Done}\n:END:"
+         "* %^{Project Name} %^g:PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Brief Description}\n:DEFINITION-OF-DONE: %^{Definition of Done}\n:ID: %(org-id-new)\n:END:"
          :empty-lines 1)
         ("n" "New Note" entry (file org-default-notes-file)
          "* %? \n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
          :jump-to-captured t
          :empty-lines 1)
         ("r" "To Reading List" entry (file reading-list-file)
-         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:END:\n"
+         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
          :empty-lines 1)))
 
 (provide 'emacs-config-org)
