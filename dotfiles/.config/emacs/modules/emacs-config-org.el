@@ -125,13 +125,14 @@
          ((agenda ""
                   ((org-agenda-span 2)
                    (org-habit-show-done-already nil)
-                   (org-agenda-overriding-header "Habits for Today")
+                   (org-agenda-overriding-header "Habits for the Next 2 Days")
                    (org-agenda-files (list habits-file))))
           (agenda ""
                   ((org-agenda-skip-function
                     '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
                   (org-deadline-warning-days 0)
                   (org-agenda-start-on-weekday nil)
+                  (org-agenda-span 3)
                   (org-agenda-files (list projects-file))
                   (org-agenda-remove-tags t)
                   (org-agenda-prefix-format default-agenda-prefix-format)))
