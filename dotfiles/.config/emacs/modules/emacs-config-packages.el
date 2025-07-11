@@ -62,6 +62,7 @@
 
 ;; Org-Mode
 (add-to-list 'package-selected-packages 'org-super-agenda)
+(add-to-list 'package-selected-packages 'org-node)
 
 ;; Darwin related
 (when (equal system-type 'darwin)

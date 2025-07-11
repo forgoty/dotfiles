@@ -56,6 +56,7 @@
 
         ;; Org
         emacs-org-super-agenda
+        emacs-org-node-3
 
         ;; UI
         emacs-nerd-icons
