@@ -17,6 +17,7 @@
 (setq projects-file (expand-file-name "projects.org" org-directory))
 (setq habits-file (expand-file-name "habits.org" org-directory))
 (setq reading-list-file (expand-file-name "reading-list.org" org-directory))
+(setq important-dates-file (expand-file-name "important-dates.org" org-directory))
 
 ;; Org-Node
 ;;; Org-mem
@@ -145,7 +146,7 @@
                   (org-deadline-warning-days 0)
                   (org-agenda-start-on-weekday nil)
                   (org-agenda-span 3)
-                  (org-agenda-files (list projects-file))
+                  (org-agenda-files (list projects-file important-dates-file))
                   (org-agenda-remove-tags t)
                   (org-agenda-prefix-format default-agenda-prefix-format)))
           (todo "WAITING"
@@ -231,7 +232,15 @@
          ((tags "*"
                 ((org-agenda-overriding-header "Notes")
                   (org-agenda-files (list org-default-notes-file))
-                  (org-agenda-prefix-format "")))))))
+                  (org-agenda-prefix-format "")))))
+        ("d" "Important Dates"
+         ((agenda ""
+                  ((org-agenda-files(list important-dates-file))
+                   (org-agenda-span 'year)
+                   (org-agenda-show-all-dates nil)
+                   (org-deadline-warning-days 3)
+                   (org-agenda-overriding-header "Important Dates")
+                   (org-agenda-prefix-format "%t")))))))
 
 ;; Refile settings
 ;;; refile to the top level
