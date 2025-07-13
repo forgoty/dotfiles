@@ -4,6 +4,7 @@
   #:use-module (gnu home services)
   #:use-module (gnu home services desktop)
   #:use-module (gnu home services shells)
+  #:use-module (gnu home services shepherd)
   #:use-module (gnu packages)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages web)
@@ -49,6 +50,8 @@
   #:use-module (forgoty packages suckless)
   #:use-module (forgoty packages ocr)
   #:use-module (forgoty packages python-xyz)
+  #:use-module ((srfi srfi-1) #:hide (zip))
+  #:use-module (ice-9 match)
   #:export (home-desktop-service-type))
 
 (define (home-desktop-configuration config)
@@ -158,6 +161,28 @@
     ("ZSH_DIR" . "$HOME/.guix-home/profile/share/zsh")
     ("BASH_COMPLETIONS_DIR" . "$HOME/.guix-home/profile/etc/bash_completion.d")))
 
+(define (home-xcompmgr-shepherd-service config)
+  (list
+    (shepherd-service
+      (provision '(xcompmgr))
+      (modules '((srfi srfi-1)
+		 (srfi srfi-26)
+		 (shepherd support)))
+      ;; Depend on 'x11-display', which sets 'DISPLAY' if an X11 server is
+      ;; available, and fails to start otherwise.
+      (requirement '(x11-display))
+      (documentation "Run xcompmgr in background")
+      (start #~(lambda _
+               (fork+exec-command
+		 (list #$(file-append xcompmgr "/bin/xcompmgr"))
+		 ;; Inherit the 'DISPLAY' variable set by 'x11-display'.
+		 #:environment-variables
+		 (cons (string-append "DISPLAY=" (getenv "DISPLAY"))
+		       (remove (cut string-prefix? "DISPLAY=" <>)
+			       (default-environment-variables)))
+		 #:log-file (string-append %user-log-dir "/xcompgmr.log"))))
+      (stop #~(make-kill-destructor)))))
+
 (define home-desktop-service-type
   (service-type (name 'home-desktop)
                 (description "Desktop environment configuration")
@@ -169,5 +194,7 @@
                                                                    "[ $(tty) = /dev/tty1 ] && exec startx"))))
                                   (service-extension
                                    home-environment-variables-service-type
-                                   home-desktop-environment-variables)))
+                                   home-desktop-environment-variables)
+				  (service-extension home-shepherd-service-type
+						     home-xcompmgr-shepherd-service)))
                 (default-value #f)))
