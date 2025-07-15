@@ -263,6 +263,7 @@
   "i" '(go-import-add :which-key "add import"))
 (mode-dependent-leader-def org-mode-map
   "l" '(org-node-insert-into-related :which-key "insert link into RELEATED drawer")
+  "o" '(org-open-at-point :which-key "org open at point")
   "f" '(org-node-find :which-key "find node"))
 (mode-dependent-leader-def org-agenda-mode-map
   "l" '(org-node-insert-into-related :which-key "insert link into RELEATED drawer")
