@@ -247,4 +247,25 @@
   "zni" '(narrow-to-region :which-key "narrow in")
   "zno" '(narrow-to-page :which-key "narrow out"))
 
+;; Mode dependent leader keybindings
+(general-create-definer mode-dependent-leader-def
+  :states '(normal insert motion visual emacs)
+  :keymaps 'override
+  :major-modes t
+  :prefix "SPC m")
+
+(my-leader-def
+  "m"  '(:ignore t :which-key "mode dependent leader"))
+(mode-dependent-leader-def eglot-mode-map
+  "r" '(eglot-rename :which-key "rename")
+  "=" '(format-buffer-with-eglot :which-key "format buffer"))
+(mode-dependent-leader-def go-ts-mode-map
+  "i" '(go-import-add :which-key "add import"))
+(mode-dependent-leader-def org-mode-map
+  "l" '(org-node-insert-into-related :which-key "insert link into RELEATED drawer")
+  "f" '(org-node-find :which-key "find node"))
+(mode-dependent-leader-def org-agenda-mode-map
+  "l" '(org-node-insert-into-related :which-key "insert link into RELEATED drawer")
+  "f" '(org-node-find :which-key "find node"))
+
 (provide 'emacs-config-input)
