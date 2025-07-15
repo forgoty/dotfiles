@@ -74,9 +74,7 @@
                               (when (and (buffer-file-name)
                                          (string-match-p "\\.pb\\.go\\'" (buffer-file-name)))
                                 (copilot-mode -1))))
-  (add-hook 'before-save-hook (lambda ()
-                                (call-interactively #'eglot-format-buffer)
-                                (call-interactively #'eglot-code-action-organize-imports))))
+  (add-hook 'before-save-hook format-buffer-with-eglot))
 
 (defun project-find-go-module (dir)
   (when-let ((root (locate-dominating-file dir "go.mod")))

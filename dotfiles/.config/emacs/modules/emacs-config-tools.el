@@ -32,6 +32,11 @@ tab-indent."
   (kill-new (buffer-file-name))
   (message "File name copied to clipboard: %s" (buffer-file-name)))
 
+(defun format-buffer-with-eglot ()
+  (interactive)
+  ;;(call-interactively #'eglot-code-action-organize-imports)
+  (call-interactively #'eglot-format-buffer))
+
 ;; Dired
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-listing-switches "-lah --group-directories-first")
