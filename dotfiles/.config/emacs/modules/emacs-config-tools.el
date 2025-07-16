@@ -34,8 +34,13 @@ tab-indent."
 
 (defun format-buffer-with-eglot ()
   (interactive)
-  (call-interactively #'eglot-code-action-organize-imports)
-  (call-interactively #'eglot-format-buffer))
+  (when (bound-and-true-p eglot--managed-mode)
+    (save-excursion
+      (condition-case err
+          (call-interactively #'eglot-code-action-organize-imports)
+        (error
+         (message (error-message-string err))))
+      (call-interactively #'eglot-format-buffer))))
 
 ;; Dired
 (setq dired-kill-when-opening-new-dired-buffer t)
