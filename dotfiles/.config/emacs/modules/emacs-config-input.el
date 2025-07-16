@@ -249,9 +249,8 @@
 
 ;; Mode dependent leader keybindings
 (general-create-definer mode-dependent-leader-def
-  :states '(normal insert motion visual emacs)
+  :states 'normal
   :keymaps 'override
-  :major-modes t
   :prefix "SPC m")
 
 (my-leader-def
