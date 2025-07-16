@@ -34,7 +34,7 @@ tab-indent."
 
 (defun format-buffer-with-eglot ()
   (interactive)
-  ;;(call-interactively #'eglot-code-action-organize-imports)
+  (call-interactively #'eglot-code-action-organize-imports)
   (call-interactively #'eglot-format-buffer))
 
 ;; Dired
