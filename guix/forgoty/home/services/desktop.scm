@@ -129,6 +129,7 @@
    ncurses
    bmon
    flatpak
+   strace
 
    ;; Apps
    qutebrowser
