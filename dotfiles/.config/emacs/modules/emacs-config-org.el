@@ -24,9 +24,16 @@
 (setq org-mem-do-sync-with-org-id t)
 (setq org-mem-watch-dirs (list org-directory))
 (org-mem-updater-mode)
-;;;Org-Node
+;;; Org-Node
 (org-node-cache-mode)
 (org-node-backlink-mode)
+
+(defun org-node-agenda-insert-into-related ()
+  "Calls`org-node-insert-into-related' with the current heading."
+  (interactive)
+  (when (derived-mode-p 'org-agenda-mode)
+        (org-with-point-at (org-get-at-bol 'org-hd-marker)
+          (org-node-insert-into-related))))
 
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)

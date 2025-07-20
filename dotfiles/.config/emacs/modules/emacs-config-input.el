@@ -85,7 +85,6 @@
   "t" 'org-agenda-set-tags
   "e" 'org-agenda-set-effort
   "T" 'org-timer-set-timer
-  "i" 'org-agenda-diary-entry
   "A" 'org-agenda-append-agenda
   "C" 'org-agenda-capture
 
@@ -101,7 +100,6 @@
   "r" 'org-agenda-redo
   "R" 'org-agenda-redo-all
 
-
   ;; filter
   "sc" 'org-agenda-filter-by-category
   "sr" 'org-agenda-filter-by-regexp
@@ -114,9 +112,6 @@
   ;; go and show
   "gC" 'org-agenda-convert-date
   "gd" 'org-agenda-goto-date
-  "gh" 'org-agenda-holidays
-  "gm" 'org-agenda-phases-of-moon
-  "gs" 'org-agenda-sunrise-sunset
   "gt" 'org-agenda-show-tags
 
   ;; clock
@@ -229,6 +224,8 @@
   "bn" '(evil-next-buffer :which-key "next buffer")
   "bp" '(evil-prev-buffer :which-key "previous buffer")
   "bh" '((lambda () (interactive) (switch-to-buffer "*Home*")) :which-key "home buffer")
+  "bm" '((lambda () (interactive) (switch-to-buffer "*Message*")) :which-key "message buffer")
+  "ba" '(org-agenda :which-key "agenda")
   "bd" '(kill-current-buffer t :which-key "delete buffer"))
 (my-leader-def
   "g"  '(:ignore t :which-key "git")
@@ -263,9 +260,12 @@
 (mode-dependent-leader-def org-mode-map
   "l" '(org-node-insert-into-related :which-key "insert link into RELEATED drawer")
   "o" '(org-open-at-point :which-key "org open at point")
+  "s" '(org-search-view :which-key "search")
+  "t"  '(:ignore t :which-key "org toggles")
+  "tc" '(org-toggle-checkbox :which-key "org toggle checkbox")
   "f" '(org-node-find :which-key "find node"))
 (mode-dependent-leader-def org-agenda-mode-map
-  "l" '(org-node-insert-into-related :which-key "insert link into RELEATED drawer")
+  "l" '(org-node-agenda-insert-into-related :which-key "insert link into RELEATED drawer")
   "f" '(org-node-find :which-key "find node"))
 
 (provide 'emacs-config-input)
