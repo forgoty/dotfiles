@@ -1,6 +1,7 @@
 (define-module (forgoty systems base-system)
   #:use-module (gnu)
   #:use-module (gnu system)
+  #:use-module (gnu system accounts)
   #:use-module (gnu services base)
   #:use-module (guix store)
   #:use-module (nongnu packages linux)
@@ -14,7 +15,9 @@
                      xorg
                      audio
                      ssh
-                     virtualization)
+                     virtualization
+		     containers
+		     networking)
 (use-package-modules admin
                      fonts
                      gnome
@@ -41,6 +44,7 @@
                             "tty"
                             "video"
                             "lp"
+			    "cgroup"
                             "kvm"
                             "libvirt"))))
 
@@ -78,7 +82,15 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
                  (bluetooth-configuration (auto-enable? #t)))
         (service virtlog-service-type)
         (service libvirt-service-type
-                 (libvirt-configuration (unix-sock-group "libvirt")))))
+                 (libvirt-configuration (unix-sock-group "libvirt")))
+	(service iptables-service-type)
+	(service rootless-podman-service-type
+		 (rootless-podman-configuration
+		   (podman #f)
+		   (subgids
+		     (list (subid-range (name "nikita"))))
+		   (subuids
+		     (list (subid-range (name "nikita"))))))))
 
 ;; This is a base operating system that must be inherited in actual host config
 (define base-operating-system
