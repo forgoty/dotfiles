@@ -59,6 +59,7 @@
    ;; Xorg and Desktop environment
    util-linux
    xdg-utils
+   xdg-desktop-portal-gtk
    libnotify
    setxkbmap
    xset
