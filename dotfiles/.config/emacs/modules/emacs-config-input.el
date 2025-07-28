@@ -233,7 +233,7 @@
 (my-leader-def
   "e"  '(:ignore t :which-key "errors")
   "eb" '(flymake-show-buffer-diagnostics :which-key "buffer errors")
-  "el" '(flymake-show-project-diagnostics :which-key "list project errors")
+  "el" '(toggle-flymake-diagnostics-buffer :which-key "list project errors")
   "en" '(flymake-goto-next-error :which-key "next error")
   "ep" '(flymake-goto-prev-error :which-key "prev errors"))
 (my-leader-def

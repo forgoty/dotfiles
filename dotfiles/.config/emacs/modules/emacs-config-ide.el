@@ -78,6 +78,14 @@
 ;; Proto
 (add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-ts-mode))
 
+;; Flymake
+(defun toggle-flymake-diagnostics-buffer ()
+  (interactive)
+  (let ((window-buffer (get-buffer-window (flymake--diagnostics-buffer-name))))
+    (if window-buffer
+        (quit-window t window-buffer)
+      (flymake-show-diagnostics-buffer))))
+
 (require 'ide-mode-golang)
 (require 'ide-mode-js-ts)
 (require 'ide-mode-c)
