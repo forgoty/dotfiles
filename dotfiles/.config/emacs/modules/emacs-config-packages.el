@@ -40,6 +40,7 @@
 (add-to-list 'package-selected-packages 'aggressive-indent)
 (add-to-list 'package-selected-packages 'package-lint)
 (add-to-list 'package-selected-packages 'package-lint-flymake)
+(add-to-list 'package-selected-packages 'flymake-golangci)
 (add-to-list 'package-selected-packages 'zig-mode)
 
 ;; UI

@@ -1,3 +1,5 @@
+(require 'flymake-golangci)
+
 (defconst go-tab-width 8)
 
 (defun go-packages ()
@@ -74,6 +76,7 @@
                               (when (and (buffer-file-name)
                                          (string-match-p "\\.pb\\.go\\'" (buffer-file-name)))
                                 (copilot-mode -1))))
+  (add-hook 'eglot-managed-mode-hook #'flymake-golangci-load-backend)
   (add-hook 'before-save-hook #'format-buffer-with-eglot))
 
 (defun project-find-go-module (dir)

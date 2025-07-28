@@ -53,6 +53,7 @@
         emacs-ibuffer-project
         emacs-protobuf-ts-mode
         emacs-package-lint-flymake
+        emacs-flymake-golangci
 
         ;; Org
         emacs-org-super-agenda

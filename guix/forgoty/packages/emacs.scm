@@ -1338,3 +1338,23 @@ the example of .latexmkrc to use \"LATEXENC\": # .latexmkrc starts $kanji =
 $kanji\"; $bibtex = \"pbibtex $kanji\"; $dvipdf = dvipdfmx -o %D %S'; $pdf_mode =
 3; # .latexmkrc ends.")
     (license #f)))
+
+(define-public emacs-flymake-golangci
+  (package
+    (name "emacs-flymake-golangci")
+    (version "5495d7f5a00b171358cc0f2501ba64b79a240ce5")
+    (source
+     (origin
+       (method git-fetch)
+       (uri (git-reference
+             (url "https://github.com/storvik/flymake-golangci")
+             (commit version)))
+       (file-name (git-file-name name version))
+       (sha256
+        (base32 "0na5x6am1x9m58zh2wrxh8g5ylsnsk7fw732v2ha3qhiddyci7hm"))))
+    (build-system emacs-build-system)
+    (propagated-inputs (list emacs-auctex))
+    (home-page "https://github.com/storvik/flymake-golangci/")
+    (synopsis "Flymake backend for golangci linter.")
+    (description "Flymake backend for golangci linter.")
+    (license #f)))
