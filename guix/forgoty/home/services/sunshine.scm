@@ -27,10 +27,17 @@
            (log-file #~(string-append %user-log-dir "/sunshine.log")))
       (list (shepherd-service
              (documentation "Run the sunshine host.")
+             (requirement '(x11-display))
              (provision '(sunshine))
-             (modules '((shepherd support)))
-             (start #~(make-forkexec-constructor #$command
-                                                 #:log-file #$log-file))
+             (modules '((shepherd support)
+                        (srfi srfi-1)
+                        (srfi srfi-26)))
+	     (start #~(make-forkexec-constructor #$command
+		 #:environment-variables
+		 (cons (string-append "DISPLAY=" (getenv "DISPLAY"))
+		       (remove (cut string-prefix? "DISPLAY=" <>)
+			       (default-environment-variables)))
+		 #:log-file #$log-file))
              (stop #~(make-kill-destructor)))))))
 
 (define home-sunshine-service-type
@@ -41,4 +48,3 @@
     (list (service-extension home-shepherd-service-type
                              home-sunshine-services)))
    (description "Run the sunshine streaming server")))
-
