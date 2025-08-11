@@ -16,7 +16,7 @@
   (sunshine          home-sunshine-sunshine
                  (default sunshine))
   (config-file-path home-sunshine-config-file-path
-                 (default (string-append "~/.config/sunshine/sunshine.conf"))))
+                 (default "~/.config/sunshine/sunshine.conf")))
 
 (define (home-sunshine-services config)
   "Return a <shepherd-service> for sunshine with CONFIG."
@@ -32,12 +32,14 @@
              (modules '((shepherd support)
                         (srfi srfi-1)
                         (srfi srfi-26)))
-	     (start #~(make-forkexec-constructor #$command
-		 #:environment-variables
-		 (cons (string-append "DISPLAY=" (getenv "DISPLAY"))
-		       (remove (cut string-prefix? "DISPLAY=" <>)
-			       (default-environment-variables)))
-		 #:log-file #$log-file))
+	     (start #~(lambda _
+	       ;; use lambda to compute DISPLAY variable in runtime
+	       ;; after it set by x11-display
+	       (fork+exec-command #$command
+	         #:environment-variables
+	           (append (default-environment-variables)
+	         	  (list (string-append "DISPLAY=" (getenv "DISPLAY"))))
+		 #:log-file #$log-file)))
              (stop #~(make-kill-destructor)))))))
 
 (define home-sunshine-service-type
