@@ -16,8 +16,8 @@
 (setq backlog-file (expand-file-name "backlog.org" org-directory))
 (setq projects-file (expand-file-name "projects.org" org-directory))
 (setq habits-file (expand-file-name "habits.org" org-directory))
-(setq reading-list-file (expand-file-name "reading-list.org" org-directory))
-(setq important-dates-file (expand-file-name "important-dates.org" org-directory))
+(setq reading-list-file (expand-file-name "lists/reading-list.org" org-directory))
+(setq important-dates-file (expand-file-name "lists/important-dates.org" org-directory))
 
 ;; Org-Node
 ;;; Org-mem
