@@ -1342,7 +1342,7 @@ $kanji\"; $bibtex = \"pbibtex $kanji\"; $dvipdf = dvipdfmx -o %D %S'; $pdf_mode 
 (define-public emacs-flymake-golangci
   (package
     (name "emacs-flymake-golangci")
-    (version "5495d7f5a00b171358cc0f2501ba64b79a240ce5")
+    (version "2cf8f3a55c64b52d6eab4aa13cb95b37442d33d5")
     (source
      (origin
        (method git-fetch)
@@ -1351,7 +1351,7 @@ $kanji\"; $bibtex = \"pbibtex $kanji\"; $dvipdf = dvipdfmx -o %D %S'; $pdf_mode 
              (commit version)))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "0na5x6am1x9m58zh2wrxh8g5ylsnsk7fw732v2ha3qhiddyci7hm"))))
+        (base32 "1xi7v2kxdxvvchjdigbhh5wkh7a7ij3qr4q7jq2zxsglbsa06wl2"))))
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-auctex))
     (home-page "https://github.com/storvik/flymake-golangci/")
