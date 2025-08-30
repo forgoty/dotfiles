@@ -32,6 +32,7 @@ set noshowcmd
 	nnoremap c "_c
 	filetype plugin on
 	syntax on
+	colorscheme vim
 	set encoding=utf-8
 	set number relativenumber
 " Enable autocompletion:
