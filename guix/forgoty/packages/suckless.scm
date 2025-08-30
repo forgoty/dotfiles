@@ -2,10 +2,12 @@
   #:use-module (gnu packages suckless)
   #:use-module (guix packages)
   #:use-module (guix utils)
+  #:use-module (guix gexp)
   #:use-module (guix build-system gnu)
   #:use-module (gnu packages fontutils)
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages xorg)
+  #:use-module (gnu packages ncurses)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages autotools)
   #:use-module ((guix licenses)
@@ -14,11 +16,8 @@
 
 (define-public forgoty-st
   (package
-    (inherit lukesmithxyz-st)
     (name "forgoty-st")
-    (inputs (modify-inputs (package-inputs st)
-              (replace "libxft" libxft-bgra)
-              (prepend libxext harfbuzz)))
+    (version "0.8.5")
     (source
      (origin
        (method git-fetch)
@@ -26,7 +25,36 @@
              (url "https://github.com/forgoty/st.git")
              (commit "master")))
        (sha256
-        (base32 "0di01khw1xlg277znfchzxq9q8lqx59yl167kz9qf77wvcwh4i9r"))))))
+        (base32 "0di01khw1xlg277znfchzxq9q8lqx59yl167kz9qf77wvcwh4i9r"))))
+    (build-system gnu-build-system)
+    (arguments
+     (list
+      #:tests? #f
+      #:make-flags
+      #~(list
+         (string-append "CC=" #$(cc-for-target))
+         (string-append "TERMINFO=" #$output "/share/terminfo")
+         (string-append "PREFIX=" #$output))
+      #:phases
+      #~(modify-phases %standard-phases
+          (delete 'configure))))
+    (inputs
+     (list libx11
+           libxft
+           fontconfig
+           libxft-bgra
+           libxext
+           harfbuzz
+           freetype))
+    (native-inputs
+     (list ncurses
+           pkg-config))
+    (home-page "https://github.com/LukeSmithxyz/st")
+    (synopsis "Luke Smith's fork of st")
+    (description
+     "This package is Luke's fork of the suckless simple terminal (st) with
+Vimbndings and Xresource compatibility.")
+    (license license:expat)))
 
 (define-public luke-dmenu
   (package
