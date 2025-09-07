@@ -19,7 +19,7 @@
 (define (home-sunshine-services config)
   "Return a <shepherd-service> for sunshine with CONFIG."
   (match-record config <home-sunshine-configuration>
-    (sunshine config-file-path)
+    (config-file-path)
     (let* ((command #~(list "/run/privileged/bin/sunshine" #$config-file-path))
            (log-file #~(string-append %user-log-dir "/sunshine.log")))
       (list (shepherd-service
