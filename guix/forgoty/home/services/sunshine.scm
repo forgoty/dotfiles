@@ -13,8 +13,6 @@
 (define-record-type* <home-sunshine-configuration>
   home-sunshine-configuration make-home-sunshine-configuration
   home-sunshine-configuration?
-  (sunshine          home-sunshine-sunshine
-                 (default sunshine))
   (config-file-path home-sunshine-config-file-path
                  (default "~/.config/sunshine/sunshine.conf")))
 
@@ -22,8 +20,7 @@
   "Return a <shepherd-service> for sunshine with CONFIG."
   (match-record config <home-sunshine-configuration>
     (sunshine config-file-path)
-    (let* ((sunshine (file-append sunshine "/bin/sunshine"))
-           (command #~(list #$sunshine #$config-file-path))
+    (let* ((command #~(list "/run/privileged/bin/sunshine" #$config-file-path))
            (log-file #~(string-append %user-log-dir "/sunshine.log")))
       (list (shepherd-service
              (documentation "Run the sunshine host.")
@@ -32,14 +29,14 @@
              (modules '((shepherd support)
                         (srfi srfi-1)
                         (srfi srfi-26)))
-	     (start #~(lambda _
-	       ;; use lambda to compute DISPLAY variable in runtime
-	       ;; after it set by x11-display
-	       (fork+exec-command #$command
-	         #:environment-variables
-	           (append (default-environment-variables)
-	         	  (list (string-append "DISPLAY=" (getenv "DISPLAY"))))
-		 #:log-file #$log-file)))
+             (start #~(lambda _
+              ;; use lambda to compute DISPLAY variable in runtime
+              ;; after it set by x11-display
+              (fork+exec-command #$command
+                #:environment-variables
+                  (append (default-environment-variables)
+                    (list (string-append "DISPLAY=" (getenv "DISPLAY"))))
+                  #:log-file #$log-file)))
              (stop #~(make-kill-destructor)))))))
 
 (define home-sunshine-service-type
@@ -49,4 +46,4 @@
    (extensions
     (list (service-extension home-shepherd-service-type
                              home-sunshine-services)))
-   (description "Run the sunshine streaming server")))
+   (description "Run the sunshine streaming host in user session using privileged sunshine.")))

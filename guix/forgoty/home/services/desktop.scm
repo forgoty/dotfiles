@@ -197,6 +197,6 @@
                                   (service-extension
                                    home-environment-variables-service-type
                                    home-desktop-environment-variables)
-				  (service-extension home-shepherd-service-type
-						     home-xcompmgr-shepherd-service)))
+                                  (service-extension home-shepherd-service-type
+                                        home-xcompmgr-shepherd-service)))
                 (default-value #f)))
