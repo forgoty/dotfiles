@@ -99,8 +99,7 @@
     (kernel linux)
     (initrd microcode-initrd)
     (firmware (list linux-firmware))
-    (kernel-arguments (cons* "evdi.initial_device_count=1"
-                             %default-kernel-arguments))
+    (kernel-loadable-modules (list evdi-linux))
     (users (append
             (list (user-account
               (name "nikita")
