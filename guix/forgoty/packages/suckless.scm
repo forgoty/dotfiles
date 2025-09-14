@@ -88,7 +88,7 @@ Vimbndings and Xresource compatibility.")
 
 (define-public forgoty-dwmblocks
   (let ((revision "1")
-        (commit "6801242d65473949f863caba091b73ab968b8c9f"))
+        (commit "5bda88c3027fdbdf3d9075cd5e2c24bc8f5dfc6a"))
     (package
       (name "forgoty-dwmblocks")
       (source
@@ -98,7 +98,7 @@ Vimbndings and Xresource compatibility.")
                (url "https://github.com/forgoty/dwmblocks.git")
                (commit "master")))
          (sha256
-          (base32 "0hk2rs05cf239znwhmmfmp2rq4v21z0ayfg26dgdx4zzvvln6h1c"))))
+          (base32 "1zv5f3gmgz6vjglfpdsf5rly4b7v6m7a36clmdzn6ysb2if5pv5l"))))
       (version (git-version "0" revision commit))
       (build-system gnu-build-system)
       (arguments
