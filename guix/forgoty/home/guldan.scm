@@ -1,9 +1,11 @@
 (define-module (forgoty home guldan)
   #:use-module (gnu home)
   #:use-module (guix gexp)
+  #:use-module (guix modules)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages freedesktop)
+  #:use-module (gnu packages guile)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages fonts)
   #:use-module (gnu packages shellutils)
@@ -34,6 +36,27 @@
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
   #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout)))
+
+(define-public jellyfin-compose-file
+  (let* ((docker-compose-jellyfin-service
+    '("jellyfin"
+        ("network_mode" . "host")
+        ("image" . "jellyfin/jellyfin:10")
+        ("container_name" . "jellyfin")
+        ("environment" . #("TZ=Europe/Warsaw"))
+        ("volumes" . #("/home/nikita/Jellyfin Server Media:/media")))))
+
+  (computed-file "jellyfin-docker-compose.json"
+    (with-extensions (list guile-json-4)
+      (with-imported-modules (source-module-closure '((json builder)))
+        #~(begin
+            (use-modules (json builder))
+            (with-output-to-file #$output
+              (lambda ()
+                (scm->json
+                `(("version" . "3.8")
+                  ("services"
+                    #$docker-compose-jellyfin-service)))))))))))
 
 (define (home-guldan-dotfiles-configuration config)
   (append
@@ -131,4 +154,11 @@
                                   (config-file-path "~/.config/sunshine/sunshine.conf")))
 
                         ;; Podman
-                        (service podman-service-type))))))
+                        (service podman-service-type)
+                        (service podman-compose-service-type
+                              (podman-compose-configuration
+                                (compose-file jellyfin-compose-file)
+                                (project-name "jellyfin")
+                                (requirement '())
+                                (respawn? #t))
+                              ))))))
