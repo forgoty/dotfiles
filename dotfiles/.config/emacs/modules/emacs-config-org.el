@@ -176,11 +176,14 @@
           (agenda ""
                   ((org-agenda-entry-types '(:deadline))
                    (org-deadline-warning-days 0)
+                   (org-agenda-span 'year)
+                   (org-agenda-prefix-format default-agenda-prefix-format)
+                   (org-agenda-show-all-dates nil)
                    (org-agenda-remove-tags t)
                    (org-agenda-files (list projects-file))
                    (org-agenda-sorting-strategy '(priority-down timestamp-down))
                    (org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'todo '("DONE")))
+                    '(org-agenda-skip-entry-if '("DONE")))
                    (org-agenda-overriding-header "Deadlines")))
           (tags "inbox"
                      ((org-agenda-files (list inbox-file))
