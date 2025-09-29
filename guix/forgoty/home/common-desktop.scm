@@ -55,7 +55,11 @@
                     (home-openssh-configuration (hosts (list (openssh-host (name
                                                                             "github.com")
                                                                            (identity-file
-                                                                            "~/.ssh/github_forgoty"))))
+                                                                            "~/.ssh/github_forgoty"))
+                                                             (openssh-host (name
+                                                                            "codeberg.org")
+                                                                           (identity-file
+                                                                            "~/.ssh/codeberg_forgoty"))))
                                                 (add-keys-to-agent "yes")))
            (service home-ssh-agent-service-type)
 
