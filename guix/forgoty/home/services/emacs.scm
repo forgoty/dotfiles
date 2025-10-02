@@ -46,7 +46,6 @@
         emacs-which-key
 
         ;; IDE
-        emacs-editorconfig
         emacs-aggressive-indent
         emacs-package-lint
         emacs-zig-mode

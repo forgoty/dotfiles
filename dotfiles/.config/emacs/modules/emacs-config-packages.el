@@ -34,7 +34,6 @@
 (add-to-list 'package-selected-packages 'winum)
 
 ;; IDE
-(add-to-list 'package-selected-packages 'editorconfig)
 (add-to-list 'package-selected-packages 'ibuffer-project)
 (add-to-list 'package-selected-packages 'protobuf-ts-mode)
 (add-to-list 'package-selected-packages 'aggressive-indent)
