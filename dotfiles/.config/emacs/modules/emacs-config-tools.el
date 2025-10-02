@@ -29,8 +29,15 @@ tab-indent."
 ;; Other
 (defun copy-file-path ()
   (interactive)
-  (kill-new (buffer-file-name))
-  (message "File name copied to clipboard: %s" (buffer-file-name)))
+  (kill-new (buffer-file-name)))
+
+(defun copy-project-relative-file-path ()
+  (interactive)
+  (kill-new (file-relative-name (buffer-file-name) (project-root (project-current t)))))
+
+(defun copy-git-relative-file-path ()
+  (interactive)
+  (kill-new (file-relative-name (buffer-file-name) (vc-root-dir))))
 
 (defun format-buffer-with-eglot ()
   (interactive)
