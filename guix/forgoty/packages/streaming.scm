@@ -94,7 +94,11 @@
                 (("libX11\\.so" all)
                 (string-append #$libx11 "/lib/" all))
                 (("libxcb(-shm|)\\.so" all)
-                (string-append #$libxcb "/lib/" all)))))
+                 (string-append #$libxcb "/lib/" all)))))
+          (add-before 'configure 'set-version
+            (lambda _
+              (setenv "BRANCH" (string-append "v" #$version))
+              (setenv "BUILD_VERSION" #$version)))
           (add-before 'build 'unpack-npm-cache
             (lambda* (#:key inputs #:allow-other-keys)
               (invoke "tar" "xzf" (assoc-ref inputs "npm-offline-cache"))
