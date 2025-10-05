@@ -53,7 +53,7 @@
 (define-public sunshine
   (package
     (name "sunshine")
-    (version "2025.628.4510")
+    (version "2025.924.154138")
     (source (origin
               (method git-fetch)
               (uri (git-reference
@@ -61,7 +61,7 @@
                     (commit (string-append "v" version))
                     (recursive? #t)))
               (sha256
-               (base32 "11i9jrkws8pb2a0hnjh3kshvaj00m0bljlqinizb4qmqlsiqbmf4"))))
+               (base32 "13v7cg0lm14n3pblmmbqn2zp999vx5acc8qmlaghp9kxlxkdzcs2"))))
     (build-system cmake-build-system)
     (arguments
      (list #:tests? #f
@@ -139,7 +139,7 @@
                               (method url-fetch)
                               (uri (string-append "https://github.com/forgoty/sunshine-web-ui-builder/releases/download/v" version "/npm-offline-cache.tar.gz"))
                               (file-name "npm-offline-cache.tar.gz")
-                              (sha256 (base32 "162cgchqj18xy2ln2zv0d9kqjl2fp3wqp1xbbdr174yk1l098rin"))))))
+                              (sha256 (base32 "1ddcg6k9m68vkprl4j46scxd4m7ars29c6n51gbzr150h2hl7z00"))))))
     (home-page "https://app.lizardbyte.dev/Sunshine/")
     (synopsis "Self-hosted game stream host for Moonlight")
     (description "Sunshine is a self-hosted game stream host for Moonlight. Offering low latency, cloud gaming server capabilities with support for AMD, Intel, and Nvidia GPUs for hardware encoding. Software encoding is also available.")
