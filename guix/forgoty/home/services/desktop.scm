@@ -122,7 +122,7 @@
    jq
    curl
    transmission
-   python-ueberzug-18.3.1
+   ueberzug-bin
    python-qdarkstyle
    man-db
    mediainfo
