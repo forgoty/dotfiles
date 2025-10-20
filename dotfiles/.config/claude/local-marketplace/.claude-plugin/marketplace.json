@@ -1,0 +1,23 @@
+{
+  "name": "local-marketplace",
+  "owner": {
+    "name": "John Doe",
+    "email": "example@example.com"
+  },
+  "plugins": [
+    {
+      "name": "programming-skills",
+      "source": "./plugins/programming-skills",
+      "description": "Shared programming skills for all roles",
+      "version": "1.0.0",
+      "category": "skills"
+    },
+    {
+      "name": "software-engineer-role",
+      "source": "./plugins/software-engineer-role",
+      "description": "Software engineer agent with programming capabilities",
+      "version": "1.0.0",
+      "category": "roles"
+    }
+  ]
+}
