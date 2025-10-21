@@ -3,7 +3,7 @@
 ;; eglot configuration
 (setq eglot-workspace-configuration
       '((:gopls .
-                ((buildFlags . ["-tags=unit,integration,e2e"])
+                ((buildFlags . ["-tags=unit,integration,e2e,component"])
                  (gofumpt . t)))))
 
 ;; Shutdown server when last managed buffer is killed
