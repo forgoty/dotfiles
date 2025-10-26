@@ -5,5 +5,4 @@ argument-hint: <agent-name> <instructions>
 
 # Follow Instructions Mode
 
-Use agent "$1" and strictly follow the instructions provide in $2
-
+Use agent "$1" and strictly follow the instructions provide in $2. IMPORTANT: Highly rely on mcp servers provided.

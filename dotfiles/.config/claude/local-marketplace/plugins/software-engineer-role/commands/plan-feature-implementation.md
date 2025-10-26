@@ -1,7 +1,6 @@
 ---
 description: Generate a detailed implementation plan for a feature (no code execution)
 argument-hint: <feature-requirements-file> <output-plan-file>
-model: sonnet
 ---
 
 # Feature Implementation Planning Mode
