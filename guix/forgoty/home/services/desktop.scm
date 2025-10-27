@@ -1,5 +1,6 @@
 (define-module (forgoty home services desktop)
   #:use-module (guix gexp)
+  #:use-module (guix records)
   #:use-module (gnu home)
   #:use-module (gnu home services)
   #:use-module (gnu home services desktop)
@@ -52,9 +53,12 @@
   #:use-module (forgoty packages python-xyz)
   #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (ice-9 match)
-  #:export (home-desktop-service-type))
+  #:export (home-default-packages
+            home-default-environment-variables
+            home-desktop-service-type
+            home-desktop-configuration))
 
-(define (home-desktop-configuration config)
+(define home-default-packages
   (list
    ;; Xorg and Desktop environment
    util-linux
@@ -143,7 +147,7 @@
    qemu
    virt-manager))
 
-(define (home-desktop-environment-variables config)
+(define home-default-environment-variables
   '(("XINITRC" . "$XDG_CONFIG_HOME/x11/xinitrc")
     ("GTK2_RC_FILES" . "$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0")
     ("EDITOR" . "nvim")
@@ -185,18 +189,36 @@
 		 #:log-file (string-append %user-log-dir "/xcompgmr.log"))))
       (stop #~(make-kill-destructor)))))
 
-(define home-desktop-service-type
+(define-record-type* <home-desktop-configuration>
+  home-desktop-configuration make-home-desktop-configuration
+  home-desktop-configuration?
+  (profile-packages home-desktop-configuration-packages
+            (default home-default-packages))
+  (environment-variables home-desktop-configuration-environment-variables
+                         (default home-default-environment-variables)))
+
+(define (home-profile-packages config)
+  (match-record config <home-desktop-configuration>
+                ((profile-packages pkgs))
+                pkgs))
+
+(define (home-profile-environment-variables config)
+  (match-record config <home-desktop-configuration>
+                ((environment-variables envs))
+                envs))
+
+(define-public home-desktop-service-type
   (service-type (name 'home-desktop)
                 (description "Desktop environment configuration")
                 (extensions (list (service-extension home-profile-service-type
-                                                     home-desktop-configuration)
+                                                     home-profile-packages)
                                   (service-extension home-shell-profile-service-type
                                                      (const (list (plain-file
                                                                    "startx"
                                                                    "[ $(tty) = /dev/tty1 ] && exec startx"))))
                                   (service-extension
-                                   home-environment-variables-service-type
-                                   home-desktop-environment-variables)
+                                    home-environment-variables-service-type
+                                    home-profile-environment-variables)
                                   (service-extension home-shepherd-service-type
                                         home-xcompmgr-shepherd-service)))
-                (default-value #f)))
+                (default-value (home-desktop-configuration))))
