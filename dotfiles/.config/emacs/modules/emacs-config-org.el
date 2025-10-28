@@ -183,7 +183,7 @@
                    (org-agenda-files (list projects-file))
                    (org-agenda-sorting-strategy '(priority-down timestamp-down))
                    (org-agenda-skip-function
-                    '(org-agenda-skip-entry-if '("DONE")))
+                    '(org-agenda-skip-entry-if 'todo 'done))
                    (org-agenda-overriding-header "Deadlines")))
           (tags "inbox"
                      ((org-agenda-files (list inbox-file))
