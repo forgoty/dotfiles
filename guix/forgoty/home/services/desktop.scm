@@ -158,6 +158,7 @@
     ("SUSPEND" . "sudo loginctl suspend")
     ("BROWSER" . "qutebrowser")
     ("WGETRC" . "$XDG_CONFIG_HOME/wget/wgetrc")
+    ("DOCKER" . "podman")
     ("INPUTRC" . "$XDG_CONFIG_HOME/shell/inputrc")
     ("ZDOTDIR" . "$XDG_CONFIG_HOME/zsh")
     ("HISTFILE" . "$XDG_DATA_HOME/history")

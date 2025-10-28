@@ -2,4 +2,4 @@
 
 # Shortcut to attach docker container to tty
 
-docker attach $(docker ps -a | grep "$1" | awk '{print $1}')
+$DOCKER attach $($DOCKER ps -a | grep "$1" | awk '{print $1}')

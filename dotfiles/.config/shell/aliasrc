@@ -70,6 +70,6 @@ alias \
 	xo="xdg-open" \
 	history="history 1" \
 	xclip="xclip -selection clipboard" \
-	docker="podman" \
-	dcs="podman compose" \
+	docker="$DOCKER" \
+	dcs="$DOCKER compose" \
 	guixgc="guix gc -d 2m -F 10G" \
