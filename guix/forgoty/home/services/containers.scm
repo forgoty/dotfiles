@@ -1,16 +1,20 @@
 (define-module (forgoty home services containers)
+  #:use-module (guix records)
   #:use-module (gnu packages containers)
   #:use-module (gnu services)
   #:use-module (guix gexp)
   #:use-module (guix records)
   #:use-module (ice-9 match)
+  #:use-module (ice-9 format)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services)
-  #:export (podman-service-type
+  #:export (podman-default-xdg-configuration-files
+            podman-service-type
+            podman-configuration
             podman-compose-service-type
             podman-compose-configuration))
 
-(define (podman-xdg-configuration-files config)
+(define (podman-default-xdg-configuration-files storage-driver)
   `(("containers/registries.conf"
      ,(plain-file
        "registries.conf"
@@ -21,21 +25,36 @@
     ("containers/storage.conf"
      ,(plain-file
        "storage.conf"
-       "[storage]\ndriver = \"btrfs\""))
+       (format #f "[storage]\ndriver = \"~a\"" storage-driver)))
     ("containers/policy.json"
      ,(plain-file
        "policy.json"
        "{\"default\": [{\"type\": \"insecureAcceptAnything\"}]}"))))
+
+(define-record-type* <podman-configuration>
+  podman-configuration make-podman-configuration
+  podman-configuration?
+  (podman podman-configuration-podman
+          (default podman))
+  (podman-compose podman-configuration-podman-compose
+                  (default podman-compose))
+  (xdg-configuration-files podman-configuration-xdg-configuration-files
+                           (default (podman-default-xdg-configuration-files "btrfs"))))
 
 (define podman-service-type
   (service-type (name 'podman-service)
                 (description "Installs Podman with some tweaks")
                 (extensions (list (service-extension home-profile-service-type
                                                      (lambda (c)
-                                                       (list podman podman-compose)))
+                                                       (match-record c <podman-configuration>
+                                                         (podman podman-compose xdg-configuration-files)
+                                                         (list podman podman-compose))))
                                   (service-extension home-xdg-configuration-files-service-type
-                                                     podman-xdg-configuration-files)))
-                (default-value #f)))
+                                                     (lambda (c)
+                                                       (match-record c <podman-configuration>
+                                                         (podman podman-compose xdg-configuration-files)
+                                                         xdg-configuration-files)))))
+                (default-value (podman-configuration))))
 
 (define-record-type* <podman-compose-configuration>
   podman-compose-configuration make-podman-compose-configuration
