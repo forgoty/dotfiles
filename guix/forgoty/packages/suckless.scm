@@ -84,7 +84,7 @@ Vimbndings and Xresource compatibility.")
              (url "https://github.com/forgoty/dwm.git")
              (commit "master")))
        (sha256
-        (base32 "1bv3qh6mmfcfi152q6bkcayn07nmql8rws6ig5m4knc4x0fdhfyq"))))))
+        (base32 "12hywav2gqz410jn7ja5yx315dx1gfq95xnaqd1g3licip05l625"))))))
 
 (define-public forgoty-dwmblocks
   (let ((revision "1")
