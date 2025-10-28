@@ -41,9 +41,9 @@ alias \
 # forgoty aliases
 
 alias \
-	sdn="sudo loginctl poweroff" \
-	shutdown="sudo loginctl poweroff" \
-	reboot="sudo loginctl reboot" \
+	sdn="$SHUTDOWN" \
+	shutdown="$SHUTDOWN" \
+	reboot="$REBOOT" \
 	mkcd='_(){ mkdir -p $1; cd $1; }; _' \
 	gc="git checkout" \
 	gcm="git commit" \

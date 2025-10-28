@@ -10,11 +10,11 @@ wmpid(){ # This function is needed if there are multiple instances of the window
 }
 
 case "$(printf "🔒 lock\n🚪 leave $WM\n♻️ renew $WM\n🔃 reboot\n🖥️shutdown\n💤 sleep\n" | dmenu -i -p 'Action: ')" in
-	'🔒 lock') sudo slock ;;
+	'🔒 lock') $XLOCK ;;
 	"🚪 leave $WM") kill -TERM "$(wmpid)" ;;
 	"♻️ renew $WM") kill -HUP "$(wmpid)" ;;
-	'💤 sleep') sudo loginctl suspend && sudo slock ;;
-	'🔃 reboot') sudo loginctl reboot ;;
-	'🖥️shutdown') sudo loginctl poweroff ;;
+	'💤 sleep') $SUSPEND && $XLOCK ;;
+	'🔃 reboot') $REBOOT ;;
+	'🖥️shutdown') $SHUTDOWN ;;
 	*) exit 1 ;;
 esac
