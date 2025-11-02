@@ -1,107 +1,103 @@
 (define-module (forgoty home arch)
+  #:use-module (srfi srfi-1)
+  #:use-module (gnu packages base)
+  #:use-module (gnu packages aspell)
+  #:use-module (gnu packages emacs-xyz)
+  #:use-module (gnu packages virtualization)
+  #:use-module (gnu packages suckless)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu packages xdisorg)
+  #:use-module (gnu services)
   #:use-module (gnu home)
+  #:use-module (gnu services xorg)
   #:use-module (gnu home services)
   #:use-module (gnu home services desktop)
+  #:use-module (gnu home services sound)
+  #:use-module (gnu home services ssh)
+  #:use-module (gnu home services mcron)
   #:use-module (gnu home services shells)
-  #:use-module (gnu home services shepherd)
-  #:use-module (gnu packages algebra)
-  #:use-module (gnu packages shellutils)
-  #:use-module (gnu packages file)
-  #:use-module (gnu packages wget)
-  #:use-module (gnu packages curl)
-  #:use-module (gnu packages mail)
-  #:use-module (gnu packages ncurses)
-  #:use-module (gnu packages rust-apps)
-  #:use-module (gnu packages compression)
-  #:use-module (gnu packages vim)
-  #:use-module (gnu packages disk)
-  #:use-module (gnu packages version-control)
-  #:use-module (gnu packages terminals)
-  #:use-module (gnu packages xdisorg)
-  #:use-module (gnu packages video)
-  #:use-module (gnu packages networking)
-  #:use-module (gnu packages moreutils)
-  #:use-module (gnu packages admin)
-  #:use-module (gnu packages bittorrent)
-  #:use-module (gnu packages dictionaries)
-  #:use-module (gnu packages rsync)
-  #:use-module (gnu packages ocr)
-  #:use-module (gnu packages spreadsheet)
-  #:use-module (gnu packages syndication)
-  #:use-module (gnu packages image-viewers)
-  #:use-module (gnu packages pdf)
-  #:use-module (gnu packages pulseaudio)
-  #:use-module (gnu packages web)
-  #:use-module (gnu packages man)
-  #:use-module (gnu packages polkit)
-  #:use-module (gnu packages package-management)
-  #:use-module (gnu packages linux)
-  #:use-module (forgoty packages suckless)
-  #:use-module (forgoty packages ocr)
-  #:use-module (forgoty packages python-xyz)
-  #:use-module ((srfi srfi-1) #:hide (zip))
-)
+  #:use-module (forgoty home common-desktop)
+  #:use-module (forgoty home services desktop)
+  #:use-module (forgoty home services desktop)
+  #:use-module (forgoty home services emacs)
+  #:use-module (forgoty home services dotfiles)
+  #:use-module (forgoty home services containers)
+  #:use-module (forgoty home services shellutils)
+  #:use-module (forgoty home services jobs)
+  #:use-module (forgoty systems base-system)
+  #:export (home-arch-packages
+            home-arch-environment-variables))
 
-(define (home-arch-desktop-packages config)
-  (list
-    ;; Shell and CLI tools
-    zsh-syntax-highlighting
-    zsh-completions
-    file
-    bat
-    neovim
-    lf
-    git
-    wget
-    bc
-    fzf
-    maim
-    ripgrep
-    git-delta
-    ffmpeg
-    zip
-    socat
-    moreutils
-    unzip
-    htop
-    translate-shell
-    atool
-    rsync
-    tesseract-ocr
-    (make-tesseract-ocr-language-package "pol" "0d1nj5f4hgbkc1c9mgda1imppslavxbr91w4k6kwlp469ryagd8h")
-    (make-tesseract-ocr-language-package "rus" "0h4cw4zl7r1dj6yxhfzcia15xad707pbbi779ssn2xj1pjmvgfgx")
-    sc-im
-    newsboat
-    ;;wireplumber
-    ;;redshift
-    ;;blueman
-    nsxiv
-    poppler
-    dosfstools
-    pulsemixer
-    yt-dlp
-    jq
-    curl
-    transmission
-    ueberzug-bin
-    man-db
-    mediainfo
-    polkit
-    ncurses
-    bmon
-    flatpak
-    strace))
+(define home-arch-packages
+  (append (remove (lambda (pkg)
+            (member pkg
+                    (list slock qemu virt-manager util-linux)))
+                  home-default-packages)
+          (list
+            aspell
+            aspell-dict-en
+            emacs-org-re-reveal
+            ;; required for "foreign" distributions for locale support
+            glibc-locales)))
 
-(define arch-desktop-service-type
-  (service-type (name 'arch-desktop)
-                (description "arch desktop service")
-                (extensions (list (service-extension home-profile-service-type
-                                                     home-arch-desktop-packages)))
-                (default-value #f)))
+(define home-arch-environment-variables
+  (append (remove (lambda (var)
+                    (member (car var)
+                            (list "XLOCK" "SHUTDOWN" "REBOOT" "SUSPEND" "DOCKER")))
+                    home-default-environment-variables)
+          (list '("SSL_CERT_FILE" . "/etc/ssl/certs/ca-certificates.crt")
+                '("XLOCK" . "slock")
+                '("SHUTDOWN" . "sudo /usr/bin/shutdown -h now")
+                '("REBOOT" . "sudo /usr/bin/reboot")
+                '("DOCKER" . "docker")
+                '("SUSPEND" . "sudo /usr/bin/systemctl suspend"))))
 
 (define home-arch-desktop-services
   (append (list
-           (service arch-desktop-service-type))))
+           ;; Pipewire
+           ;; (service home-pipewire-service-type) ;; pulseaudio uses arch's pipewire package
+
+           ;; Add startx to path
+           (service home-startx-command-service-type
+                    (xorg-configuration (keyboard-layout default-keyboard-layout)))
+
+           ;; Run user dbus session
+           (service home-dbus-service-type)
+
+           ;; Shell
+           (service home-zsh-service-type)
+           (service forgoty-direnv-service-type)
+
+           ;; Dotfiles
+           (service home-forgoty-dotfiles-service-type)
+
+           ;; Set up desktop environment
+           (service home-desktop-service-type
+                    (home-desktop-configuration
+                     (profile-packages home-arch-packages)
+                     (environment-variables home-arch-environment-variables)))
+
+           ;; Run unclutter
+           (service home-x11-service-type) ;; wait x11 to start
+           (service home-unclutter-service-type
+                    (home-unclutter-configuration
+                     (unclutter unclutter-xfixes)
+                     (idle-timeout 2)))
+
+           (service home-ssh-agent-service-type)
+
+           ;; Background cron jobs
+           (service home-mcron-service-type
+                    (home-mcron-configuration (jobs (list cerebrum-sync-job))))
+
+           ;; Emacs configuration
+           (service home-emacs-config-service-type)
+
+           ;; Podman
+           (service podman-service-type
+                    (podman-configuration
+                     (xdg-configuration-files (podman-default-xdg-configuration-files "overlay")))))
+          %base-home-services))
 
 (home-environment
   (services home-arch-desktop-services))
