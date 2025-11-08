@@ -143,7 +143,7 @@
                               (method url-fetch)
                               (uri (string-append "https://github.com/forgoty/sunshine-web-ui-builder/releases/download/v" version "/npm-offline-cache.tar.gz"))
                               (file-name "npm-offline-cache.tar.gz")
-                              (sha256 (base32 "1ddcg6k9m68vkprl4j46scxd4m7ars29c6n51gbzr150h2hl7z00"))))))
+                              (sha256 (base32 "18d6166vkp1xxq1r3mbvr5sjlqvsj5gsi8h8za6rw5c208j0p1pc"))))))
     (home-page "https://app.lizardbyte.dev/Sunshine/")
     (synopsis "Self-hosted game stream host for Moonlight")
     (description "Sunshine is a self-hosted game stream host for Moonlight. Offering low latency, cloud gaming server capabilities with support for AMD, Intel, and Nvidia GPUs for hardware encoding. Software encoding is also available.")
