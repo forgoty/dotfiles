@@ -18,14 +18,7 @@
   (package
     (name "forgoty-st")
     (version "0.8.5")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/forgoty/st.git")
-             (commit "master")))
-       (sha256
-        (base32 "0di01khw1xlg277znfchzxq9q8lqx59yl167kz9qf77wvcwh4i9r"))))
+    (source (local-file "./src/st" #:recursive? #t))
     (build-system gnu-build-system)
     (arguments
      (list
@@ -49,8 +42,8 @@
     (native-inputs
      (list ncurses
            pkg-config))
-    (home-page "https://github.com/LukeSmithxyz/st")
     (synopsis "Luke Smith's fork of st")
+    (home-page "https://github.com/LukeSmithxyz/st")
     (description
      "This package is Luke's fork of the suckless simple terminal (st) with
 Vimbndings and Xresource compatibility.")
@@ -77,52 +70,36 @@ Vimbndings and Xresource compatibility.")
     (name "forgoty-dwm")
     (inputs (modify-inputs (package-inputs dwm)
               (replace "libxft" libxft-bgra)))
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/forgoty/dwm.git")
-             (commit "master")))
-       (sha256
-        (base32 "12hywav2gqz410jn7ja5yx315dx1gfq95xnaqd1g3licip05l625"))))))
+    (source (local-file "./src/dwm" #:recursive? #t))))
 
 (define-public forgoty-dwmblocks
-  (let ((revision "1")
-        (commit "5bda88c3027fdbdf3d9075cd5e2c24bc8f5dfc6a"))
-    (package
-      (name "forgoty-dwmblocks")
-      (source
-       (origin
-         (method git-fetch)
-         (uri (git-reference
-               (url "https://github.com/forgoty/dwmblocks.git")
-               (commit "master")))
-         (sha256
-          (base32 "1zv5f3gmgz6vjglfpdsf5rly4b7v6m7a36clmdzn6ysb2if5pv5l"))))
-      (version (git-version "0" revision commit))
-      (build-system gnu-build-system)
-      (arguments
-       `(#:tests? #f ;no check target
-         #:make-flags (list (string-append "CC="
-                                           ,(cc-for-target))
-                            (string-append "PREFIX=" %output)
-                            (string-append "FREETYPEINC="
-                                           (assoc-ref %build-inputs "freetype")
-                                           "/include/freetype2"))
-         #:phases (modify-phases %standard-phases
-                    (delete 'configure) ;no configure script
-		    (add-after 'install 'install-scripts
-			       (lambda* (#:key outputs #:allow-other-keys)
-					(let* ((out (assoc-ref outputs "out"))
-					       (bin (string-append out "/bin")))
-					  (mkdir-p bin)
-					  (copy-recursively "scripts" bin)
-					  #t))))))
-      (inputs (list freetype libxft-bgra libx11 libxinerama))
-      (home-page "https://github.com/forgoty/dwmblocks.git")
-      (description "forgoty's dwmblocks")
-      (license license:x11)
-      (synopsis "forgoty's dwmblocks"))))
+  (package
+    (name "forgoty-dwmblocks")
+    (version "0.0.1")
+    (source (local-file "./src/dwmblocks" #:recursive? #t))
+    (build-system gnu-build-system)
+    (arguments
+      `(#:tests? #f ;no check target
+        #:make-flags (list (string-append "CC="
+                                          ,(cc-for-target))
+                          (string-append "PREFIX=" %output)
+                          (string-append "FREETYPEINC="
+                                          (assoc-ref %build-inputs "freetype")
+                                          "/include/freetype2"))
+        #:phases (modify-phases %standard-phases
+                  (delete 'configure) ;no configure script
+      (add-after 'install 'install-scripts
+            (lambda* (#:key outputs #:allow-other-keys)
+        (let* ((out (assoc-ref outputs "out"))
+                (bin (string-append out "/bin")))
+          (mkdir-p bin)
+          (copy-recursively "scripts" bin)
+          #t))))))
+    (inputs (list freetype libxft-bgra libx11 libxinerama))
+    (description "Modular status bar for dwm")
+    (home-page "https://github.com/torrinfail/dwmblocks")
+    (license license:x11)
+    (synopsis "forgoty's dwmblocks")))
 
 (define-public libxft-bgra
   (package

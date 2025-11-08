@@ -1,0 +1,10 @@
+#!/bin/sh
+# Using external pipe with st, open the pipe in $EDITOR or fallback to using less
+
+tmpfile=$(mktemp /tmp/st-output.XXXXXX)
+trap 'rm -f "$tmpfile"' EXIT HUP INT TERM
+
+sed -n "w $tmpfile"
+sed -i 's/\x0//g' "$tmpfile"
+
+st -e "${EDITOR:-less}" "$tmpfile"

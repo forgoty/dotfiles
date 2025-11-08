@@ -1,0 +1,27 @@
+#!/bin/sh
+
+clock=$(date '+%I')
+prev_month=$(date -d "last month" +"%m %Y")
+next_month=$(date -d "next month" +"%m %Y")
+
+case "$clock" in
+	"00") icon="🕛" ;;
+	"01") icon="🕐" ;;
+	"02") icon="🕑" ;;
+	"03") icon="🕒" ;;
+	"04") icon="🕓" ;;
+	"05") icon="🕔" ;;
+	"06") icon="🕕" ;;
+	"07") icon="🕖" ;;
+	"08") icon="🕗" ;;
+	"09") icon="🕘" ;;
+	"10") icon="🕙" ;;
+	"11") icon="🕚" ;;
+	"12") icon="🕛" ;;
+esac
+
+case $BLOCK_BUTTON in
+	1) notify-send "$(cal -m $prev_month)" && notify-send "Current month" "$(cal -m | sed "s/\<$(date +'%e'|tr -d ' ')\>/<b><span color='red'>&<\/span><\/b>/")" && notify-send "$(cal -m $next_month)" ;;
+esac
+
+date "+%Y %b %d (%a) $icon%I:%M%p"
