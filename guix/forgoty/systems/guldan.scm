@@ -40,7 +40,7 @@
   (package
     (inherit evdi)
     (name "evdi")
-    (version "1.14.10")
+    (version "1.14.11")
     (source
      (origin
        (method git-fetch)
@@ -49,14 +49,30 @@
              (commit (string-append "v" version))))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "1ysllh2qnkllvq7k1w2gpn6qqszra08s4ywsqcppzzbd1wgc07f4"))))
+        (base32 "0mg9gbzgxwgdcniy9kijsyj0asvmdxd63kh88810igzsxs3185jb"))))
     (arguments
      (list #:tests? #f
            #:linux linux
            #:phases #~(modify-phases %standard-phases
                         (add-after 'unpack 'chdir
                           (lambda _
-                            (chdir "module"))))))))
+                            (chdir "module")))
+                        (add-after 'unpack 'fix-os-release
+                          (lambda _
+                            (define (touch file)
+                              (call-with-output-file file
+                                (const #t)))
+                            (let* ((hard-path "/etc/os-release")
+                                    (fixed-path (string-append #$output hard-path)))
+                              ;; Make it relative
+                              ;; Update hardcoded path to something
+                              ;; within the build enviroment.
+                              (substitute* "module/Makefile"
+                                ((hard-path)
+                                  fixed-path))
+                              ;; Create directory for the dummy file.
+                              (mkdir-p (string-append #$output "/etc"))
+                              (touch fixed-path)))))))))
 
 (define system-packages
   (list bluez
