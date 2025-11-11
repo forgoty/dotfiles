@@ -20,7 +20,9 @@
     (".emacs.d/early-init.el" ,(local-file "../../../../dotfiles/.config/emacs/early-init.el"))
     (".emacs.d/emacs.png" ,(local-file "../../../../dotfiles/.config/emacs/emacs.png"))
     (".emacs.d/custom.el" ,(local-file "../../../../dotfiles/.config/emacs/custom.el"))
-    (".emacs.d/init.el" ,(local-file "../../../../dotfiles/.config/emacs/init.el")))))
+    (".emacs.d/init.el" ,(local-file "../../../../dotfiles/.config/emacs/init.el")))
+    ;; claude
+    `((".claude/commands/follow-instructions.md" ,(local-file "../../../../dotfiles/.config/claude/commands/follow-instructions.md")))))
 
 (define home-forgoty-dotfiles-service-type
   (service-type (name 'home-dotfiles)

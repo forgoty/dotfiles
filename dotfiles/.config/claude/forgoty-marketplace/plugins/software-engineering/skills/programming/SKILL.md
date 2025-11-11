@@ -11,7 +11,7 @@ Master programming principles to build high-quality, maintainable, testable and 
 
 This Skill provides comprehensive coding rules organized by category with severity levels. Before any coding task:
 
-1. Read [coding-rules.md](coding-rules.md) to understand all applicable rules
+1. Read [CODING-RULES.md](CODING-RULES.md) to understand all applicable rules
 1. STRICTLY follow this rules while producing or reviewing a source code
 1. RESPECT rules by severity: Critical → High → Medium → Low
 1. When conflicts arise: Higher severity wins, then defer to existing code patterns
@@ -28,7 +28,7 @@ This Skill provides comprehensive coding rules organized by category with severi
 
 ## Rule Categories Overview
 
-The [coding-rules.md](coding-rules.md) file contains detailed rules in these categories:
+The [CODING-RULES.md](CODING-RULES.md) file contains detailed rules in these categories:
 
 - Architecture & Structure [A]
 - Code Style & Patterns [S]

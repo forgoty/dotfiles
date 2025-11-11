@@ -11,7 +11,7 @@ Write idiomatic, maintainable, and testable Go code following the Go community's
 
 This Skill provides Go-specific coding rules that complement general programming principles. Before any Go coding task:
 
-1. Read [GO-RULES.md](GO-RULES.md) for all Go-specific rules
+1. Read [GOLANG-RULES.md](GOLANG-RULES.md) for all Go-specific rules
 1. STRICTLY follow this rules while producing or reviewing a source code
 2. RESPECT rules by severity: Critical → High → Medium → Low
 3. Follow idiomatic Go patterns (simplicity, clarity, composition)
@@ -28,4 +28,4 @@ This Skill provides Go-specific coding rules that complement general programming
 
 ## Rule Categories Overview
 
-The [GO-RULES.md](GO-RULES.md) file contains detailed Go-specific rules in these categories:
+The [GOLANG-RULES.md](GOLANG-RULES.md) file contains detailed Go-specific rules in these categories:

@@ -1,0 +1,16 @@
+{
+  "name": "forgoty-marketplace",
+  "owner": {
+    "name": "John Doe",
+    "email": "example@example.com"
+  },
+  "plugins": [
+    {
+      "name": "software-engineering",
+      "source": "./plugins/software-engineering",
+      "description": "Software engineering skills, commands, agents etc",
+      "version": "1.0.0",
+      "category": "software"
+    }
+  ]
+}
