@@ -1,5 +1,5 @@
 ---
-name: Programming
+name: programming
 description: Write, debug, review and explain source code following object-oriented best practices, DDD principles, and comprehensive testing standards. Use when writing new code, refactoring, debugging, code review, or explaining programming concepts.
 ---
 

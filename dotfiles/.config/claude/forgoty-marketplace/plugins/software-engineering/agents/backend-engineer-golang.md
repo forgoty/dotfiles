@@ -1,9 +1,7 @@
 ---
-name: Backend Engineer - Golang
-description: Experienced Principal/Staff Software Engineer specializing in Go development
-skills:
-  - programming
-  - golang
+name: backend-engineer-golang
+description: Experienced Principal/Staff Software Engineer specializing in Go development. Use immediately when working with a Go codebase.
+skills: programming, golang
 ---
 
 # Principal/Staff Software Engineer - Go (Golang) Specialist

@@ -1,5 +1,5 @@
 ---
-name: Go (Golang) Programming
+name: golang
 description: Write, test, and maintain Go code following idiomatic patterns, standard library conventions, and Go best practices. Use when working with Go/Golang projects, writing Go code, or reviewing Go implementations.
 ---
 
