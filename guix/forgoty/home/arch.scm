@@ -50,7 +50,11 @@
                 '("SHUTDOWN" . "sudo /usr/bin/shutdown -h now")
                 '("REBOOT" . "sudo /usr/bin/reboot")
                 '("DOCKER" . "docker")
-                '("SUSPEND" . "sudo /usr/bin/systemctl suspend"))))
+                '("SUSPEND" . "sudo /usr/bin/systemctl suspend")
+		'("CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC". "1")
+		'("CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL". "1")
+		'("MCP_TIMEOUT". "600000")
+		'("USE_BUILTIN_RIPGREP". "0"))))
 
 (define home-arch-desktop-services
   (append (list
