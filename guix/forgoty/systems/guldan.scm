@@ -77,7 +77,7 @@
 (define system-packages
   (list bluez
         bluez-alsa
-        evdi-linux
+        ;; evdi-linux
         fuse-exfat
         ntfs-3g
         xf86-video-dummy
@@ -94,11 +94,11 @@
         (service iptables-service-type)
         (service nvidia-service-type)
         (service guix-home-service-type `(("nikita" ,guldan-home)))
-        (service kernel-module-loader-service-type '("evdi"))
-        (simple-service 'evdi-config etc-service-type
-                        (list `("modprobe.d/evdi.conf"
-                                ,(plain-file "evdi.conf"
-                                             "options evdi initial_device_count=1"))))
+        ;; (service kernel-module-loader-service-type '("evdi"))
+        ;; (simple-service 'evdi-config etc-service-type
+        ;;                 (list `("modprobe.d/evdi.conf"
+        ;;                         ,(plain-file "evdi.conf"
+        ;;                                      "options evdi initial_device_count=1"))))
         (service rootless-podman-service-type
           (rootless-podman-configuration
             (podman #f)
@@ -115,7 +115,7 @@
     (kernel linux)
     (initrd microcode-initrd)
     (firmware (list linux-firmware))
-    (kernel-loadable-modules (list evdi-linux))
+    ;; (kernel-loadable-modules (list evdi-linux))
     (users (append
             (list (user-account
               (name "nikita")
