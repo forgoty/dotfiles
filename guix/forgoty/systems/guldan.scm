@@ -10,7 +10,7 @@
   #:use-module (guix git-download)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd)
-  ;; #:use-module (nongnu services nvidia)
+  #:use-module (nongnu services nvidia)
   #:use-module (forgoty services sunshine)
   #:use-module (forgoty home guldan)
   #:use-module (forgoty systems base-system))
@@ -92,7 +92,7 @@
                  (bluetooth-configuration (auto-enable? #t)))
         (service sunshine-service-type)
         (service iptables-service-type)
-        ;; (service nvidia-service-type)
+        (service nvidia-service-type)
         (service guix-home-service-type `(("nikita" ,guldan-home)))
         (service kernel-module-loader-service-type '("evdi"))
         (simple-service 'evdi-config etc-service-type
