@@ -175,33 +175,34 @@
     ("ZSH_DIR" . "$HOME/.guix-home/profile/share/zsh")
     ("BASH_COMPLETIONS_DIR" . "$HOME/.guix-home/profile/etc/bash_completion.d")))
 
-(define (home-xcompmgr-shepherd-service config)
-  (list
-    (shepherd-service
-      (provision '(xcompmgr))
-      (modules '((srfi srfi-1)
-		 (srfi srfi-26)
-		 (shepherd support)))
-      ;; Depend on 'x11-display', which sets 'DISPLAY' if an X11 server is
-      ;; available, and fails to start otherwise.
-      (requirement '(x11-display))
-      (documentation "Run xcompmgr in background")
-      (start #~(lambda _
-               (fork+exec-command
-		 (list #$(file-append xcompmgr "/bin/xcompmgr"))
-		 ;; Inherit the 'DISPLAY' variable set by 'x11-display'.
-		 #:environment-variables
-		 (cons (string-append "DISPLAY=" (getenv "DISPLAY"))
-		       (remove (cut string-prefix? "DISPLAY=" <>)
-			       (default-environment-variables)))
-		 #:log-file (string-append %user-log-dir "/xcompgmr.log"))))
-      (stop #~(make-kill-destructor)))))
+(define home-xcompmgr-shepherd-service
+  (shepherd-service
+    (provision '(xcompmgr))
+    (modules '((srfi srfi-1)
+    (srfi srfi-26)
+    (shepherd support)))
+    ;; Depend on 'x11-display', which sets 'DISPLAY' if an X11 server is
+    ;; available, and fails to start otherwise.
+    (requirement '(x11-display))
+    (documentation "Run xcompmgr in background")
+    (start #~(lambda _
+              (fork+exec-command
+    (list #$(file-append xcompmgr "/bin/xcompmgr"))
+    ;; Inherit the 'DISPLAY' variable set by 'x11-display'.
+    #:environment-variables
+    (cons (string-append "DISPLAY=" (getenv "DISPLAY"))
+          (remove (cut string-prefix? "DISPLAY=" <>)
+            (default-environment-variables)))
+    #:log-file (string-append %user-log-dir "/xcompgmr.log"))))
+    (stop #~(make-kill-destructor))))
 
 (define-record-type* <home-desktop-configuration>
   home-desktop-configuration make-home-desktop-configuration
   home-desktop-configuration?
   (profile-packages home-desktop-configuration-packages
             (default home-default-packages))
+  (shepherd-services home-desktop-configuration-shepherd-services
+                     (default (list home-xcompmgr-shepherd-service)))
   (environment-variables home-desktop-configuration-environment-variables
                          (default home-default-environment-variables)))
 
@@ -215,6 +216,11 @@
                 ((environment-variables envs))
                 envs))
 
+(define (home-shepherd-services config)
+  (match-record config <home-desktop-configuration>
+                ((shepherd-services svcs))
+                svcs))
+
 (define-public home-desktop-service-type
   (service-type (name 'home-desktop)
                 (description "Desktop environment configuration")
@@ -224,9 +230,8 @@
                                                      (const (list (plain-file
                                                                    "startx"
                                                                    "[ $(tty) = /dev/tty1 ] && exec startx"))))
-                                  (service-extension
-                                    home-environment-variables-service-type
-                                    home-profile-environment-variables)
+                                  (service-extension home-environment-variables-service-type
+                                                     home-profile-environment-variables)
                                   (service-extension home-shepherd-service-type
-                                        home-xcompmgr-shepherd-service)))
+                                        home-shepherd-services)))
                 (default-value (home-desktop-configuration))))
