@@ -2,6 +2,7 @@
   #:use-module (gnu)
   #:use-module (gnu system)
   #:use-module (gnu system accounts)
+  #:use-module (gnu system image)
   #:use-module (gnu services base)
   #:use-module (gnu services guix)
   #:use-module (gnu packages linux)
@@ -156,11 +157,11 @@
 
     (file-systems (append (list
                            (file-system
-                             (device (file-system-label "GNU-ESP"))
+                             (device (file-system-label "boot"))
                              (mount-point "/boot")
                              (type "vfat"))
                            (file-system
-                             (device (file-system-label "Guix_image"))
+                             (device (file-system-label root-label))
                              (mount-point "/")
                              (type "btrfs")
                              (options "compress=zstd:1,noatime")))
@@ -168,7 +169,7 @@
 
     (bootloader (bootloader-configuration
       (bootloader grub-efi-bootloader)
-      (targets '("/boot/efi"))
+      (targets '("/boot"))
       (timeout 0)))))
 
 guldan
