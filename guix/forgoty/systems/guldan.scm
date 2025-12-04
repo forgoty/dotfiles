@@ -108,7 +108,7 @@
             (subuids
               (list (subid-range (name "nikita"))))))))
 
-(define guldan
+(define-public guldan
   (operating-system
     (locale "en_US.utf8")
     (timezone "Europe/Warsaw")
