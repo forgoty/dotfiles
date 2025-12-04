@@ -156,10 +156,16 @@
 
     (file-systems (append (list
                            (file-system
-                             (device "/dev/vda1")
+                             (device (file-system-label "GNU-ESP"))
+                             (mount-point "/boot")
+                             (type "vfat"))
+                           (file-system
+                             (device (file-system-label "Guix_image"))
                              (mount-point "/")
-                             (type "btrfs")))
+                             (type "btrfs")
+                             (options "compress=zstd:1,noatime")))
                         %base-file-systems))
+
     (bootloader (bootloader-configuration
       (bootloader grub-efi-bootloader)
       (targets '("/boot/efi"))

@@ -67,7 +67,7 @@
                 ".xprofile"
                 ".emacs.d"))
           (directories '("../../../dotfiles"))))
-    `(( ".xinitrc" ,(plain-file "xinitrc" "exec xterm")))))
+    `(( ".xinitrc" ,(plain-file "xinitrc" "exec dwm")))))
 
 (define home-guldan-dotfiles-service-type
   (service-type (name 'home-dotfiles)
@@ -103,7 +103,6 @@
               font-google-noto
               font-google-noto-emoji
               dwm
-              xterm
 
               ;; Shell
               zsh-syntax-highlighting
