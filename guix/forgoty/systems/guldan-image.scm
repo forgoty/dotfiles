@@ -24,22 +24,17 @@
 
 (define guldan-image
   (image
-  (format 'disk-image)
-  (partition-table-type 'gpt)
-  (operating-system os-with-resize)
-  (partitions
-    (list
-    (partition
-      (size (* 1024 (expt 2 20)))  ; 1 GiB
-      (offset (* 1 (expt 2 20)))   ; 1 MiB offset
-      (label "boot")
-      (file-system "vfat")
-      (flags '(esp)))
-
-    (partition
-      (size 'guess)
-      (label root-label)
-      (file-system "btrfs")
-      (file-system-options '("-O" "compress=zstd:1")))))))
+    (format 'disk-image)
+    (partition-table-type 'gpt)
+    (operating-system os-with-resize)
+    (partitions
+      (list
+        esp-partition/grub
+        (partition
+          (size 'guess)
+          (label root-label)
+          (file-system "btrfs")
+          (flags '(boot))
+          (initializer (gexp initialize-root-partition)))))))
 
 guldan-image

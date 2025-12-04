@@ -157,19 +157,18 @@
 
     (file-systems (append (list
                            (file-system
-                             (device (file-system-label "boot"))
-                             (mount-point "/boot")
+                             (device (file-system-label "GNU-ESP"))
+                             (mount-point "/boot/efi")
                              (type "vfat"))
                            (file-system
                              (device (file-system-label root-label))
                              (mount-point "/")
-                             (type "btrfs")
-                             (options "compress=zstd:1,noatime")))
+                             (type "btrfs")))
                         %base-file-systems))
 
     (bootloader (bootloader-configuration
       (bootloader grub-efi-bootloader)
-      (targets '("/boot"))
+      (targets '("/boot/efi"))
       (timeout 0)))))
 
 guldan
