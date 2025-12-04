@@ -35,6 +35,7 @@
   #:use-module (gnu home services shells)
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
+  #:use-module (forgoty home services desktop)
   #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout)))
 
 (define-public jellyfin-compose-file
@@ -73,62 +74,59 @@
   (service-type (name 'home-dotfiles)
                 (description "Dotfiles configuration")
                 (extensions (list (service-extension home-files-service-type
-                                                     home-guldan-dotfiles-configuration)
-                                  (service-extension home-shell-profile-service-type
-                                                     (const (list (plain-file
-                                                                   "startx"
-                                                                   "[ $(tty) = /dev/tty1 ] && exec startx"))))))
+                                                     home-guldan-dotfiles-configuration)))
                 (default-value #f)))
+
+(define guldan-packages
+  (list
+    ;; Xorg
+    util-linux
+    xdg-utils
+    xdg-desktop-portal-gtk
+    setxkbmap
+    xset
+    xmodmap
+    xrandr
+    xrdb
+    xauth
+    xprop
+    xwininfo
+    xf86-input-joystick
+    lm-sensors
+    xdotool
+    xclip
+    xcompmgr
+    font-google-noto
+    font-google-noto-emoji
+    dwm
+
+    ;; Shell
+    zsh-syntax-highlighting
+    zsh-completions
+    file
+    bat
+    lf
+    git
+    wget
+    fzf
+    maim
+    ripgrep
+    zip
+    moreutils
+    unzip
+    htop
+    rsync
+    pulsemixer
+    dosfstools
+    curl
+    mediainfo
+
+    ;; Apps
+    flatpak
+    mpv))
 
 (define-public guldan-home
   (home-environment
-   (packages (list
-              ;; Xorg
-              util-linux
-              xdg-utils
-              xdg-desktop-portal-gtk
-              setxkbmap
-              xset
-              xmodmap
-              xrandr
-              xrdb
-              xauth
-              xprop
-              xwininfo
-              xf86-input-joystick
-              lm-sensors
-              xdotool
-              xclip
-              xcompmgr
-              font-google-noto
-              font-google-noto-emoji
-              dwm
-
-              ;; Shell
-              zsh-syntax-highlighting
-              zsh-completions
-              file
-              bat
-              lf
-              git
-              wget
-              fzf
-              maim
-              ripgrep
-              zip
-              moreutils
-              unzip
-              htop
-              rsync
-              pulsemixer
-              dosfstools
-              curl
-              mediainfo
-
-              ;; Apps
-              flatpak
-              mpv))
-
     (services (append %base-home-services
                       (list
                         ;; Pipewire
@@ -139,6 +137,12 @@
 
                         ;; Dotfiles
                         (service home-guldan-dotfiles-service-type)
+
+                        ;; Set up desktop environment
+                        (service home-desktop-service-type
+                                  (home-desktop-configuration
+                                  (profile-packages guldan-packages)
+                                  (shepherd-services '())))
 
                         (service home-dbus-service-type)
 
