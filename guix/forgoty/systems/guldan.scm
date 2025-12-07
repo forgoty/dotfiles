@@ -133,7 +133,8 @@
                                       "video"
                                       "lp"
                                       "cgroup"
-                                      "kvm"))))
+                                      "kvm"
+                                      "libvirt"))))
             %base-user-accounts))
     (packages (append system-packages %base-packages))
     (services
