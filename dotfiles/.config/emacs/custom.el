@@ -34,7 +34,7 @@
  '(evil-want-C-i-jump nil)
  '(evil-want-integration t)
  '(evil-want-keybinding nil)
- '(fancy-splash-image "/home/nikita/.emacs.d/emacs.png")
+ '(fancy-splash-image (concat (getenv "HOME") "/.emacs.d/emacs.png"))
  '(fast-but-imprecise-scrolling t)
  '(global-auto-revert-non-file-buffers t)
  '(ibuffer-movement-cycle nil t)

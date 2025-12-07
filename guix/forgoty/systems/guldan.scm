@@ -94,7 +94,7 @@
         (service sunshine-service-type)
         (service iptables-service-type)
         (service nvidia-service-type)
-        (service guix-home-service-type `(("nikita" ,guldan-home)))
+        (service guix-home-service-type `((%default-username ,guldan-home)))
         ;; (service kernel-module-loader-service-type '("evdi"))
         ;; (simple-service 'evdi-config etc-service-type
         ;;                 (list `("modprobe.d/evdi.conf"
@@ -104,9 +104,9 @@
           (rootless-podman-configuration
             (podman #f)
             (subgids
-              (list (subid-range (name "nikita"))))
+              (list (subid-range (name %default-username))))
             (subuids
-              (list (subid-range (name "nikita"))))))))
+              (list (subid-range (name %default-username))))))))
 
 (define-public guldan
   (operating-system
@@ -119,11 +119,11 @@
     ;; (kernel-loadable-modules (list evdi-linux))
     (users (append
             (list (user-account
-              (name "nikita")
-              (comment "Nikita")
+              (name %default-username)
+              (comment (string-capitalize %default-username))
               (password (crypt "password" "$6$abc"))
               (group "users")
-              (home-directory "/home/nikita")
+              (home-directory (string-append "/home/" %default-username))
               (shell (file-append zsh "/bin/zsh"))
               (supplementary-groups '("wheel"
                                       "netdev"
@@ -143,7 +143,7 @@
                 (mingetty-service-type config =>
                   (mingetty-configuration
                     (inherit config)
-                    (auto-login "nikita")))
+                    (auto-login %default-username)))
                 (guix-service-type config =>
                                   (guix-configuration (inherit config)
                                                       (substitute-urls (append

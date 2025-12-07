@@ -6,9 +6,13 @@
   #:use-module (guix store)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd)
+  #:use-module (forgoty services sunshine)
   #:export (default-user-account default-keyboard-layout
                                  default-system-packages
-                                 default-system-services base-operating-system))
+                                 default-system-services base-operating-system
+                                 %default-username))
+
+(define %default-username "nikita")
 
 (use-service-modules desktop
                      linux
@@ -16,8 +20,8 @@
                      audio
                      ssh
                      virtualization
-		     containers
-		     networking)
+                     containers
+                     networking)
 (use-package-modules admin
                      fonts
                      gnome
@@ -32,10 +36,10 @@
 
 (define default-user-account
   (user-account
-    (name "nikita")
-    (comment "Nikita")
+    (name %default-username)
+    (comment (string-capitalize %default-username))
     (group "users")
-    (home-directory "/home/nikita")
+    (home-directory (string-append "/home/" %default-username))
     (shell (file-append zsh "/bin/zsh"))
     (supplementary-groups '("wheel"
                             "netdev"
@@ -44,7 +48,7 @@
                             "tty"
                             "video"
                             "lp"
-			    "cgroup"
+                            "cgroup"
                             "kvm"
                             "libvirt"))))
 
@@ -83,14 +87,15 @@ nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
         (service virtlog-service-type)
         (service libvirt-service-type
                  (libvirt-configuration (unix-sock-group "libvirt")))
+	(service sunshine-service-type)
 	(service iptables-service-type)
 	(service rootless-podman-service-type
 		 (rootless-podman-configuration
 		   (podman #f)
 		   (subgids
-		     (list (subid-range (name "nikita"))))
+		     (list (subid-range (name %default-username))))
 		   (subuids
-		     (list (subid-range (name "nikita"))))))))
+		     (list (subid-range (name %default-username))))))))
 
 ;; This is a base operating system that must be inherited in actual host config
 (define base-operating-system
