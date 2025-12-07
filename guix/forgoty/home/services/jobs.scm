@@ -11,4 +11,4 @@
            (system* #$(file-append git-sync "/bin/git-sync") "check")
            (system* #$(file-append git-sync "/bin/git-sync") "sync"))
          "git-sync-cerebrum"
-         #:user %default-username))
+         #:user #$%default-username))

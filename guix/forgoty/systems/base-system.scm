@@ -54,16 +54,16 @@
 
 (define sudoers-file
   (plain-file "sudoers"
-   "# aliases
-Cmnd_Alias LOGINCTL = /run/current-system/profile/bin/loginctl
-Cmnd_Alias SLOCK = /home/nikita/.guix-home/profile/bin/slock
-Cmnd_Alias MOUNT = /run/privileged/bin/mount,/run/privileged/bin/umount
-Cmnd_Alias BRIGHTNESS = /run/current-system/profile/bin/brightnessctl
+    (string-append
+     (plain-file-content %sudoers-specification)
+     "\n"
+     "Cmnd_Alias LOGINCTL = /run/current-system/profile/bin/loginctl\n"
+     "Cmnd_Alias SLOCK = /home/nikita/.guix-home/profile/bin/slock\n"
+     "Cmnd_Alias MOUNT = /run/privileged/bin/mount,/run/privileged/bin/umount\n"
+     "Cmnd_Alias BRIGHTNESS = /run/current-system/profile/bin/brightnessctl\n"
+     "\n"
+     (format #f "~a ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS\n" %default-username))))
 
-root ALL=(ALL) ALL
-%wheel ALL=(ALL) ALL
-nikita ALL=(ALL) NOPASSWD: LOGINCTL,SLOCK,MOUNT,BRIGHTNESS
-"))
 
 (define default-keyboard-layout
   (keyboard-layout "pl,ru"
