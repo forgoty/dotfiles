@@ -36,7 +36,7 @@
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services desktop)
-  #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout %default-username)))
+  #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout)))
 
 (define-public jellyfin-compose-file
   (let* ((docker-compose-jellyfin-service
@@ -45,7 +45,7 @@
         ("image" . "jellyfin/jellyfin:10")
         ("container_name" . "jellyfin")
         ("environment" . #("TZ=Europe/Warsaw"))
-        ("volumes" . #(string-append ("/home/" %default-username "/Jellyfin Server Media:/media"))))))
+        ("volumes" . #("/home/nikita/Jellyfin Server Media:/media")))))
 
   (computed-file "jellyfin-docker-compose.json"
     (with-extensions (list guile-json-4)
@@ -110,6 +110,7 @@
     wget
     fzf
     maim
+    lf
     ripgrep
     zip
     moreutils
@@ -163,5 +164,4 @@
                                 (compose-file jellyfin-compose-file)
                                 (project-name "jellyfin")
                                 (requirement '())
-                                (respawn? #t))
-                              ))))))
+                                (respawn? #t))))))))

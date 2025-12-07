@@ -14,7 +14,7 @@
   #:use-module (nongnu services nvidia)
   #:use-module (forgoty services sunshine)
   #:use-module (forgoty home guldan)
-  #:use-module (forgoty systems base-system))
+  #:use-module ((forgoty systems base-system) #:select (%default-username)))
 
 (use-service-modules desktop
                      linux
@@ -75,6 +75,12 @@
                               (mkdir-p (string-append #$output "/etc"))
                               (touch fixed-path)))))))))
 
+(define sudoers-file
+  (plain-file "sudoers"
+              (string-append
+               (plain-file-content %sudoers-specification)
+               (format #f "~a ALL = NOPASSWD: ALL~%" %default-username))))
+
 (define system-packages
   (list bluez
         bluez-alsa
@@ -89,12 +95,15 @@
 (define system-services
   (list (service openssh-service-type
                  (openssh-configuration (port-number 2222)))
+        ;;(service dhcpcd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration (auto-enable? #t)))
+        (service libvirt-service-type
+                 (libvirt-configuration (unix-sock-group "libvirt")))
         (service sunshine-service-type)
         (service iptables-service-type)
         (service nvidia-service-type)
-        (service guix-home-service-type `((%default-username ,guldan-home)))
+        (service guix-home-service-type `((,%default-username ,guldan-home)))
         ;; (service kernel-module-loader-service-type '("evdi"))
         ;; (simple-service 'evdi-config etc-service-type
         ;;                 (list `("modprobe.d/evdi.conf"
@@ -116,6 +125,7 @@
     (kernel linux)
     (initrd microcode-initrd)
     (firmware (list linux-firmware))
+    (sudoers-file sudoers-file)
     ;; (kernel-loadable-modules (list evdi-linux))
     (users (append
             (list (user-account
@@ -147,6 +157,7 @@
                     (auto-login %default-username)))
                 (guix-service-type config =>
                                   (guix-configuration (inherit config)
+                                                      (authorize-key? #f)
                                                       (substitute-urls (append
                                                                         (list
                                                                           "https://nonguix-proxy.ditigal.xyz")

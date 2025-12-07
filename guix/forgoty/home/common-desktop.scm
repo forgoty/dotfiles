@@ -59,7 +59,11 @@
                                                              (openssh-host (name
                                                                             "codeberg.org")
                                                                            (identity-file
-                                                                            "~/.ssh/codeberg_forgoty"))))
+                                                                            "~/.ssh/codeberg_forgoty"))
+                                                             (openssh-host (name
+                                                                            "192.168.100.100")
+                                                                           (identity-file
+                                                                            "~/.ssh/guldan"))))
                                                 (add-keys-to-agent "yes")))
            (service home-ssh-agent-service-type)
 
