@@ -36,6 +36,7 @@
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services desktop)
+  #:use-module (forgoty packages shellutils)
   #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout)))
 
 (define-public jellyfin-compose-file
@@ -121,6 +122,7 @@
     dosfstools
     curl
     mediainfo
+    forgoty-shellutils
 
     ;; Apps
     flatpak

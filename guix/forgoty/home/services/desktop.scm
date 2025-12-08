@@ -51,6 +51,7 @@
   #:use-module (forgoty packages suckless)
   #:use-module (forgoty packages ocr)
   #:use-module (forgoty packages python-xyz)
+  #:use-module (forgoty packages shellutils)
   #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (ice-9 match)
   #:export (home-default-packages
@@ -135,6 +136,7 @@
    bmon
    flatpak
    strace
+   forgoty-shellutils
 
    ;; Apps
    qutebrowser
