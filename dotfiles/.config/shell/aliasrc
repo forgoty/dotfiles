@@ -36,7 +36,6 @@ alias \
 	z="zathura" \
 	magit="nvim -c MagitOnly" \
 	lf="lfub" \
-	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
 
 # forgoty aliases
 
