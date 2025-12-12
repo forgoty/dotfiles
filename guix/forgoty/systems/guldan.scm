@@ -75,6 +75,18 @@
                               (mkdir-p (string-append #$output "/etc"))
                               (touch fixed-path)))))))))
 
+(define root-fs
+  (file-system
+    (device (file-system-label root-label))
+    (mount-point "/")
+    (type "btrfs")))
+
+(define efi-fs
+  (file-system
+    (device (file-system-label "GNU-ESP"))
+    (mount-point "/boot/efi")
+    (type "vfat")))
+
 (define sudoers-file
   (plain-file "sudoers"
               (string-append
@@ -167,15 +179,7 @@
                                                                                 "./nonguix-signing-key.pub"))
                                                                         %default-authorized-guix-keys)))))))
 
-    (file-systems (append (list
-                           (file-system
-                             (device (file-system-label "GNU-ESP"))
-                             (mount-point "/boot/efi")
-                             (type "vfat"))
-                           (file-system
-                             (device (file-system-label root-label))
-                             (mount-point "/")
-                             (type "btrfs")))
+    (file-systems (append (list efi-fs root-fs)
                         %base-file-systems))
 
     (bootloader (bootloader-configuration

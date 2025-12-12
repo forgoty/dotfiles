@@ -1,4 +1,5 @@
 (define-module (forgoty home guldan)
+  #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (gnu home)
   #:use-module (guix gexp)
   #:use-module (guix modules)
@@ -69,7 +70,14 @@
                 ".xprofile"
                 ".emacs.d"))
           (directories '("../../../dotfiles"))))
-    `(( ".xinitrc" ,(plain-file "xinitrc" "exec dwm")))))
+    `(( ".xinitrc" ,(plain-file "xinitrc"
+      (string-append
+        "xrdb -merge <<EOF\n"
+        "Xft.dpi: 300\n"
+        "Xft.antialias: 1\n"
+        "Xft.hintstyle: hintslight\n"
+        "EOF\n"
+        "exec dwm\n"))))))
 
 (define home-guldan-dotfiles-service-type
   (service-type (name 'home-dotfiles)
@@ -77,6 +85,17 @@
                 (extensions (list (service-extension home-files-service-type
                                                      home-guldan-dotfiles-configuration)))
                 (default-value #f)))
+
+(define home-guldan-environment-variables
+  (append (remove (lambda (var)
+                    (member (car var)
+                            (list "XINITRC" "BROWSER")))
+                  home-default-environment-variables)
+          (list '("GDK_SCALE" . "2")
+                '("GDK_DPI_SCALE" . "1")
+                '("QT_SCALE_FACTOR" . "2")
+                '("QT_AUTO_SCREEN_SCALE_FACTOR" . "0")
+                '("XINITRC" . ".xinitrc"))))
 
 (define guldan-packages
   (list
@@ -144,8 +163,9 @@
                         ;; Set up desktop environment
                         (service home-desktop-service-type
                                   (home-desktop-configuration
-                                  (profile-packages guldan-packages)
-                                  (shepherd-services '())))
+                                    (environment-variables home-guldan-environment-variables)
+                                    (profile-packages guldan-packages)
+                                    (shepherd-services '())))
 
                         (service home-dbus-service-type)
 
