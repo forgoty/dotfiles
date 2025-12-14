@@ -18,8 +18,10 @@
   #:use-module (gnu packages terminals)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages moreutils)
+  #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages rsync)
+  #:use-module (gnu packages pantheon)
   #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages video)
@@ -120,6 +122,7 @@
     lm-sensors
     xdotool
     xclip
+    xwallpaper
     xcompmgr
     font-google-noto
     font-google-noto-emoji
@@ -128,6 +131,7 @@
     openbox
     obconf
     tint2
+    pantheon-wallpapers
 
     ;; Shell
     zsh-syntax-highlighting
