@@ -2,6 +2,10 @@
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix gexp)
   #:use-module (guix packages)
+  #:use-module (gnu packages file)
+  #:use-module (gnu packages curl)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu packages web)
   #:use-module (guix build-system copy))
 
 (define-public forgoty-shellutils
@@ -12,7 +16,12 @@
     (build-system copy-build-system)
     (arguments
       `(#:install-plan `(("." "bin/"))))
-    (home-page "https://github.com/satococoa/wtp")
+    (propagated-inputs ;; not all of them, but most lightweight
+      (list file
+            curl
+            util-linux
+            jq))
+    (home-page "https://github.com/forgoty/dotfiles")
     (synopsis "Collection of shell utilities")
     (description "Collection of shell utilities")
     (license license:gpl3+)))
