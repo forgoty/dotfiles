@@ -14,6 +14,7 @@
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu packages disk)
   #:use-module (gnu packages version-control)
+  #:use-module (gnu packages wm)
   #:use-module (gnu packages terminals)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages moreutils)
@@ -105,6 +106,7 @@
     ;; Xorg
     util-linux
     xdg-utils
+    xdg-desktop-portal
     xdg-desktop-portal-gtk
     setxkbmap
     xset
@@ -121,7 +123,11 @@
     xcompmgr
     font-google-noto
     font-google-noto-emoji
-    dwm
+
+    ;; Window Manager
+    openbox
+    obconf
+    tint2
 
     ;; Shell
     zsh-syntax-highlighting
