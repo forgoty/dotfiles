@@ -76,14 +76,22 @@
                 ".xprofile"
                 ".emacs.d"))
           (directories '("../../../dotfiles"))))
-    `(( ".xinitrc" ,(plain-file "xinitrc"
-      (string-append
-        "xrdb -merge <<EOF\n"
-        "Xft.dpi: 300\n"
-        "Xft.antialias: 1\n"
-        "Xft.hintstyle: hintslight\n"
-        "EOF\n"
-        "exec dwm\n"))))))
+    ))
+    ;; `(( ".xinitrc" ,(plain-file "xinitrc"
+    ;;   (string-append
+    ;;     "xrdb -merge ~/.Xresources\n"
+    ;;     "pcmanfm --desktop &\n"
+    ;;     "tint2 &\n"
+    ;;     "exec openbox\n")))
+    ;;   (".Xresources" ,(plain-file "xresources"
+    ;;     (string-append
+    ;;       "Xft.dpi: 96\n"
+    ;;       "Xft.autohint: 0\n"
+    ;;       "Xft.lcdfilter: lcddefault\n"
+    ;;       "Xft.hintstyle: hintfull\n"
+    ;;       "Xft.hinting: 1\n"
+    ;;       "Xft.antialias: 1\n"
+    ;;       "Xft.rgba: rgb\n"))))))
 
 (define home-guldan-dotfiles-service-type
   (service-type (name 'home-dotfiles)
