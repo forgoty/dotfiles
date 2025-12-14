@@ -8,8 +8,13 @@
   #:use-module (guix store)
   #:use-module (guix packages)
   #:use-module (nongnu packages linux)
+  #:use-module (nongnu packages firmware)
+  #:use-module (nongnu packages nvidia)
+  #:use-module (nongnu packages wine)
   #:use-module (nongnu system linux-initrd)
   #:use-module (nongnu services nvidia)
+  #:use-module (nonguix utils)
+  #:use-module (nonguix transformations)
   #:use-module (forgoty services sunshine)
   #:use-module (forgoty home guldan)
   #:use-module ((forgoty systems base-system) #:select (%default-username)))
@@ -73,7 +78,6 @@
                  (libvirt-configuration (unix-sock-group "libvirt")))
         (service sunshine-service-type)
         (service iptables-service-type)
-        (service nvidia-service-type)
         (service guix-home-service-type `((,%default-username ,guldan-home)))
         (service rootless-podman-service-type
           (rootless-podman-configuration
@@ -84,61 +88,61 @@
               (list (subid-range (name %default-username))))))))
 
 (define-public guldan
-  (operating-system
-    (locale "en_US.utf8")
-    (timezone "Europe/Warsaw")
-    (host-name "guldan")
-    (kernel linux)
-    (initrd microcode-initrd)
-    (firmware (list linux-firmware))
-    (sudoers-file sudoers-file)
-    ;; (kernel-loadable-modules (list evdi-linux))
-    (users (append
-            (list (user-account
-              (name %default-username)
-              (comment (string-capitalize %default-username))
-              (password (crypt "password" "$6$abc"))
-              (group "users")
-              (home-directory (string-append "/home/" %default-username))
-              (shell (file-append zsh "/bin/zsh"))
-              (supplementary-groups '("wheel"
-                                      "netdev"
-                                      "audio"
-                                      "input"
-                                      "tty"
-                                      "video"
-                                      "lp"
-                                      "cgroup"
-                                      "kvm"
-                                      "libvirt"))))
-            %base-user-accounts))
-    (packages (append system-packages %base-packages))
-    (services
-      (append system-services
-              (modify-services %desktop-services
-                (delete gdm-service-type)
-                (mingetty-service-type config =>
-                  (mingetty-configuration
-                    (inherit config)
-                    (auto-login %default-username)))
-                (guix-service-type config =>
-                                  (guix-configuration (inherit config)
-                                                      (authorize-key? #f)
-                                                      (substitute-urls (append
-                                                                        (list
-                                                                          "https://nonguix-proxy.ditigal.xyz")
-                                                                        %default-substitute-urls))
-                                                      (authorized-keys (append
-                                                                        (list (local-file
-                                                                                "./nonguix-signing-key.pub"))
-                                                                        %default-authorized-guix-keys)))))))
+  ((compose (nonguix-transformation-nvidia))
+    (operating-system
+      (locale "en_US.utf8")
+      (timezone "Europe/Warsaw")
+      (host-name "guldan")
+      (kernel linux)
+      (initrd microcode-initrd)
+      (firmware (list linux-firmware))
+      (sudoers-file sudoers-file)
+      (users (append
+              (list (user-account
+                (name %default-username)
+                (comment (string-capitalize %default-username))
+                (password (crypt "password" "$6$abc"))
+                (group "users")
+                (home-directory (string-append "/home/" %default-username))
+                (shell (file-append zsh "/bin/zsh"))
+                (supplementary-groups '("wheel"
+                                        "netdev"
+                                        "audio"
+                                        "input"
+                                        "tty"
+                                        "video"
+                                        "lp"
+                                        "cgroup"
+                                        "kvm"
+                                        "libvirt"))))
+              %base-user-accounts))
+      (packages (append system-packages %base-packages))
+      (services
+        (append system-services
+                (modify-services %desktop-services
+                  (delete gdm-service-type)
+                  (mingetty-service-type config =>
+                    (mingetty-configuration
+                      (inherit config)
+                      (auto-login %default-username)))
+                  (guix-service-type config =>
+                                    (guix-configuration (inherit config)
+                                                        (authorize-key? #f)
+                                                        (substitute-urls (append
+                                                                          (list
+                                                                            "https://nonguix-proxy.ditigal.xyz")
+                                                                          %default-substitute-urls))
+                                                        (authorized-keys (append
+                                                                          (list (local-file
+                                                                                  "./nonguix-signing-key.pub"))
+                                                                          %default-authorized-guix-keys)))))))
 
-    (file-systems (append (list efi-fs root-fs)
-                        %base-file-systems))
+      (file-systems (append (list efi-fs root-fs)
+                          %base-file-systems))
 
-    (bootloader (bootloader-configuration
-      (bootloader grub-efi-bootloader)
-      (targets '("/boot/efi"))
-      (timeout 0)))))
+      (bootloader (bootloader-configuration
+        (bootloader grub-efi-bootloader)
+        (targets '("/boot/efi"))
+        (timeout 0))))))
 
 guldan
