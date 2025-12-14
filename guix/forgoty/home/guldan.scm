@@ -34,6 +34,9 @@
   #:use-module (gnu home services mcron)
   #:use-module (gnu home services shells)
   #:use-module (gnu home services shells)
+  #:use-module (nongnu packages game-client)
+  #:use-module (nongnu packages nvidia)
+  #:use-module (nongnu packages video)
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services desktop)
@@ -143,9 +146,14 @@
     mediainfo
     forgoty-shellutils
 
+    ;; Gaming
+    steam-nvidia
+    heroic-nvidia
+
     ;; Apps
     flatpak
-    mpv))
+    nv-codec-headers
+    mpv-nvidia))
 
 (define-public guldan-home
   (home-environment
@@ -170,8 +178,11 @@
                         (service home-dbus-service-type)
 
                         (service home-startx-command-service-type
-                                  (xorg-configuration (keyboard-layout
-                                                      default-keyboard-layout)))
+                                 (xorg-configuration
+                                   (keyboard-layout default-keyboard-layout)
+                                   (modules (cons nvda %default-xorg-modules))
+                                   (resolutions '((1920 1080)))
+                                   (drivers '("nvidia"))))
 
                         (service home-x11-service-type)
 

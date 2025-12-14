@@ -66,6 +66,7 @@
         xf86-video-dummy
         libva
         libva-utils
+        dxvk-next
         neovim))
 
 (define system-services
