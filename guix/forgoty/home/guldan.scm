@@ -21,6 +21,7 @@
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages rsync)
+  #:use-module (gnu packages gnome)
   #:use-module (gnu packages pantheon)
   #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages curl)
@@ -139,6 +140,7 @@
     openbox
     obconf
     tint2
+    hicolor-icon-theme
     pantheon-wallpapers
 
     ;; Shell
