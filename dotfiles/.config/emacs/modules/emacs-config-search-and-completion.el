@@ -94,10 +94,6 @@
   ;; Important for corfu
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
 
-  ;; Ensure that pcomplete does not write to the buffer
-  ;; and behaves as a pure `completion-at-point-function'.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
-
   ;; No auto-completion or completion-on-quit in eshell
   (defun custom/completion-corfu-eshell ()
     "Special settings for when using corfu with eshell."
