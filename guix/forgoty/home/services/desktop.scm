@@ -20,6 +20,7 @@
   #:use-module (gnu packages fonts)
   #:use-module (gnu packages polkit)
   #:use-module (gnu packages wget)
+  #:use-module (gnu packages games)
   #:use-module (gnu packages file)
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu packages curl)
@@ -144,6 +145,7 @@
    zathura
    zathura-pdf-mupdf
    mpv
+   moonlight-qt
 
    ;; Virtualization
    qemu
