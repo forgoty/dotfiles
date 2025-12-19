@@ -156,6 +156,7 @@
     lf
     ripgrep
     zip
+    7zip
     moreutils
     unzip
     htop
