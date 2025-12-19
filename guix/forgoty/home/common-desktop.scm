@@ -75,4 +75,4 @@
            (service home-emacs-config-service-type)
 
            ;; Podman
-           (service podman-service-type)) %base-home-services))
+           (service podman-service-type))))
