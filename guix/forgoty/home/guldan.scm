@@ -136,12 +136,14 @@
     xcompmgr
     font-google-noto
     font-google-noto-emoji
+    font-adobe-source-code-pro
+    adwaita-icon-theme
+    hicolor-icon-theme
 
     ;; Window Manager
     openbox
     obconf
     tint2
-    hicolor-icon-theme
     pantheon-wallpapers
 
     ;; Shell
