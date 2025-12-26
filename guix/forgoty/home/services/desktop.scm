@@ -138,6 +138,7 @@
    flatpak
    strace
    forgoty-shellutils
+   wol
 
    ;; Apps
    qutebrowser

@@ -39,6 +39,7 @@
                      shells
                      video
                      xorg
+                     networking
                      package-management)
 (define root-fs
   (file-system
@@ -75,6 +76,16 @@
         ;;(service dhcpcd-service-type)
         (service bluetooth-service-type
                  (bluetooth-configuration (auto-enable? #t)))
+        (udev-rules-service 'wol
+          (file->udev-rule "91-wol.rules"
+            (mixed-text-file "91-wol.rules"
+              ;; https://wiki.archlinux.org/title/Wake-on-LAN
+              #~(string-join
+                  (list
+                    "ACTION==\"add\""
+                    "SUBSYSTEM==\"net\""
+                    "NAME==\"en*\""
+                    (format #f "RUN+=\"~a/sbin/ethtool -s $name wol g\"~%" #$ethtool))))))
         (service libvirt-service-type
                  (libvirt-configuration (unix-sock-group "libvirt")))
         (service sunshine-service-type)
