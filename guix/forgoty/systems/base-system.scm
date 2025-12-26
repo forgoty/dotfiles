@@ -123,7 +123,10 @@
                                                       (authorized-keys (append
                                                                         (list (local-file
                                                                                "./nonguix-signing-key.pub"))
-                                                                        %default-authorized-guix-keys)))))))
+                                                                        %default-authorized-guix-keys))
+                                                      (extra-options
+                                                        (list "--gc-keep-derivations=yes"
+                                                              "--gc-keep-outputs=yes")))))))
 
     ;; The bootloader and file-systems fields here will be replaced by
     ;; actual operating system configuration

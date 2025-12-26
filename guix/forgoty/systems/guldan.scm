@@ -147,7 +147,10 @@
                                                         (authorized-keys (append
                                                                           (list (local-file
                                                                                   "./nonguix-signing-key.pub"))
-                                                                          %default-authorized-guix-keys)))))))
+                                                                          %default-authorized-guix-keys))
+                                                        (extra-options
+                                                          (list "--gc-keep-derivations=yes"
+                                                                "--gc-keep-outputs=yes")))))))
 
       (file-systems (append (list efi-fs root-fs)
                           %base-file-systems))
