@@ -120,7 +120,8 @@
                                   (guix-configuration (inherit config)
                                                       (substitute-urls (append
                                                                         (list
-                                                                         "https://nonguix-proxy.ditigal.xyz")
+                                                                         "https://nonguix-proxy.ditigal.xyz"
+                                                                         "http://192.168.100.100:5556")
                                                                         %default-substitute-urls))
                                                       (authorized-keys (append
                                                                         (list substitute-keys:nonguix.pub
