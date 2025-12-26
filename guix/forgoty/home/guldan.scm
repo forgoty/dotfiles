@@ -172,6 +172,9 @@
     forgoty-st
     luke-dmenu
 
+    ;; Other
+    v4l-utils
+
     ;; Gaming
     steam-nvidia
     heroic-nvidia
