@@ -55,7 +55,7 @@
         ("image" . "jellyfin/jellyfin:10")
         ("container_name" . "jellyfin")
         ("environment" . #("TZ=Europe/Warsaw"))
-        ("volumes" . #("/home/nikita/Jellyfin Server Media:/media")))))
+        ("volumes" . #("/media/jellyfin:/media")))))
 
   (computed-file "jellyfin-docker-compose.json"
     (with-extensions (list guile-json-4)

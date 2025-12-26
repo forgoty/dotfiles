@@ -53,6 +53,12 @@
     (mount-point "/boot/efi")
     (type "vfat")))
 
+(define 512gb-disk-fs
+  (file-system
+    (device (file-system-label "512gb-disk"))
+    (mount-point "/media/jellyfin")
+    (type "xfs")))
+
 (define sudoers-file
   (plain-file "sudoers"
               (string-append
@@ -152,7 +158,7 @@
                                                           (list "--gc-keep-derivations=yes"
                                                                 "--gc-keep-outputs=yes")))))))
 
-      (file-systems (append (list efi-fs root-fs)
+      (file-systems (append (list efi-fs root-fs 512gb-disk-fs)
                           %base-file-systems))
 
       (bootloader (bootloader-configuration
