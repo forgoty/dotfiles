@@ -7,6 +7,8 @@
   #:use-module (nongnu packages linux)
   #:use-module (nongnu system linux-initrd)
   #:use-module (forgoty services sunshine)
+  #:use-module ((forgoty substitute-keys) #:prefix substitute-keys:)
+  #:use-module ((forgoty build-machines) #:prefix build-machines:)
   #:export (default-user-account default-keyboard-layout
                                  default-system-packages
                                  default-system-services base-operating-system
@@ -121,9 +123,10 @@
                                                                          "https://nonguix-proxy.ditigal.xyz")
                                                                         %default-substitute-urls))
                                                       (authorized-keys (append
-                                                                        (list (local-file
-                                                                               "./nonguix-signing-key.pub"))
+                                                                        (list substitute-keys:nonguix.pub
+                                                                              substitute-keys:guldan.pub)
                                                                         %default-authorized-guix-keys))
+                                                      (build-machines (list build-machines:guldan-build-machine))
                                                       (extra-options
                                                         (list "--gc-keep-derivations=yes"
                                                               "--gc-keep-outputs=yes")))))))
