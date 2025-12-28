@@ -51,11 +51,88 @@
 (define-public jellyfin-compose-file
   (let* ((docker-compose-jellyfin-service
     '("jellyfin"
-        ("network_mode" . "host")
-        ("image" . "jellyfin/jellyfin:10")
-        ("container_name" . "jellyfin")
-        ("environment" . #("TZ=Europe/Warsaw"))
-        ("volumes" . #("/media/jellyfin:/media")))))
+      ("ports" . #("8096:8096"
+                  "8920:8920"
+                  "7359:7359/udp"
+                  "1900:1900/udp"))
+      ("image" . "jellyfin/jellyfin:10")
+      ("container_name" . "jellyfin")
+      ("environment" . #("TZ=Europe/Warsaw"
+                        "NVIDIA_VISIBLE_DEVICES=all"))
+      ("devices" . #("nvidia.com/gpu=all"))
+      ("restart" . "unless-stopped")
+      ("volumes" . #("/media/jellyfin/config/jellyfin:/config"
+                    "/media/jellyfin/.cache:/cache"
+                    "/media/jellyfin/Shows:/data/tvshows"
+                    "/media/jellyfin/Movies:/data/movies"
+                    "/media/jellyfin/Downloads:/data/media_downloads"))))
+    (docker-compose-jellyseerr-service
+    '("jellyseerr"
+      ("ports" . #("5055:5055"))
+      ("image" . "fallenbagel/jellyseerr:latest")
+      ("container_name" . "jellyseerr")
+      ("environment" . #("TZ=Europe/Warsaw"
+                          "LOG_LEVEL=debug"))
+      ("restart" . "unless-stopped")
+      ("volumes" . #("/media/jellyfin/config/jellyseerr:/app/config"))))
+    (docker-compose-radarr-service
+    '("radarr"
+      ("ports" . #("7878:7878"))
+      ("image" . "lscr.io/linuxserver/radarr:latest")
+      ("container_name" . "radarr")
+      ("environment" . #("TZ=Europe/Warsaw"))
+      ("restart" . "unless-stopped")
+      ("volumes" . #("/media/jellyfin/config/radarr:/config"
+                    "/media/jellyfin/Movies:/movies"
+                    "/media/jellyfin/Downloads:/downloads"))))
+    (docker-compose-sonarr-service
+    '("sonarr"
+      ("ports" . #("8989:8989"))
+      ("image" . "lscr.io/linuxserver/sonarr:latest")
+      ("container_name" . "sonarr")
+      ("environment" . #("TZ=Europe/Warsaw"))
+      ("restart" . "unless-stopped")
+      ("volumes" . #("/media/jellyfin/config/sonarr:/config"
+                    "/media/jellyfin/Shows:/tv"
+                    "/media/jellyfin/Downloads:/downloads"))))
+    (docker-compose-jackett-service
+    '("jackett"
+      ("ports" . #("9117:9117"))
+      ("image" . "lscr.io/linuxserver/jackett:latest")
+      ("container_name" . "jackett")
+      ("environment" . #("TZ=Europe/Warsaw"))
+      ("restart" . "unless-stopped")
+      ("volumes" . #("/media/jellyfin/config/jackett:/config"))))
+    (docker-compose-prowlarr-service
+    '("prowlarr"
+      ("ports" . #("9696:9696"))
+      ("image" . "lscr.io/linuxserver/prowlarr:latest")
+      ("container_name" . "prowlarr")
+      ("environment" . #("TZ=Europe/Warsaw"))
+      ("restart" . "unless-stopped")
+      ("volumes" . #("/media/jellyfin/config/prowlarr:/config"))))
+    (docker-compose-flaresolverr-service
+    '("flaresolverr"
+      ("ports" . #("8191:8191"))
+      ("image" . "ghcr.io/flaresolverr/flaresolverr:latest")
+      ("container_name" . "flaresolverr")
+      ("environment" . #("TZ=Europe/Warsaw"
+                          "LOG_LEVEL=info"
+                          "LOG_HTML=false"
+                          "CAPTHA_SOLVER=none"))
+      ("restart" . "unless-stopped")))
+    (docker-compose-qbittorrent-service
+    '("qbittorrent"
+      ("ports" . #("8080:8080"
+                  "6881:6881"
+                  "6881:6881/udp"))
+      ("image" . "lscr.io/linuxserver/qbittorrent:latest")
+      ("container_name" . "qbittorrent")
+      ("environment" . #("TZ=Europe/Warsaw"
+                          "WEBUI_PORT=8080"))
+      ("restart" . "unless-stopped")
+      ("volumes" . #("/media/jellyfin/config/qbittorrent:/config"
+                    "/media/jellyfin/Downloads:/downloads")))))
 
   (computed-file "jellyfin-docker-compose.json"
     (with-extensions (list guile-json-4)
@@ -67,7 +144,14 @@
                 (scm->json
                 `(("version" . "3.8")
                   ("services"
-                    #$docker-compose-jellyfin-service)))))))))))
+                   #$docker-compose-jellyfin-service
+                   #$docker-compose-jellyseerr-service
+                   #$docker-compose-radarr-service
+                   #$docker-compose-sonarr-service
+                   #$docker-compose-jackett-service
+                   #$docker-compose-prowlarr-service
+                   #$docker-compose-flaresolverr-service
+                   #$docker-compose-qbittorrent-service)))))))))))
 
 (define (home-guldan-dotfiles-configuration config)
   (append
@@ -227,3 +311,5 @@
                                 (project-name "jellyfin")
                                 (requirement '())
                                 (respawn? #t))))))))
+
+guldan-home
