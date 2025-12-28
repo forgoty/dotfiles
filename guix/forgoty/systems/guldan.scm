@@ -17,6 +17,7 @@
   #:use-module (nonguix transformations)
   #:use-module (forgoty services sunshine)
   #:use-module (forgoty home guldan)
+  #:use-module (forgoty packages nvidia-container)
   #:use-module ((forgoty systems base-system) #:select (%default-username)))
 
 (use-service-modules desktop
@@ -74,6 +75,7 @@
         libva
         libva-utils
         dxvk-next
+        nvidia-container-toolkit
         neovim))
 
 (define system-services

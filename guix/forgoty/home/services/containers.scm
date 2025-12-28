@@ -8,6 +8,7 @@
   #:use-module (ice-9 format)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu home services)
+  #:use-module ((forgoty systems base-system) #:select (%default-username))
   #:export (podman-default-xdg-configuration-files
             podman-service-type
             podman-configuration
@@ -29,7 +30,11 @@
     ("containers/policy.json"
      ,(plain-file
        "policy.json"
-       "{\"default\": [{\"type\": \"insecureAcceptAnything\"}]}"))))
+       "{\"default\": [{\"type\": \"insecureAcceptAnything\"}]}"))
+    ("containers/containers.conf"
+     ,(plain-file
+       "containers.conf"
+       (format #f "[engine]\ncdi_spec_dirs = [\"/home/~a/.config/cdi\"]" %default-username)))))
 
 (define-record-type* <podman-configuration>
   podman-configuration make-podman-configuration
