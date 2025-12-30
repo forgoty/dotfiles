@@ -93,7 +93,11 @@
        (requirement requirement)
        (modules '((shepherd support)))
        (start #~(make-forkexec-constructor #$command
-                 #:log-file #$log-file))
+          #:log-file #$log-file
+          #:environment-variables
+          (append
+           (default-environment-variables)
+           (list "PUID=1000" "PGID=998"))))
        (respawn? respawn?)
        (stop #~(make-kill-destructor)))))))
 

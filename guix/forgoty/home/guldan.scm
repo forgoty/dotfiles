@@ -58,7 +58,7 @@
       ("image" . "jellyfin/jellyfin:10")
       ("container_name" . "jellyfin")
       ("environment" . #("TZ=Europe/Warsaw"
-                        "NVIDIA_VISIBLE_DEVICES=all"))
+                         "NVIDIA_VISIBLE_DEVICES=all"))
       ("devices" . #("nvidia.com/gpu=all"))
       ("restart" . "unless-stopped")
       ("volumes" . #("/media/jellyfin/config/jellyfin:/config"
@@ -72,8 +72,9 @@
       ("image" . "fallenbagel/jellyseerr:latest")
       ("container_name" . "jellyseerr")
       ("environment" . #("TZ=Europe/Warsaw"
-                          "LOG_LEVEL=debug"))
+                         "LOG_LEVEL=debug"))
       ("restart" . "unless-stopped")
+      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/jellyseerr:/app/config"))))
     (docker-compose-radarr-service
     '("radarr"
@@ -82,6 +83,7 @@
       ("container_name" . "radarr")
       ("environment" . #("TZ=Europe/Warsaw"))
       ("restart" . "unless-stopped")
+      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/radarr:/config"
                     "/media/jellyfin/Movies:/movies"
                     "/media/jellyfin/Downloads:/downloads"))))
@@ -92,17 +94,10 @@
       ("container_name" . "sonarr")
       ("environment" . #("TZ=Europe/Warsaw"))
       ("restart" . "unless-stopped")
+      ("x-podman.gidmaps" . #("+g911:@998")) ;; map gid 911 (default group of -arr stack) in container to gid 998 on host (users group)
       ("volumes" . #("/media/jellyfin/config/sonarr:/config"
                     "/media/jellyfin/Shows:/tv"
                     "/media/jellyfin/Downloads:/downloads"))))
-    (docker-compose-jackett-service
-    '("jackett"
-      ("ports" . #("9117:9117"))
-      ("image" . "lscr.io/linuxserver/jackett:latest")
-      ("container_name" . "jackett")
-      ("environment" . #("TZ=Europe/Warsaw"))
-      ("restart" . "unless-stopped")
-      ("volumes" . #("/media/jellyfin/config/jackett:/config"))))
     (docker-compose-prowlarr-service
     '("prowlarr"
       ("ports" . #("9696:9696"))
@@ -110,6 +105,7 @@
       ("container_name" . "prowlarr")
       ("environment" . #("TZ=Europe/Warsaw"))
       ("restart" . "unless-stopped")
+      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/prowlarr:/config"))))
     (docker-compose-flaresolverr-service
     '("flaresolverr"
@@ -129,8 +125,9 @@
       ("image" . "lscr.io/linuxserver/qbittorrent:latest")
       ("container_name" . "qbittorrent")
       ("environment" . #("TZ=Europe/Warsaw"
-                          "WEBUI_PORT=8080"))
+                         "WEBUI_PORT=8080"))
       ("restart" . "unless-stopped")
+      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/qbittorrent:/config"
                     "/media/jellyfin/Downloads:/downloads")))))
 
@@ -148,7 +145,6 @@
                    #$docker-compose-jellyseerr-service
                    #$docker-compose-radarr-service
                    #$docker-compose-sonarr-service
-                   #$docker-compose-jackett-service
                    #$docker-compose-prowlarr-service
                    #$docker-compose-flaresolverr-service
                    #$docker-compose-qbittorrent-service)))))))))))
