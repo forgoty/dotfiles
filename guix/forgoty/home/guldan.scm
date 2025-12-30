@@ -228,6 +228,7 @@
     openbox
     obconf
     tint2
+    zenity
     pantheon-wallpapers
 
     ;; Shell
