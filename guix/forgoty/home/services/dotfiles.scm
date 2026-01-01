@@ -16,7 +16,6 @@
 					(directories '("../../../../dotfiles"))))
     ;; emacs configuration
     `((".emacs.d/modules" ,(local-file "../../../../dotfiles/.config/emacs/modules" #:recursive? #t))
-    (".emacs.d/tree-sitter" ,(local-file "../../../../dotfiles/.config/emacs/tree-sitter" #:recursive? #t))
     (".emacs.d/early-init.el" ,(local-file "../../../../dotfiles/.config/emacs/early-init.el"))
     (".emacs.d/emacs.png" ,(local-file "../../../../dotfiles/.config/emacs/emacs.png"))
     (".emacs.d/custom.el" ,(local-file "../../../../dotfiles/.config/emacs/custom.el"))

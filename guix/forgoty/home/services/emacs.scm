@@ -5,6 +5,7 @@
   #:use-module (gnu home services shepherd)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages emacs-xyz)
+  #:use-module (gnu packages tree-sitter)
   #:use-module (gnu packages emacs-build)
   #:use-module (forgoty packages emacs)
   #:export (home-emacs-config-service-type))
@@ -40,6 +41,31 @@
         emacs-evil-embrace
         emacs-evil-iedit-state
         emacs-evil-textobj-tree-sitter
+
+        ;; Tree-sitter Grammars
+        tree-sitter-bash
+        tree-sitter-c
+        tree-sitter-cpp
+        tree-sitter-cmake
+        tree-sitter-css
+        tree-sitter-elisp
+        tree-sitter-go
+        tree-sitter-gomod
+        tree-sitter-gosum
+        tree-sitter-html
+        tree-sitter-javascript
+        tree-sitter-json
+        tree-sitter-latex
+        tree-sitter-make
+        tree-sitter-markdown
+        tree-sitter-python
+        tree-sitter-toml
+        tree-sitter-typescript
+        tree-sitter-dockerfile
+        tree-sitter-plantuml
+        tree-sitter-proto
+        tree-sitter-zig
+        tree-sitter-yaml
 
         ;; Input
         emacs-general
