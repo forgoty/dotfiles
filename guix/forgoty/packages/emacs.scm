@@ -1110,16 +1110,16 @@ integration.  For more info visit: https://github.com/syl20bnr/evil-iedit-state.
 (define-public emacs-evil-textobj-tree-sitter
   (package
     (name "emacs-evil-textobj-tree-sitter")
-    (version "20241118.1711")
+    (version "20251118.341")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/meain/evil-textobj-tree-sitter.git")
-             (commit "bce236e5d2cc2fa4eae7d284ffd19ad18d46349a")))
+             (commit "d0d088c781b54534b49880819a40575b203dc6c8")))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "1w8ghsgi41kb08hwfcd4a5wr87aas93iyxp16ivwxj2rb4r4cc3h"))))
+        (base32 "1g6zdpf5djalckn7kdhmvvzv3jlrh8pnf91w15aj0gzx6lgppykv"))))
     (build-system emacs-build-system)
     (arguments
      '(#:include '("^[^/]+.el$" "^[^/]+.el.in$"
