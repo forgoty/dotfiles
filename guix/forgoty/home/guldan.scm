@@ -60,6 +60,7 @@
       ("environment" . #("TZ=Europe/Warsaw"
                          "NVIDIA_VISIBLE_DEVICES=all"))
       ("devices" . #("nvidia.com/gpu=all"))
+      ("depends_on" . #("dispatcharr" "aiostreams"))
       ("restart" . "unless-stopped")
       ("volumes" . #("/media/jellyfin/config/jellyfin:/config"
                     "/media/jellyfin/.cache:/cache"
@@ -129,7 +130,39 @@
       ("restart" . "unless-stopped")
       ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/qbittorrent:/config"
-                    "/media/jellyfin/Downloads:/downloads")))))
+                     "/media/jellyfin/Downloads:/downloads"))))
+    (docker-compose-dispatcharr-service
+    '("dispatcharr"
+      ("image" . "ghcr.io/dispatcharr/dispatcharr:latest")
+      ("container_name" . "dispatcharr")
+      ("restart" . "unless-stopped")
+      ("devices" . #("nvidia.com/gpu=all"))
+      ("ports" . #("9191:9191"))
+      ("volumes" . #("/media/jellyfin/config/dispatcharr:/data"))
+      ("environment" . #("TZ=Europe/Warsaw"))))
+    (docker-compose-aiostreams-service
+    '("aiostreams"
+      ("image" . "ghcr.io/viren070/aiostreams:latest")
+      ("container_name" . "aiostreams")
+      ("restart" . "unless-stopped")
+      ("depends_on" . #("prowlarr"))
+      ("ports" . #("7676:3000"))
+      ("volumes" . #("/media/jellyfin/config/aiostreams:/app/data"))
+      ("x-podman.gidmaps" . #("+g1000:@998"))
+      ("environment" . #("SECRET_KEY=43ef3cdf9c3a1477158d0dfd054125d5f400e5fa6fcb55880fb3a94b68c1a4f6"
+                        "BASE_URL=http://192.168.100.100:7676"
+                        "INTERNAL_URL=http://192.168.100.100:7676"
+                        "DATABASE_URI=sqlite://./data/db.sqlite"
+                        "BUILTIN_PROWLARR_URL=http://192.168.100.100:9696"
+                        "BUILTIN_PROWLARR_API_KEY=2f32d7f825f04b27b9f7f695d89ff6e6"
+                        "DISABLE_RATE_LIMITS=true"
+                        "LOG_TIMEZONE=Europe/Warsaw"))
+      ("healthcheck"
+        ("test" . "wget -qO- http://localhost:3000/api/v1/status")
+        ("interval" . "1m")
+        ("timeout" . "10s")
+        ("retries" . 5)
+        ("start_period" . "10s")))))
 
   (computed-file "jellyfin-docker-compose.json"
     (with-extensions (list guile-json-4)
@@ -147,6 +180,8 @@
                    #$docker-compose-sonarr-service
                    #$docker-compose-prowlarr-service
                    #$docker-compose-flaresolverr-service
+                   #$docker-compose-aiostreams-service
+                   #$docker-compose-dispatcharr-service
                    #$docker-compose-qbittorrent-service)))))))))))
 
 (define (home-guldan-dotfiles-configuration config)
