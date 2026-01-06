@@ -2,6 +2,7 @@
   #:use-module (gnu)
   #:use-module (gnu system)
   #:use-module (gnu system accounts)
+  #:use-module (gnu system nss)
   #:use-module (gnu services base)
   #:use-module (guix store)
   #:use-module (nongnu packages linux)
@@ -138,6 +139,8 @@
                           (device "my-root")
                           (mount-point "/")
                           (type "ext4")) %base-file-systems))
+
+    (name-service-switch %mdns-host-lookup-nss)
     (bootloader (bootloader-configuration
                   (bootloader grub-bootloader)
                   (targets '("/dev/sda"))))))
