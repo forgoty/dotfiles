@@ -18,6 +18,7 @@
 (setq habits-file (expand-file-name "habits.org" org-directory))
 (setq reading-list-file (expand-file-name "lists/reading-list.org" org-directory))
 (setq important-dates-file (expand-file-name "lists/important-dates.org" org-directory))
+(setq observations-file (expand-file-name "observations.org" org-directory))
 
 ;; Org-Node
 ;;; Org-mem
@@ -290,6 +291,10 @@
          :empty-lines 1)
         ("r" "To Reading List" entry (file reading-list-file)
          "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         :empty-lines 1)
+        ("o" "New Observation" entry
+         (file observations-file)
+         "* %U \n%?\n"
          :empty-lines 1)))
 
 (provide 'emacs-config-org)
