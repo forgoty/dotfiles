@@ -1156,32 +1156,6 @@ conditionals etc.  You need to either have elisp-tree-sitter installed or have
 Emacs version >=29 for this package to work.")
     (license #f)))
 
-(define-public emacs-winum
-  (package
-    (name "emacs-winum")
-    (version "20190911.1607")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/deb0ch/emacs-winum.git")
-             (commit "c5455e866e8a5f7eab6a7263e2057aff5f1118b9")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "0lj4cp7ml7cjhkd66f6ivcl6sbfs2my8ajjlynzl3pm5qansfw5i"))))
-    (build-system emacs-build-system)
-    (propagated-inputs (list emacs-dash))
-    (home-page "http://github.com/deb0ch/winum.el")
-    (synopsis "Navigate windows and frames using numbers")
-    (description
-     "Window numbers for Emacs: Navigate your windows and frames using numbers.  This
-package is an extended and actively maintained version of the
-https://github.com/nschum/window-numbering.el package by Nikolaj Schumacher,
-with some ideas and code taken from https://github.com/abo-abo/ace-window.  This
-version brings, among other things, support for number sets across multiple
-frames, giving the user a smoother experience of multi-screen Emacs.")
-    (license #f)))
-
 (define-public emacs-ibuffer-project
   (package
     (name "emacs-ibuffer-project")

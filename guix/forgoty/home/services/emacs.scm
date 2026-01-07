@@ -82,7 +82,7 @@
 
         ;; Org
         emacs-org-super-agenda
-        emacs-org-node-3
+        emacs-org-node
 
         ;; UI
         emacs-nerd-icons
