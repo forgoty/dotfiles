@@ -107,18 +107,17 @@
                  (expand-file-name "pomodoro-eaten.wav" user-emacs-directory)))
 
 (defun org-clock-toggle-by-state ()
-  (when (and (not (string= org-state "IN-PROGRESS"))
-             (fboundp 'org-clocking-p)
-             (org-clocking-p))
-    (progn
-      (org-clock-out)
-      (org-timer-stop)))
-  (when (and (string= org-state "IN-PROGRESS")
-             (not (and (fboundp 'org-clocking-p)
-                       (org-clocking-p))))
-    (progn
+  (let ((entering-progress (string= org-state "IN-PROGRESS"))
+        (leaving-progress (string= org-last-state "IN-PROGRESS"))
+        (clocking-p (and (fboundp 'org-clocking-p) (org-clocking-p)))
+        (timer-p (bound-and-true-p org-timer-countdown-timer)))
+    (cond
+      (leaving-progress
+      (when clocking-p (org-clock-out))
+      (when timer-p (org-timer-stop)))
+      ((and entering-progress (not clocking-p))
       (org-clock-in)
-      (org-timer-set-timer pomodoro-minutes))))
+      (org-timer-set-timer pomodoro-minutes)))))
 
 (add-hook 'org-after-todo-state-change-hook #'org-clock-toggle-by-state)
 
