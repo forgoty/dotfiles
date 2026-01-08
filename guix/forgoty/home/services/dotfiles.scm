@@ -18,6 +18,7 @@
     `((".emacs.d/modules" ,(local-file "../../../../dotfiles/.config/emacs/modules" #:recursive? #t))
     (".emacs.d/early-init.el" ,(local-file "../../../../dotfiles/.config/emacs/early-init.el"))
     (".emacs.d/emacs.png" ,(local-file "../../../../dotfiles/.config/emacs/emacs.png"))
+    (".emacs.d/pomodoro-eaten.wav" ,(local-file "../../../../dotfiles/.config/emacs/pomodoro-eaten.wav"))
     (".emacs.d/custom.el" ,(local-file "../../../../dotfiles/.config/emacs/custom.el"))
     (".emacs.d/init.el" ,(local-file "../../../../dotfiles/.config/emacs/init.el")))))
 

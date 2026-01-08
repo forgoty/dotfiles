@@ -95,16 +95,30 @@
 (setq org-clock-persist-file (expand-file-name "org-clock-save.el" org-directory))
 (setq org-clock-persist t)
 (setq org-clock-in-resume t)
+(setq pomodoro-minutes 30)
+
+(define-advice org-show-notification (:override (notification) custom-notify)
+  (message "%s" notification)
+  (notifications-notify
+    :title "🍅 Pomodoro eaten!"
+    :body notification
+    :timeout 0)
+  (start-process "sound" nil "paplay"
+                 (expand-file-name "pomodoro-eaten.wav" user-emacs-directory)))
 
 (defun org-clock-toggle-by-state ()
   (when (and (not (string= org-state "IN-PROGRESS"))
              (fboundp 'org-clocking-p)
              (org-clocking-p))
-    (org-clock-out))
+    (progn
+      (org-clock-out)
+      (org-timer-stop)))
   (when (and (string= org-state "IN-PROGRESS")
              (not (and (fboundp 'org-clocking-p)
                        (org-clocking-p))))
-    (org-clock-in)))
+    (progn
+      (org-clock-in)
+      (org-timer-set-timer pomodoro-minutes))))
 
 (add-hook 'org-after-todo-state-change-hook #'org-clock-toggle-by-state)
 
