@@ -1088,16 +1088,16 @@ process can't be achieved solely by `evil-surround'):
 (define-public emacs-evil-iedit-state
   (package
     (name "emacs-evil-iedit-state")
-    (version "20220219.1432")
+    (version "a44bc05acb49708aba124129d0e941084e8e14b6")
     (source
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/syl20bnr/evil-iedit-state.git")
-             (commit "6f7b502447ba35676375169d7707372ebad2791f")))
+             (url "https://github.com/smile13241324/evil-iedit-state.git")
+             (commit version)))
        (file-name (git-file-name name version))
        (sha256
-        (base32 "0vjzjmp3ba0nzf0v04bhxvzgdwwm11vivxqjzgnvp3kq95kajr5h"))))
+        (base32 "1zmz8hal50xppv5433qhrzkbv5n0pfm7vbhf1bzmxz63kfh2rv02"))))
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-evil emacs-iedit))
     (home-page "https://github.com/syl20bnr/evil-iedit-state")
