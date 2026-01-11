@@ -1,8 +1,6 @@
 (define-module (forgoty home arch)
   #:use-module (srfi srfi-1)
   #:use-module (gnu packages base)
-  #:use-module (gnu packages aspell)
-  #:use-module (gnu packages emacs-xyz)
   #:use-module (gnu packages virtualization)
   #:use-module (gnu packages suckless)
   #:use-module (gnu packages linux)
@@ -34,9 +32,6 @@
                     (list slock qemu virt-manager util-linux)))
                   home-default-packages)
           (list
-            aspell
-            aspell-dict-en
-            emacs-org-re-reveal
             ;; required for "foreign" distributions for locale support
             glibc-locales)))
 
