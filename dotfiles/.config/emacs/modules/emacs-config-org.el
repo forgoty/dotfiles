@@ -2,6 +2,7 @@
 (require 'org-habit)
 (require 'org-mem)
 (require 'org-node)
+(require 'notifications)
 
 ;; Add additional org-modules
 (add-to-list 'org-modules 'org-habit t)
