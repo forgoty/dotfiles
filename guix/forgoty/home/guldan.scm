@@ -21,6 +21,7 @@
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages admin)
   #:use-module (gnu packages rsync)
+  #:use-module (gnu packages ncurses)
   #:use-module (gnu packages gnome)
   #:use-module (gnu packages pantheon)
   #:use-module (gnu packages pulseaudio)
@@ -273,6 +274,7 @@
     fzf
     maim
     lf
+    ncurses
     ripgrep
     zip
     7zip
