@@ -149,7 +149,7 @@
     (let ((s (org-display-outline-path nil nil org-agenda-breadcrumbs-separator t)))
       (if (eq "" s) "" (concat (s-truncate size s))))))
 
-(defconst default-agenda-prefix-format "%-50 (truncated-breadcrumbs 50) % t")
+(defconst default-agenda-prefix-format "%-50 (truncated-breadcrumbs 50) % t %? s")
 
 (org-super-agenda-mode)
 (setq org-agenda-sort-notime-is-late nil)
@@ -163,8 +163,7 @@
                    (org-agenda-overriding-header "Habits for the Next 2 Days")
                    (org-agenda-files (list habits-file))))
           (agenda ""
-                  ((org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
                   (org-deadline-warning-days 0)
                   (org-agenda-start-on-weekday nil)
                   (org-agenda-span 3)
@@ -179,7 +178,7 @@
                  (org-agenda-overriding-header "Waiting (on hold)")))
           (todo "NEXT"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Ready to Pick Up")))
