@@ -72,7 +72,10 @@
 (with-eval-after-load 'ispell
   (when (executable-find ispell-program-name)
     (add-hook 'text-mode-hook #'flyspell-mode)
-    (add-hook 'prog-mode-hook #'flyspell-prog-mode)))
+    ;; Temporary disable flyspell in prog-mode in favor editing in evil-visual mode
+    ;; Uncomment when guix emacs-evil package is updated to latest version
+    ;;(add-hook 'prog-mode-hook #'flyspell-prog-mode)
+    ))
 
 ;;; Navigation
 
