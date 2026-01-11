@@ -1100,11 +1100,10 @@ process can't be achieved solely by `evil-surround'):
         (base32 "1zmz8hal50xppv5433qhrzkbv5n0pfm7vbhf1bzmxz63kfh2rv02"))))
     (build-system emacs-build-system)
     (propagated-inputs (list emacs-evil emacs-iedit))
-    (home-page "https://github.com/syl20bnr/evil-iedit-state")
+    (home-page "https://github.com/smile13241324/evil-iedit-state")
     (synopsis "Evil states to interface iedit mode")
     (description
-     "Adds two new Evil states `iedit and `iedit insert with expand-region
-integration.  For more info visit: https://github.com/syl20bnr/evil-iedit-state.")
+     "Adds two new Evil states `iedit and `iedit insert with expand-region integration.")
     (license #f)))
 
 (define-public emacs-evil-textobj-tree-sitter
