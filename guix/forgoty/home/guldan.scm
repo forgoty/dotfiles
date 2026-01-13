@@ -171,9 +171,7 @@
       ("restart" . "unless-stopped")
       ("ports" . #("8282:8282"))
       ("x-podman.gidmaps" . #("+g1000:@998"))
-      ("user" . #("1000:998"))
-      ("environment" . #("PUID=1000"
-                         "PGID=998"
+      ("environment" . #("PGID=998"
                          "UMASK=002"))
       ("volumes" . #("/media/jellyfin/config/decypharr:/app"
                      "/media/jellyfin/Downloads:/downloads")))))
