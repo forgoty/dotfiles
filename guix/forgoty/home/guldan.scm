@@ -163,7 +163,20 @@
         ("interval" . "1m")
         ("timeout" . "10s")
         ("retries" . 5)
-        ("start_period" . "10s")))))
+        ("start_period" . "10s"))))
+    (docker-compose-decypharr-service
+    '("decypharr"
+      ("image" . "cy01/blackhole:latest")
+      ("container_name" . "decypharr")
+      ("restart" . "unless-stopped")
+      ("ports" . #("8282:8282"))
+      ("x-podman.gidmaps" . #("+g1000:@998"))
+      ("user" . #("1000:998"))
+      ("environment" . #("PUID=1000"
+                         "PGID=998"
+                         "UMASK=002"))
+      ("volumes" . #("/media/jellyfin/config/decypharr:/app"
+                     "/media/jellyfin/Downloads:/downloads")))))
 
   (computed-file "jellyfin-docker-compose.json"
     (with-extensions (list guile-json-4)
@@ -183,6 +196,7 @@
                    #$docker-compose-flaresolverr-service
                    #$docker-compose-aiostreams-service
                    #$docker-compose-dispatcharr-service
+                   #$docker-compose-decypharr-service
                    #$docker-compose-qbittorrent-service)))))))))))
 
 (define (home-guldan-dotfiles-configuration config)
