@@ -31,7 +31,7 @@ cmd open ${{
 	image/vnd.djvu|application/pdf|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
         text/*|application/json|inode/x-empty|application/x-subrip|application/*script) $EDITOR $fx;;
 	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-	image/svg+xml) display -- $f ;;
+	image/svg+xml) $BROWSER $f ;;
 	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|avif\|tif\|ico\)\(_large\)*$" |
 		setsid -f nsxiv -aio 2>/dev/null | while read -r file; do
 			[ -z "$file" ] && continue
