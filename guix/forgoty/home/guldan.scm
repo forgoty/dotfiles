@@ -151,7 +151,7 @@
       ("volumes" . #("/media/jellyfin/config/aiostreams:/app/data"))
       ("x-podman.gidmaps" . #("+g1000:@998"))
       ("environment" . #("SECRET_KEY=43ef3cdf9c3a1477158d0dfd054125d5f400e5fa6fcb55880fb3a94b68c1a4f6"
-                        "BASE_URL=http://aiostreams:7676"
+                        "BASE_URL=http://192.168.100.101:7676"
                         "INTERNAL_URL=http://aiostreams:7676"
                         "DATABASE_URI=sqlite://./data/db.sqlite"
                         "BUILTIN_PROWLARR_URL=http://prowlarr:9696"
