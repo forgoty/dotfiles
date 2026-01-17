@@ -66,6 +66,27 @@
                (plain-file-content %sudoers-specification)
                (format #f "~a ALL = NOPASSWD: ALL~%" %default-username))))
 
+(define network-adapter-priority-file
+  ;; Give higher priority to WiFi over Ethernet
+  (plain-file "network-adapter-priority.conf"
+    (string-append
+      "[connection-ethernet]\n"
+      "match-device=type:ethernet\n"
+      "ipv4.route-metric=600\n"
+      "ipv6.route-metric=600\n"
+      "\n"
+      "[connection-wifi]\n"
+      "match-device=type:wifi\n"
+      "ipv4.route-metric=200\n"
+      "ipv6.route-metric=200\n")))
+
+(define wifi-powersave-off-file
+  ;; Disable WiFi power saving
+  (plain-file "wifi-powersave-off.conf"
+      (string-append
+        "[connection]\n"
+        "wifi.powersave = 2\n")))
+
 (define system-packages
   (list bluez
         bluez-alsa
@@ -150,6 +171,12 @@
                     (mingetty-configuration
                       (inherit config)
                       (auto-login %default-username)))
+                  (network-manager-service-type config =>
+                    (network-manager-configuration
+                      (inherit config)
+                      (extra-configuration-files
+                        `(("wifi-powersave-off.conf" ,wifi-powersave-off-file)
+                          ("network-adapter-priority.conf" ,network-adapter-priority-file)))))
                   (guix-service-type config =>
                                     (guix-configuration (inherit config)
                                                         (authorize-key? #f)
