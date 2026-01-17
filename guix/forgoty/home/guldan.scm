@@ -57,6 +57,7 @@
                   "7359:7359/udp"
                   "1900:1900/udp"))
       ("image" . "jellyfin/jellyfin:10")
+      ("user" . "1000:998")
       ("container_name" . "jellyfin")
       ("environment" . #("TZ=Europe/Warsaw"
                          "NVIDIA_VISIBLE_DEVICES=all"))
@@ -64,7 +65,7 @@
       ("depends_on" . #("dispatcharr" "aiostreams"))
       ("restart" . "unless-stopped")
       ("volumes" . #("/media/jellyfin/config/jellyfin:/config"
-                    "/media/jellyfin/.cache:/cache"
+                    "/home/nikita/.cache/jellyfin:/cache"
                     "/media/jellyfin/Shows:/data/tvshows"
                     "/media/jellyfin/Movies:/data/movies"
                     "/media/jellyfin/Downloads:/data/media_downloads"))))
@@ -73,19 +74,20 @@
       ("ports" . #("5055:5055"))
       ("image" . "fallenbagel/jellyseerr:latest")
       ("container_name" . "jellyseerr")
+      ("user" . "1000:998")
       ("environment" . #("TZ=Europe/Warsaw"
                          "LOG_LEVEL=debug"))
       ("restart" . "unless-stopped")
-      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/jellyseerr:/app/config"))))
     (docker-compose-radarr-service
     '("radarr"
       ("ports" . #("7878:7878"))
       ("image" . "lscr.io/linuxserver/radarr:latest")
       ("container_name" . "radarr")
-      ("environment" . #("TZ=Europe/Warsaw"))
+      ("environment" . #("TZ=Europe/Warsaw"
+                         "PUID=1000"
+                         "PGID=998"))
       ("restart" . "unless-stopped")
-      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/radarr:/config"
                     "/media/jellyfin/Movies:/movies"
                     "/media/jellyfin/Downloads:/downloads"))))
@@ -94,9 +96,10 @@
       ("ports" . #("8989:8989"))
       ("image" . "lscr.io/linuxserver/sonarr:latest")
       ("container_name" . "sonarr")
-      ("environment" . #("TZ=Europe/Warsaw"))
+      ("environment" . #("TZ=Europe/Warsaw"
+                         "PUID=1000"
+                         "PGID=998"))
       ("restart" . "unless-stopped")
-      ("x-podman.gidmaps" . #("+g911:@998")) ;; map gid 911 (default group of -arr stack) in container to gid 998 on host (users group)
       ("volumes" . #("/media/jellyfin/config/sonarr:/config"
                     "/media/jellyfin/Shows:/tv"
                     "/media/jellyfin/Downloads:/downloads"))))
@@ -105,14 +108,16 @@
       ("ports" . #("9696:9696"))
       ("image" . "lscr.io/linuxserver/prowlarr:latest")
       ("container_name" . "prowlarr")
-      ("environment" . #("TZ=Europe/Warsaw"))
+      ("environment" . #("TZ=Europe/Warsaw"
+                         "PUID=1000"
+                         "PGID=998"))
       ("restart" . "unless-stopped")
-      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/prowlarr:/config"))))
     (docker-compose-flaresolverr-service
     '("flaresolverr"
       ("ports" . #("8191:8191"))
       ("image" . "ghcr.io/flaresolverr/flaresolverr:latest")
+      ("user" . "1000:998")
       ("container_name" . "flaresolverr")
       ("environment" . #("TZ=Europe/Warsaw"
                           "LOG_LEVEL=info"
@@ -127,9 +132,10 @@
       ("image" . "lscr.io/linuxserver/qbittorrent:latest")
       ("container_name" . "qbittorrent")
       ("environment" . #("TZ=Europe/Warsaw"
+                         "PUID=1000"
+                         "PGID=998"
                          "WEBUI_PORT=8080"))
       ("restart" . "unless-stopped")
-      ("x-podman.gidmaps" . #("+g911:@998"))
       ("volumes" . #("/media/jellyfin/config/qbittorrent:/config"
                      "/media/jellyfin/Downloads:/downloads"))))
     (docker-compose-dispatcharr-service
@@ -138,9 +144,11 @@
       ("container_name" . "dispatcharr")
       ("restart" . "unless-stopped")
       ("devices" . #("nvidia.com/gpu=all"))
+      ("environment" . #("TZ=Europe/Warsaw"
+                         "PUID=1000"
+                         "PGID=998"))
       ("ports" . #("9191:9191"))
-      ("volumes" . #("/media/jellyfin/config/dispatcharr:/data"))
-      ("environment" . #("TZ=Europe/Warsaw"))))
+      ("volumes" . #("/media/jellyfin/config/dispatcharr:/data"))))
     (docker-compose-aiostreams-service
     '("aiostreams"
       ("image" . "ghcr.io/viren070/aiostreams:latest")
@@ -149,10 +157,10 @@
       ("depends_on" . #("prowlarr"))
       ("ports" . #("7676:3000"))
       ("volumes" . #("/media/jellyfin/config/aiostreams:/app/data"))
-      ("x-podman.gidmaps" . #("+g1000:@998"))
+      ("user" . "1000:998")
       ("environment" . #("SECRET_KEY=43ef3cdf9c3a1477158d0dfd054125d5f400e5fa6fcb55880fb3a94b68c1a4f6"
-                        "BASE_URL=http://192.168.100.101:7676"
-                        "INTERNAL_URL=http://aiostreams:7676"
+                        "BASE_URL=http://aiostreams:3000"
+                        "INTERNAL_URL=http://aiostreams:3000"
                         "DATABASE_URI=sqlite://./data/db.sqlite"
                         "BUILTIN_PROWLARR_URL=http://prowlarr:9696"
                         "BUILTIN_PROWLARR_API_KEY=2f32d7f825f04b27b9f7f695d89ff6e6"
@@ -170,7 +178,7 @@
       ("container_name" . "decypharr")
       ("restart" . "unless-stopped")
       ("ports" . #("8282:8282"))
-      ("x-podman.gidmaps" . #("+g1000:@998"))
+      ("user" . "1000:998")
       ("environment" . #("PGID=998"
                          "UMASK=002"))
       ("volumes" . #("/media/jellyfin/config/decypharr:/app"
