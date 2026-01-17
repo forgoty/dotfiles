@@ -4,6 +4,7 @@
   #:use-module (gnu packages virtualization)
   #:use-module (gnu packages suckless)
   #:use-module (gnu packages linux)
+  #:use-module (gnu packages games)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu services)
   #:use-module (gnu home)
@@ -29,7 +30,7 @@
 (define home-arch-packages
   (append (remove (lambda (pkg)
             (member pkg
-                    (list slock qemu virt-manager util-linux)))
+                    (list slock qemu virt-manager util-linux moonlight-qt)))
                   home-default-packages)
           (list
             ;; required for "foreign" distributions for locale support
