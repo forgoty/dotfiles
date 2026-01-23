@@ -8,22 +8,24 @@ update_home() {
     echo
     echo -e "${GREEN}Updating $HOME for ${BLUE}$(hostname)${GREEN}...${NC}"
     echo
-    RUNNING_GUIX_HOME=1 guix home -L ~/.dotfiles/guix reconfigure ~/.dotfiles/guix/forgoty/home/$(hostname).scm
+    RUNNING_GUIX_HOME=1 guix home -L ~/.dotfiles/guix reconfigure "$@" ~/.dotfiles/guix/forgoty/home/$(hostname).scm
 }
 
 update_system() {
     echo
     echo -e "${GREEN}Updating ${BLUE}$(hostname)${GREEN}...${NC}"
     echo
-    sudo guix system -L ~/.dotfiles/guix reconfigure ~/.dotfiles/guix/forgoty/systems/$(hostname).scm
+    sudo guix system -L ~/.dotfiles/guix reconfigure "$@" ~/.dotfiles/guix/forgoty/systems/$(hostname).scm
 }
 
-case "$1" in
+cmd="$1"
+shift
+case "$cmd" in
     home)
-        update_home
+        update_home "$@"
         ;;
     system)
-        update_system
+        update_system "$@"
         ;;
     *)
         echo "Usage: $0 {home|system}"
