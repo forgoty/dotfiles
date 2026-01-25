@@ -1,9 +1,8 @@
-# Luke's config for the Zoomer Shell
-
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 NEWLINE=$'\n'
-PROMPT="%B%{$fg[magenta]%}%~%{$fg[white]%}:%{$fg[black]%}%?${NEWLINE}%{$fg[white]%}> %{$reset_color%}%b"
+prompt_ssh() { [[ -n "$SSH_CONNECTION" ]] && echo "%m " || true }  # Show hostname if in SSH session.
+PROMPT="%B%{$fg[white]%}$(prompt_ssh)%{$fg[magenta]%}%~%{$fg[white]%}:%{$fg[black]%}%?${NEWLINE}%{$fg[white]%}> %{$reset_color%}%b"
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
