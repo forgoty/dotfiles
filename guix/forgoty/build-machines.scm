@@ -4,7 +4,7 @@
 
 (define-public guldan-build-machine
   #~(build-machine
-      (name "192.168.100.100")
+      (name "guldan.local")
       (systems (list "x86_64-linux"))
       (user "nikita")
       (host-key (ungexp ssh-keys:guldan.pub))

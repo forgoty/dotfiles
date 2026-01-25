@@ -61,7 +61,7 @@
                                                                            (identity-file
                                                                             "~/.ssh/codeberg_forgoty"))
                                                              (openssh-host (name
-                                                                            "192.168.100.100")
+                                                                            "guldan.local")
                                                                            (identity-file
                                                                             "~/.ssh/guldan"))))
                                                 (add-keys-to-agent "yes")))
