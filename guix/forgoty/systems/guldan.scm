@@ -5,6 +5,7 @@
   #:use-module (gnu system image)
   #:use-module (gnu services base)
   #:use-module (gnu services guix)
+  #:use-module (gnu services sysctl)
   #:use-module (guix store)
   #:use-module (guix packages)
   #:use-module (nongnu packages linux)
@@ -67,18 +68,21 @@
                (format #f "~a ALL = NOPASSWD: ALL~%" %default-username))))
 
 (define network-adapter-priority-file
-  ;; Give higher priority to WiFi over Ethernet
+  ;; Give higher priority to WiFi over Ethernet Powerline
   (plain-file "network-adapter-priority.conf"
     (string-append
       "[connection-ethernet]\n"
       "match-device=type:ethernet\n"
       "ipv4.route-metric=600\n"
       "ipv6.route-metric=600\n"
+      "ipv4.never-default=yes\n"
+      "ipv6.never-default=yes\n"
+      "connection.autoconnect-priority=-999\n"
       "\n"
       "[connection-wifi]\n"
       "match-device=type:wifi\n"
-      "ipv4.route-metric=200\n"
-      "ipv6.route-metric=200\n")))
+      "ipv4.route-metric=100\n"
+      "ipv6.route-metric=100\n")))
 
 (define wifi-powersave-off-file
   ;; Disable WiFi power saving
@@ -177,6 +181,13 @@
                       (extra-configuration-files
                         `(("wifi-powersave-off.conf" ,wifi-powersave-off-file)
                           ("network-adapter-priority.conf" ,network-adapter-priority-file)))))
+                  (sysctl-service-type config =>
+                    (sysctl-configuration
+                      (settings
+                        (append
+                          '(("net.ipv4.conf.all.arp_ignore" . "1")
+                            ("net.ipv4.conf.all.arp_announce" . "2"))
+                          %default-sysctl-settings))))
                   (guix-service-type config =>
                                     (guix-configuration (inherit config)
                                                         (authorize-key? #f)
