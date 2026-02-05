@@ -58,6 +58,12 @@
 (define 512gb-disk-fs
   (file-system
     (device (file-system-label "512gb-disk"))
+    (mount-point "/media/misc")
+    (type "xfs")))
+
+(define 6tb-disk-fs
+  (file-system
+    (device (file-system-label "6tb-disk"))
     (mount-point "/media/jellyfin")
     (type "xfs")))
 
@@ -203,7 +209,7 @@
                                                           (list "--gc-keep-derivations=yes"
                                                                 "--gc-keep-outputs=yes")))))))
 
-      (file-systems (append (list efi-fs root-fs 512gb-disk-fs)
+      (file-systems (append (list efi-fs root-fs 512gb-disk-fs 6tb-disk-fs)
                           %base-file-systems))
 
       (bootloader (bootloader-configuration
