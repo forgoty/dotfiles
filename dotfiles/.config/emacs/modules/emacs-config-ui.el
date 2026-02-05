@@ -59,13 +59,15 @@
   (customize-set-variable 'tabspaces-remove-to-default t)
   (customize-set-variable 'tabspaces-initialize-project-with-todo nil)
   (customize-set-variable 'tabspaces-include-buffers '("*scratch*")))
+
 ;;; Activate workspaces
 (customize-set-variable 'tabspaces-mode t)
+(customize-set-variable 'tabspaces-initialize-project-with-todo nil)
 
 ;; Inside workspace make consult see buffers only from the workspace
 (with-eval-after-load 'consult
   ;; hide full buffer list (still available with "b" prefix)
-  (consult-customize consult--source-buffer :hidden t :default nil)
+  (consult-customize consult-source-buffer :hidden t :default nil)
   ;; set consult-workspace buffer list
   (defvar consult--source-workspace
     (list :name     "Workspace Buffers"
@@ -82,19 +84,19 @@
     "Set workspace buffer list for consult-buffer.")
   (add-to-list 'consult-buffer-sources 'consult--source-workspace))
 
-(defun custom/consult-tabspaces ()
+(defun my--consult-tabspaces ()
   "Deactivate isolated buffers when not using tabspaces."
   (require 'consult)
   (cond (tabspaces-mode
          ;; hide full buffer list (still available with "b")
-         (consult-customize consult--source-buffer :hidden t :default nil)
+         (consult-customize consult-source-buffer :hidden t :default nil)
          (add-to-list 'consult-buffer-sources 'consult--source-workspace))
         (t
          ;; reset consult-buffer to show all buffers
-         (consult-customize consult--source-buffer :hidden nil :default t)
+         (consult-customize consult-source-buffer :hidden nil :default t)
          (setq consult-buffer-sources (remove #'consult--source-workspace consult-buffer-sources)))))
 
-(add-hook 'tabspaces-mode-hook #'custom/consult-tabspaces)
+(add-hook 'tabspaces-mode-hook #'my--consult-tabspaces)
 
 ;; Make sure project is initialized
 (project--ensure-read-project-list)
