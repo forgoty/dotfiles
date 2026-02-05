@@ -19,7 +19,6 @@ update_system() {
 }
 
 cmd="$1"
-shift
 case "$cmd" in
     home)
         update_home "$@"
