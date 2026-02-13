@@ -7,7 +7,7 @@
 (define-public golangci-lint
   (package
     (name "golangci-lint")
-    (version "2.3.0")
+    (version "2.9.0")
     (source
      (origin
        (method url-fetch)
@@ -15,7 +15,7 @@
                            "v" version
                            "/golangci-lint-" version "-linux-amd64.tar.gz"))
        (sha256
-        (base32 "035yqab2h93a7p7g5k0din0cmhjz09cy356kc8w5x25rwx7rjpxi"))))
+        (base32 "14b0jhr1nn3abfmv1nrcnb2bl6yrpcb2gna7z378nv5s5v5alfj9"))))
     (build-system copy-build-system)
     (arguments
      `(#:install-plan '(("golangci-lint" "bin/golangci-lint"))))
