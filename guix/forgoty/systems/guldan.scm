@@ -18,6 +18,7 @@
   #:use-module (nonguix transformations)
   #:use-module (forgoty services sunshine)
   #:use-module (forgoty home guldan)
+  #:use-module ((forgoty substitute-keys) #:prefix substitute-keys:)
   #:use-module (forgoty packages nvidia-container)
   #:use-module ((forgoty systems base-system) #:select (%default-username)))
 
@@ -199,12 +200,11 @@
                                                         (authorize-key? #f)
                                                         (substitute-urls (append
                                                                           (list
-                                                                            "https://nonguix-proxy.ditigal.xyz")
+                                                                            "https://substitutes.nonguix.org")
                                                                           %default-substitute-urls))
                                                         (authorized-keys (append
-                                                                          (list (local-file
-                                                                                  "./nonguix-signing-key.pub"))
-                                                                          %default-authorized-guix-keys))
+                                                                            (list substitute-keys:nonguix.pub)
+                                                                            %default-authorized-guix-keys))
                                                         (extra-options
                                                           (list "--gc-keep-derivations=yes"
                                                                 "--gc-keep-outputs=yes")))))))

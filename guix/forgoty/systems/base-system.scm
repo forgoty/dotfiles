@@ -121,7 +121,7 @@
                                   (guix-configuration (inherit config)
                                                       (substitute-urls (append
                                                                         (list
-                                                                         "https://nonguix-proxy.ditigal.xyz"
+                                                                         "https://substitutes.nonguix.org"
                                                                          "http://guldan.local:5556")
                                                                         %default-substitute-urls))
                                                       (authorized-keys (append
