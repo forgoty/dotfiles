@@ -50,11 +50,11 @@
   #:use-module (forgoty packages retro-gaming)
   #:use-module (forgoty packages shellutils)
   #:use-module (forgoty packages suckless)
-  #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout)))
+  #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout %default-username)))
 
 (define-public jellyfin-compose-file
   (let* ((docker-compose-jellyfin-service
-    '("jellyfin"
+    `("jellyfin"
       ("ports" . #("8096:8096"
                   "8920:8920"
                   "7359:7359/udp"
@@ -68,7 +68,7 @@
       ("depends_on" . #("aiostreams"))
       ("restart" . "unless-stopped")
       ("volumes" . #("/media/jellyfin/config/jellyfin:/config"
-                    "/home/nikita/.cache/jellyfin:/cache"
+                    ,(string-append "/home/" %default-username "/.cache/jellyfin:/cache")
                     "/media/jellyfin/Shows:/data/tvshows"
                     "/media/jellyfin/Movies:/data/movies"
                     "/media/jellyfin/Downloads:/data/media_downloads"))))
@@ -353,7 +353,7 @@
 
                         (service home-sunshine-service-type
                                 (home-sunshine-configuration
-                                  (config-file-path "~/.config/sunshine/sunshine.conf")))
+                                  (config-file-path (string-append "/home/" %default-username "/.config/sunshine/sunshine.conf"))))
 
                         ;; Podman
                         (service podman-service-type)
