@@ -62,7 +62,7 @@
       ("environment" . #("TZ=Europe/Warsaw"
                          "NVIDIA_VISIBLE_DEVICES=all"))
       ("devices" . #("nvidia.com/gpu=all"))
-      ("depends_on" . #("dispatcharr" "aiostreams"))
+      ("depends_on" . #("aiostreams"))
       ("restart" . "unless-stopped")
       ("volumes" . #("/media/jellyfin/config/jellyfin:/config"
                     "/home/nikita/.cache/jellyfin:/cache"
@@ -138,17 +138,6 @@
       ("restart" . "unless-stopped")
       ("volumes" . #("/media/jellyfin/config/qbittorrent:/config"
                      "/media/jellyfin/Downloads:/downloads"))))
-    (docker-compose-dispatcharr-service
-    '("dispatcharr"
-      ("image" . "ghcr.io/dispatcharr/dispatcharr:latest")
-      ("container_name" . "dispatcharr")
-      ("restart" . "unless-stopped")
-      ("devices" . #("nvidia.com/gpu=all"))
-      ("environment" . #("TZ=Europe/Warsaw"
-                         "PUID=1000"
-                         "PGID=998"))
-      ("ports" . #("9191:9191"))
-      ("volumes" . #("/media/jellyfin/config/dispatcharr:/data"))))
     (docker-compose-aiostreams-service
     '("aiostreams"
       ("image" . "ghcr.io/viren070/aiostreams:latest")
@@ -201,7 +190,6 @@
                    #$docker-compose-prowlarr-service
                    #$docker-compose-flaresolverr-service
                    #$docker-compose-aiostreams-service
-                   #$docker-compose-dispatcharr-service
                    #$docker-compose-decypharr-service
                    #$docker-compose-qbittorrent-service)))))))))))
 
