@@ -3,6 +3,7 @@
   #:use-module (gnu home)
   #:use-module (guix gexp)
   #:use-module (guix modules)
+  #:use-module (gnu packages emulators)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages freedesktop)
@@ -40,11 +41,13 @@
   #:use-module (gnu home services shells)
   #:use-module (gnu home services shells)
   #:use-module (nongnu packages game-client)
+  #:use-module (nongnu packages emulators)
   #:use-module (nongnu packages nvidia)
   #:use-module (nongnu packages video)
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services desktop)
+  #:use-module (forgoty packages retro-gaming)
   #:use-module (forgoty packages shellutils)
   #:use-module (forgoty packages suckless)
   #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout)))
@@ -304,6 +307,13 @@
     ;; Gaming
     steam-nvidia
     heroic-nvidia
+    ;;; Retro
+    retroarch
+    libretro-beetle-psx-hw
+    libretro-nestopia
+    libretro-genesis-plus-gx
+    skyscraper
+    pegasus-frontend
 
     ;; Apps
     flatpak
