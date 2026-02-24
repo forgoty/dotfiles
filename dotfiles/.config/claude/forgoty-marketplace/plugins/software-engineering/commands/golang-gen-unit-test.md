@@ -10,15 +10,14 @@ Generate **UNIT TESTS** for: "$1" in ${2:-.}
 ## Rules
 
 - **[Go-T1-C]** Split into `_Success` and `_Error` functions (never mix)
-- **[Go-T4-H]** Build tags: `//go:build unit` + `// +build unit`
-- Use `require.NoError` for success, `require.ErrorIs` for errors
+- **[Go-T4-H]** Build tags: `//go:build unit`
+- Use `require.NoError` for success, `require.Error` for errors
 - Table-driven tests with testify, mock all dependencies
 
 ## Template
 
 ```go
 //go:build unit
-// +build unit
 
 package mypackage_test
 
@@ -68,13 +67,11 @@ func TestFunctionName_Error(t *testing.T) {
         name      string
         mockSetup func(*MockDep)
         input     InputType
-        wantErr   error
     }{
         {
             name:      "returns error on invalid input",
             mockSetup: func(m *MockDep) { m.On("Method", mock.Anything).Return(nil, ErrFailed) },
             input:     invalidInput,
-            wantErr:   ErrFailed,
         },
     }
 
@@ -86,7 +83,7 @@ func TestFunctionName_Error(t *testing.T) {
 
             _, err := svc.Method(tt.input)
 
-            require.ErrorIs(t, err, tt.wantErr)
+            require.Error(t, err)
         })
     }
 }

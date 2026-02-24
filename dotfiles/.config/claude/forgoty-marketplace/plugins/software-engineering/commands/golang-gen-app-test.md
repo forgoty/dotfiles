@@ -10,7 +10,7 @@ Generate **APPLICATION/COMMUNICATION TESTS** for: "$1" in ${2:-.}
 ## Rules
 
 - **[Go-T1-C]** One test function per execution path; table tests for variants of same path
-- **[Go-T4-H]** Build tags: `//go:build unit` + `// +build unit`
+- **[Go-T4-H]** Build tags: `//go:build unit`
 - **[Go-T2-H]** Use `_test` package suffix for black-box testing
 - Use `require.NoError` for success, `require.ErrorIs` for errors
 - Mock ALL dependencies; always call `AssertExpectations(t)`
@@ -22,7 +22,6 @@ Generate **APPLICATION/COMMUNICATION TESTS** for: "$1" in ${2:-.}
 
 ```go
 //go:build unit
-// +build unit
 
 package handler_test
 
