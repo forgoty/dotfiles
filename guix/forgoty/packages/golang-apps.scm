@@ -11,7 +11,7 @@
 (define-public wtp
   (package
     (name "wtp")
-    (version "2.3.4")
+    (version "2.8.0")
     (source
      (origin
        (method git-fetch)
@@ -21,7 +21,7 @@
        (file-name (git-file-name name version))
        (sha256
         (base32
-         "0268308j8y76d52zv37by1yzg6dpzb7racgzw5mkc6i6mcc428kc"))))
+         "0ij36cnn6dampqvs8j3ajhdkd9mgv5izdqfc4jvqfiy9w2gk01qq"))))
     (build-system go-build-system)
     (arguments
       (list
