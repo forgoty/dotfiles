@@ -66,7 +66,7 @@ func TestHandler_GivenLoadFails_WhenHandled_ThenReturnsError(t *testing.T) {
             dep2 := &MockDep2{} // No expectations - fails if called
 
             handler := NewHandler(dep1, dep2)
-            _, err := handler.Handle(context.Background(), Command{})
+            _, err := handler.Handle(t.Context(), Command{})
 
             require.ErrorIs(t, err, tc.expectedError)
         })
@@ -79,7 +79,7 @@ func TestHandler_GivenNoEntities_WhenHandled_ThenSkipsProcessing(t *testing.T) {
     dep2 := &MockDep2{} // Should NOT be called
 
     handler := NewHandler(dep1, dep2)
-    _, err := handler.Handle(context.Background(), Command{})
+    _, err := handler.Handle(t.Context(), Command{})
 
     r := require.New(t)
     r.NoError(err)
