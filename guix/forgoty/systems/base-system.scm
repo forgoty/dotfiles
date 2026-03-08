@@ -122,7 +122,7 @@
                                                       (substitute-urls (append
                                                                         (list
                                                                          "https://substitutes.nonguix.org"
-                                                                         "http://guldan.local:5556")
+                                                                         "http://guldan.lan:5556")
                                                                         %default-substitute-urls))
                                                       (authorized-keys (append
                                                                         (list substitute-keys:nonguix.pub
