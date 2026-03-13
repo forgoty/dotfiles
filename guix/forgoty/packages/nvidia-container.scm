@@ -36,7 +36,7 @@
               (file-name (git-file-name name version))
               (patches (list (local-file "./patches/nvidia-modprobe.patch")))
               (sha256
-               (base32 "0wrdhli24b6lkmmz3a83adyrxryf2fxrnzb6wmbnqjg0f548y6xp"))))
+               (base32 "1rbl52d40q86y9dbj5qlm5k3rindg5fqh121wxfzrc68fl3gjila"))))
     (build-system gnu-build-system)
     (arguments
      (list
