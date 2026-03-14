@@ -126,6 +126,15 @@
                     "SUBSYSTEM==\"net\""
                     "NAME==\"en*\""
                     (format #f "RUN+=\"~a/sbin/ethtool -s $name wol g\"~%" #$ethtool))))))
+        (udev-rules-service 'wowlan
+          (file->udev-rule "92-wowlan.rules"
+            (mixed-text-file "92-wowlan.rules"
+              #~(string-join
+                  (list
+                    "ACTION==\"add\""
+                    "SUBSYSTEM==\"net\""
+                    "NAME==\"wlp*\""
+                    (format #f "RUN+=\"~a/sbin/iw phy0 wowlan enable magic-packet disconnect\"~%" #$iw))))))
         (service guix-publish-service-type
           (guix-publish-configuration
             (host "0.0.0.0")
