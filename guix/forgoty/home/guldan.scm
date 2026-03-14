@@ -44,7 +44,6 @@
   #:use-module (nongnu packages emulators)
   #:use-module (nongnu packages nvidia)
   #:use-module (nongnu packages video)
-  #:use-module ((atomized packages video) #:select (jellyfin-desktop))
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services desktop)
@@ -319,8 +318,7 @@
     ;; Apps
     flatpak
     nv-codec-headers
-    mpv-nvidia
-    jellyfin-desktop))
+    mpv-nvidia))
 
 (define-public guldan-home
   (home-environment
