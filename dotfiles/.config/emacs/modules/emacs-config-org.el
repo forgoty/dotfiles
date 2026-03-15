@@ -1,7 +1,5 @@
 (require 'org-super-agenda)
 (require 'org-habit)
-(require 'org-mem)
-(require 'org-node)
 (require 'notifications)
 
 ;; Add additional org-modules
@@ -20,22 +18,6 @@
 (setq reading-list-file (expand-file-name "lists/reading-list.org" org-directory))
 (setq important-dates-file (expand-file-name "lists/important-dates.org" org-directory))
 (setq observations-file (expand-file-name "observations.org" org-directory))
-
-;; Org-Node
-;;; Org-mem
-(setq org-mem-do-sync-with-org-id t)
-(setq org-mem-watch-dirs (list org-directory))
-(org-mem-updater-mode)
-;;; Org-Node
-(org-node-cache-mode)
-(org-node-backlink-mode)
-
-(defun org-node-agenda-insert-into-related ()
-  "Calls`org-node-insert-into-related' with the current heading."
-  (interactive)
-  (when (derived-mode-p 'org-agenda-mode)
-        (org-with-point-at (org-get-at-bol 'org-hd-marker)
-          (org-node-insert-into-related))))
 
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
