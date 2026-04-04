@@ -23,6 +23,7 @@
   #:use-module (gnu packages admin)
   #:use-module (gnu packages rsync)
   #:use-module (gnu packages ncurses)
+  #:use-module (gnu packages games)
   #:use-module (gnu packages gnome)
   #:use-module (gnu packages pantheon)
   #:use-module (gnu packages pulseaudio)
@@ -319,6 +320,7 @@
     ;; Apps
     flatpak
     nv-codec-headers
+    moonlight-qt
     mpv-nvidia))
 
 (define-public guldan-home
