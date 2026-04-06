@@ -120,12 +120,16 @@
                                   (guix-configuration (inherit config)
                                                       (substitute-urls (append
                                                                         (list
-                                                                         "https://substitutes.nonguix.org"
+                                                                         "https://cache-test.guix.moe"
+                                                                         "https://guix.bordeaux.inria.fr"
+                                                                         "https://cache-cdn.guix.moe"
                                                                          "http://guldan.lan:5556")
                                                                         %default-substitute-urls))
                                                       (authorized-keys (append
                                                                         (list substitute-keys:nonguix.pub
-                                                                              substitute-keys:guldan.pub)
+                                                                              substitute-keys:guldan.pub
+                                                                              substitute-keys:guix-science.pub
+                                                                              substitute-keys:cache-cdn.guix.moe.pub)
                                                                         %default-authorized-guix-keys))
                                                       (build-machines (list build-machines:guldan-build-machine))
                                                       (extra-options
