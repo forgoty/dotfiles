@@ -144,77 +144,83 @@
             (subuids
               (list (subid-range (name %default-username))))))))
 
+(define guldan-os
+  (operating-system
+    (locale "en_US.utf8")
+    (timezone "Europe/Warsaw")
+    (host-name "guldan")
+    (kernel linux)
+    (initrd microcode-initrd)
+    (firmware (list linux-firmware))
+    (sudoers-file sudoers-file)
+    (users (append
+            (list (user-account
+              (name %default-username)
+              (comment (string-capitalize %default-username))
+              (password (crypt "password" "$6$abc"))
+              (group "users")
+              (home-directory (string-append "/home/" %default-username))
+              (shell (file-append zsh "/bin/zsh"))
+              (supplementary-groups '("wheel"
+                                      "netdev"
+                                      "audio"
+                                      "input"
+                                      "tty"
+                                      "video"
+                                      "lp"
+                                      "cgroup"
+                                      "kvm"
+                                      "libvirt"))))
+            %base-user-accounts))
+    (packages (append system-packages %base-packages))
+    (services
+      (append system-services
+              (modify-services %desktop-services
+                (delete gdm-service-type)
+                (mingetty-service-type config =>
+                  (mingetty-configuration
+                    (inherit config)
+                    (auto-login %default-username)))
+                (network-manager-service-type config =>
+                  (network-manager-configuration
+                    (inherit config)
+                    (extra-configuration-files
+                      `(("wifi-powersave-off.conf" ,wifi-powersave-off-file)
+                        ("network-adapter-priority.conf" ,network-adapter-priority-file)))))
+                (sysctl-service-type config =>
+                  (sysctl-configuration
+                    (settings
+                      (append
+                        '(("net.ipv4.conf.all.arp_ignore" . "1")
+                          ("net.ipv4.conf.all.arp_announce" . "2"))
+                        %default-sysctl-settings))))
+                (guix-service-type config =>
+                                  (guix-configuration (inherit config)
+                                                      (authorize-key? #f)
+                                                      (substitute-urls (append
+                                                                        (list
+                                                                         "https://guix.bordeaux.inria.fr"
+                                                                         "https://cache-cdn.guix.moe"
+                                                                         "https://cache-test.guix.moe")
+                                                                        %default-substitute-urls))
+                                                      (authorized-keys (append
+                                                                        (list substitute-keys:nonguix.pub
+                                                                              substitute-keys:cache-cdn.guix.moe.pub
+                                                                              substitute-keys:guix-science.pub)
+                                                                          %default-authorized-guix-keys))
+                                                      (extra-options
+                                                        (list "--gc-keep-derivations=yes"
+                                                              "--gc-keep-outputs=yes")))))))
+
+    (file-systems (append (list efi-fs root-fs 512gb-disk-fs 6tb-disk-fs)
+                        %base-file-systems))
+
+    (bootloader (bootloader-configuration
+      (bootloader grub-efi-bootloader)
+      (targets '("/boot/efi"))
+      (timeout 0)))))
+
 (define-public guldan
-  ((compose (nonguix-transformation-nvidia))
-    (operating-system
-      (locale "en_US.utf8")
-      (timezone "Europe/Warsaw")
-      (host-name "guldan")
-      (kernel linux)
-      (initrd microcode-initrd)
-      (firmware (list linux-firmware))
-      (sudoers-file sudoers-file)
-      (users (append
-              (list (user-account
-                (name %default-username)
-                (comment (string-capitalize %default-username))
-                (password (crypt "password" "$6$abc"))
-                (group "users")
-                (home-directory (string-append "/home/" %default-username))
-                (shell (file-append zsh "/bin/zsh"))
-                (supplementary-groups '("wheel"
-                                        "netdev"
-                                        "audio"
-                                        "input"
-                                        "tty"
-                                        "video"
-                                        "lp"
-                                        "cgroup"
-                                        "kvm"
-                                        "libvirt"))))
-              %base-user-accounts))
-      (packages (append system-packages %base-packages))
-      (services
-        (append system-services
-                (modify-services %desktop-services
-                  (delete gdm-service-type)
-                  (mingetty-service-type config =>
-                    (mingetty-configuration
-                      (inherit config)
-                      (auto-login %default-username)))
-                  (network-manager-service-type config =>
-                    (network-manager-configuration
-                      (inherit config)
-                      (extra-configuration-files
-                        `(("wifi-powersave-off.conf" ,wifi-powersave-off-file)
-                          ("network-adapter-priority.conf" ,network-adapter-priority-file)))))
-                  (sysctl-service-type config =>
-                    (sysctl-configuration
-                      (settings
-                        (append
-                          '(("net.ipv4.conf.all.arp_ignore" . "1")
-                            ("net.ipv4.conf.all.arp_announce" . "2"))
-                          %default-sysctl-settings))))
-                  (guix-service-type config =>
-                                    (guix-configuration (inherit config)
-                                                        (authorize-key? #f)
-                                                        (substitute-urls (append
-                                                                          (list
-                                                                            "https://substitutes.nonguix.org")
-                                                                          %default-substitute-urls))
-                                                        (authorized-keys (append
-                                                                            (list substitute-keys:nonguix.pub)
-                                                                            %default-authorized-guix-keys))
-                                                        (extra-options
-                                                          (list "--gc-keep-derivations=yes"
-                                                                "--gc-keep-outputs=yes")))))))
-
-      (file-systems (append (list efi-fs root-fs 512gb-disk-fs 6tb-disk-fs)
-                          %base-file-systems))
-
-      (bootloader (bootloader-configuration
-        (bootloader grub-efi-bootloader)
-        (targets '("/boot/efi"))
-        (timeout 0))))))
+  ((nonguix-transformation-nvidia #:remove-nvenc-restriction? #t) guldan-os))
 
 guldan
