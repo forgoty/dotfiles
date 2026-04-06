@@ -11,6 +11,7 @@
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages firmware)
   #:use-module (nongnu packages nvidia)
+  #:use-module (nongnu packages video)
   #:use-module (nongnu packages wine)
   #:use-module (nongnu system linux-initrd)
   #:use-module (nongnu services nvidia)
@@ -107,6 +108,7 @@
         libva
         libva-utils
         dxvk-next
+        nv-codec-headers
         nvidia-container-toolkit
         neovim))
 

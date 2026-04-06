@@ -308,7 +308,6 @@
 
     ;; Gaming
     steam-nvidia
-    heroic-nvidia
     ;;; Retro
     retroarch
     libretro-beetle-psx-hw
@@ -319,7 +318,6 @@
 
     ;; Apps
     flatpak
-    nv-codec-headers
     moonlight-qt
     mpv-nvidia))
 
