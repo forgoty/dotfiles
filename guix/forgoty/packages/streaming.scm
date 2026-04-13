@@ -2,6 +2,7 @@
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix git-download)
+  #:use-module (guix utils)
   #:use-module (guix download)
   #:use-module (guix build-system cmake)
   #:use-module (guix build-system node)
@@ -31,8 +32,10 @@
   #:use-module (gnu packages libusb)
   #:use-module (gnu packages gnome)
   #:use-module (gnu packages linux)
+  #:use-module (guix-science-nonfree packages cuda)
   #:use-module ((guix licenses) #:prefix license:)
-  #:use-module (nonguix build-system binary))
+  #:use-module (nonguix build-system binary)
+  #:use-module (nongnu packages nvidia))
 
 (define (version-with-underscores version)
   (string-map (lambda (x) (if (eq? x #\.) #\_ x)) version))
@@ -148,3 +151,37 @@
     (synopsis "Self-hosted game stream host for Moonlight")
     (description "Sunshine is a self-hosted game stream host for Moonlight. Offering low latency, cloud gaming server capabilities with support for AMD, Intel, and Nvidia GPUs for hardware encoding. Software encoding is also available.")
     (license license:gpl3)))
+
+(define-public sunshine-nvfbc
+  (package
+    (inherit sunshine)
+    (arguments
+     (substitute-keyword-arguments (package-arguments sunshine)
+       ((#:configure-flags flags)
+        #~(append
+           (delete "-DSUNSHINE_ENABLE_CUDA=OFF" #$flags)
+           (list
+            "-DSUNSHINE_ENABLE_CUDA=ON"
+            "-DCUDA_FAIL_ON_MISSING=ON"
+            (string-append "-DCMAKE_CUDA_COMPILER="
+                           (assoc-ref %build-inputs "cuda-toolkit")
+                           "/bin/nvcc"))))
+       ((#:phases phases)
+        #~(modify-phases #$phases
+            (add-after 'unpack 'add-nvfbc-patch
+              (lambda _
+                (substitute* "src/platform/linux/cuda.cpp"
+                  (("libnvidia-fbc\\.so" all)
+                   (string-append #$nvda "/lib/" all)))))
+            (add-after 'install 'wrap-sunshine
+              (lambda* (#:key outputs #:allow-other-keys)
+                (let* ((out (assoc-ref outputs "out"))
+                       (bin (string-append out "/bin/sunshine"))
+                       ;; rough LD path for patched nvidia driver, must be installed into system configuration
+                       (driver "/run/current-system/profile/lib"))
+                  (wrap-program bin
+                    `("LD_LIBRARY_PATH" ":" prefix
+                      (,driver))))))))))
+    (inputs
+     (modify-inputs (package-inputs sunshine)
+       (append nvda cuda-cudart cuda-13.0)))))
