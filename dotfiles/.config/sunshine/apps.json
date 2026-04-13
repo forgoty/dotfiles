@@ -1,0 +1,93 @@
+{
+    "apps": [
+        {
+            "auto-detach": true,
+            "cmd": [],
+            "detached": [
+                "setsid steam -applaunch 730"
+            ],
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Counter-Strike 2",
+            "output": "",
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "desktop.png",
+            "name": "Desktop TV",
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": [],
+            "detached": [
+                "setsid steam -applaunch 570"
+            ],
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Dota 2",
+            "output": "",
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": [],
+            "detached": [
+                "setsid steam -applaunch 22490"
+            ],
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Fallout: New Vegas PCR",
+            "output": "",
+            "prep-cmd": [
+                {
+                    "do": "",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": [],
+            "detached": [
+                "setsid steam -applaunch 15170"
+            ],
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Heroes of Might and Magic V",
+            "output": "",
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "detached": [
+                "setsid steam steam://open/bigpicture"
+            ],
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "steam.png",
+            "name": "Steam Big Picture",
+            "prep-cmd": [
+                {
+                    "do": "",
+                    "undo": "setsid steam steam://close/bigpicture"
+                }
+            ],
+            "wait-all": true
+        }
+    ],
+    "env": {}
+}
