@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# This script runs qutebrowser for given basedir with config symlink
+
+[ -z "$1" ] && { echo "usage: qb <profile>"; exit 1; }
+
+profile="$1"
+basedir="${XDG_DATA_HOME:-$HOME/.local/share}/qutebrowser/profiles/$profile"
+configdir="${XDG_CONFIG_HOME:-$HOME/.config}/qutebrowser"
+
+mkdir -p "$basedir/config"
+
+# Share config files
+for f in config.py autoconfig.yml gruvbox.py qsettings; do
+    [ -e "$basedir/config/$f" ] || ln -s "$configdir/$f" "$basedir/config/$f"
+done
+
+exec qutebrowser -B "$basedir" "${@:2}"
