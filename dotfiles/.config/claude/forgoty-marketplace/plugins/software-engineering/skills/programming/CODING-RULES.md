@@ -94,6 +94,7 @@
 - **[T35-L]** Test method names must spell "cannot" and "dont" without apostrophes.
 - **[T36-L]** Tests may not assert on returned code.
 - **[T37-L]** Tests may not assert on error type.
+- **[T38-H]** Separate Happy Path and Error Path Test Cases.
 
 ## AI Code Generation Process [AI]
 
