@@ -39,9 +39,13 @@ tab-indent."
   (interactive)
   (kill-new (file-relative-name (buffer-file-name) (vc-root-dir))))
 
+;; Set to nil in .dir-locals.el to disable auto-formatting for a specific project.
+(defvar enable-format-on-save t)
+
 (defun format-buffer-with-eglot ()
   (interactive)
-  (when (bound-and-true-p eglot--managed-mode)
+  (when (and (bound-and-true-p eglot--managed-mode)
+             enable-format-on-save)
     (save-excursion
       (condition-case err
           (call-interactively #'eglot-code-action-organize-imports)
