@@ -22,7 +22,7 @@
 
 ;; Project related
 (setq project-vc-extra-root-markers
-      '("package.json" "requirements.txt" ".git" "build.zig" "go.mod" "go.work"))
+      '("package.json" "requirements.txt" "pyproject.toml" ".git" "build.zig" "go.mod" "go.work"))
 
 ;; PlantUML
 (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
@@ -55,5 +55,6 @@
 (require 'ide-mode-js-ts)
 (require 'ide-mode-c)
 (require 'ide-mode-zig)
+(require 'ide-mode-python)
 
 (provide 'emacs-config-ide)
