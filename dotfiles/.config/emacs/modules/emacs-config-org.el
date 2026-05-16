@@ -1,6 +1,7 @@
 (require 'org-super-agenda)
 (require 'org-habit)
 (require 'notifications)
+(require 'org-super-links)
 
 ;; Add additional org-modules
 (add-to-list 'org-modules 'org-habit t)
@@ -36,6 +37,13 @@
 ;; Tag inheritance
 (setq org-use-tag-inheritance t)
 (setq org-tags-exclude-from-inheritance '("PROJECT"))
+
+(defun org-super-links-agenda-insert-link ()
+  "Link related item"
+  (interactive)
+  (save-window-excursion
+    (org-agenda-switch-to)
+    (org-super-links-quick-insert-drawer-link)))
 
 (defun org-agenda-todo-next ()
     "Org agenda todo next cycle"

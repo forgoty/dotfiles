@@ -258,14 +258,13 @@
 (mode-dependent-leader-def go-ts-mode-map
   "i" '(go-import-add :which-key "add import"))
 (mode-dependent-leader-def org-mode-map
-  "l" '((lambda (message "No op")) :which-key "insert link into RELEATED drawer")
+  "l" '(org-super-links-quick-insert-drawer-link :which-key "org insert link")
   "o" '(org-open-at-point :which-key "org open at point")
   "s" '(org-search-view :which-key "search")
   "t"  '(:ignore t :which-key "org toggles")
-  "tc" '(org-toggle-checkbox :which-key "org toggle checkbox")
-  "f" '((lambda (message "No op")) :which-key "find node"))
+  "tc" '(org-toggle-checkbox :which-key "org toggle checkbox"))
+
 (mode-dependent-leader-def org-agenda-mode-map
-  "l" '((lambda (message "No op")) :which-key "insert link into RELEATED drawer")
-  "f" '((lambda (message "No op")) :which-key "find node"))
+  "l" '(org-super-links-agenda-insert-link :which-key "org insert link"))
 
 (provide 'emacs-config-input)
