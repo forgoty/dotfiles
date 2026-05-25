@@ -136,9 +136,7 @@
             (ttl (* 90 24 3600))))
         (service libvirt-service-type
                  (libvirt-configuration (unix-sock-group "libvirt")))
-        (service sunshine-service-type
-                 (sunshine-configuration
-                   (package sunshine-nvfbc)))
+        (service sunshine-service-type)
         (service iptables-service-type)
         (service guix-home-service-type `((,%default-username ,guldan-home)))
         (service rootless-podman-service-type
