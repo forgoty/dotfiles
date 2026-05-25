@@ -43,7 +43,6 @@
   #:use-module (gnu home services shells)
   #:use-module (nongnu packages game-client)
   #:use-module (nongnu packages emulators)
-  #:use-module (nongnu packages nvidia)
   #:use-module (nongnu packages video)
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
@@ -63,9 +62,8 @@
       ("image" . "jellyfin/jellyfin:10")
       ("user" . "1000:998")
       ("container_name" . "jellyfin")
-      ("environment" . #("TZ=Europe/Warsaw"
-                         "NVIDIA_VISIBLE_DEVICES=all"))
-      ("devices" . #("nvidia.com/gpu=all"))
+      ("environment" . #("TZ=Europe/Warsaw"))
+      ("devices" . #("/dev/dri"))
       ("depends_on" . #("aiostreams"))
       ("restart" . "unless-stopped")
       ("volumes" . #("/media/jellyfin/config/jellyfin:/config"
@@ -307,7 +305,7 @@
     v4l-utils
 
     ;; Gaming
-    steam-nvidia
+    steam
     ;;; Retro
     retroarch
     libretro-beetle-psx-hw
@@ -319,7 +317,7 @@
     ;; Apps
     flatpak
     moonlight-qt
-    mpv-nvidia))
+    mpv))
 
 (define-public guldan-home
   (home-environment
@@ -346,9 +344,7 @@
                         (service home-startx-command-service-type
                                  (xorg-configuration
                                    (keyboard-layout default-keyboard-layout)
-                                   (modules (cons nvda %default-xorg-modules))
-                                   (resolutions '((1920 1080)))
-                                   (drivers '("nvidia"))))
+                                   (resolutions '((1920 1080)))))
 
                         (service home-x11-service-type)
 

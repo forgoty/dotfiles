@@ -1,4 +1,6 @@
 (define-module (forgoty systems guldan)
+  #:use-module (guix store)
+  #:use-module (guix packages)
   #:use-module (gnu)
   #:use-module (gnu system)
   #:use-module (gnu system accounts)
@@ -6,21 +8,16 @@
   #:use-module (gnu services base)
   #:use-module (gnu services guix)
   #:use-module (gnu services sysctl)
-  #:use-module (guix store)
-  #:use-module (guix packages)
   #:use-module (nongnu packages linux)
   #:use-module (nongnu packages firmware)
-  #:use-module (nongnu packages nvidia)
   #:use-module (nongnu packages video)
   #:use-module (nongnu packages wine)
   #:use-module (nongnu system linux-initrd)
-  #:use-module (nongnu services nvidia)
   #:use-module (nonguix utils)
   #:use-module (nonguix transformations)
   #:use-module (forgoty services sunshine)
   #:use-module (forgoty home guldan)
   #:use-module ((forgoty substitute-keys) #:prefix substitute-keys:)
-  #:use-module (forgoty packages nvidia-container)
   #:use-module (forgoty packages streaming)
   #:use-module ((forgoty systems base-system) #:select (%default-username)))
 
@@ -43,6 +40,7 @@
                      nfs
                      shells
                      video
+                     gl
                      xorg
                      networking
                      package-management)
@@ -105,12 +103,11 @@
         bluez-alsa
         fuse-exfat
         ntfs-3g
-        xf86-video-dummy
+        mesa
         libva
         libva-utils
         dxvk-next
-        nv-codec-headers
-        nvidia-container-toolkit
+        xf86-video-amdgpu
         neovim))
 
 (define system-services
@@ -154,7 +151,10 @@
     (host-name "guldan")
     (kernel linux)
     (initrd microcode-initrd)
-    (firmware (list linux-firmware))
+    (firmware (list
+                linux-firmware
+                amdgpu-firmware
+                amd-microcode))
     (sudoers-file sudoers-file)
     (users (append
             (list (user-account
@@ -224,6 +224,6 @@
       (timeout 0)))))
 
 (define-public guldan
-  ((nonguix-transformation-nvidia #:remove-nvenc-restriction? #t) guldan-os))
+  guldan-os)
 
 guldan
