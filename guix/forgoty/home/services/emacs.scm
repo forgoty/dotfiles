@@ -23,6 +23,7 @@
         emacs-google-c-style
         emacs-copilot
         emacs-direnv
+        emacs-editor-code-assistant
 
         ;; Search and Completion
         emacs-magit

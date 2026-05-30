@@ -53,6 +53,7 @@
   #:use-module (forgoty packages ocr)
   #:use-module (forgoty packages python-xyz)
   #:use-module (forgoty packages shellutils)
+  #:use-module (forgoty packages coding-agents)
   #:use-module ((srfi srfi-1) #:hide (zip))
   #:use-module (ice-9 match)
   #:export (home-default-packages
@@ -144,6 +145,7 @@
    strace
    forgoty-shellutils
    wol
+   eca
 
    ;; Apps
    qutebrowser
