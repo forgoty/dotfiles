@@ -31,6 +31,7 @@
                      audio
                      file-systems
                      vim
+                     gl
                      nfs
                      shells
                      video
@@ -78,6 +79,7 @@
         fuse-exfat
         gvfs
         ntfs-3g
+        mesa
         libva-utils
         vim))
 
@@ -99,7 +101,7 @@
 		   (subuids
 		     (list (subid-range (name %default-username))))))))
 
-;; This is a base operating system that must be inherited in actual host config
+;; This is a base operating system that could be inherited in actual host config
 (define base-operating-system
   (operating-system
     (locale "en_US.utf8")
