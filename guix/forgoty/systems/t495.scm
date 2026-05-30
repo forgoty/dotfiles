@@ -1,12 +1,17 @@
 (define-module (forgoty systems t495)
   #:use-module (gnu)
   #:use-module (gnu system)
+  #:use-module (nongnu packages linux)
   #:use-module (forgoty systems base-system))
 
 (operating-system
   (inherit base-operating-system)
   (host-name "t495")
-
+  (firmware (append
+              (operating-system-firmware base-operating-system)
+              (list
+                amdgpu-firmware
+                amd-microcode)))
   ;; The list of file systems that get "mounted".  The unique
   ;; file system identifiers there ("UUIDs") can be obtained
   ;; by running 'blkid' in a terminal.
