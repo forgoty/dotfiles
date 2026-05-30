@@ -1,6 +1,7 @@
 (define-module (forgoty home services emacs)
   #:use-module (gnu home)
   #:use-module (guix gexp)
+  #:use-module ((guix utils) #:select (current-source-directory))
   #:use-module (gnu home services)
   #:use-module (gnu home services shepherd)
   #:use-module (gnu packages emacs)
@@ -9,6 +10,11 @@
   #:use-module (gnu packages emacs-build)
   #:use-module (forgoty packages emacs)
   #:export (home-emacs-config-service-type))
+
+(define %emacs-config-dir
+  (canonicalize-path
+    (string-append (current-source-directory)
+                   "/../../../../dotfiles/shared/.config/emacs")))
 
 (define (home-emacs-configuration config)
   (list emacs
@@ -100,6 +106,14 @@
         emacs-pandoc-mode
         emacs-auctex))
 
+(define (home-emacs-files config)
+  `((".emacs.d/modules"         ,(local-file (string-append %emacs-config-dir "/modules")         #:recursive? #t))
+    (".emacs.d/early-init.el"   ,(local-file (string-append %emacs-config-dir "/early-init.el")))
+    (".emacs.d/emacs.png"       ,(local-file (string-append %emacs-config-dir "/emacs.png")))
+    (".emacs.d/pomodoro-eaten.wav" ,(local-file (string-append %emacs-config-dir "/pomodoro-eaten.wav")))
+    (".emacs.d/custom.el"       ,(local-file (string-append %emacs-config-dir "/custom.el")))
+    (".emacs.d/init.el"         ,(local-file (string-append %emacs-config-dir "/init.el")))))
+
 (define (home-emacs-shepherd-service config)
   (list
    (shepherd-service
@@ -116,6 +130,8 @@
                 (description "A service for configuring Emacs in guix home")
                 (extensions (list (service-extension home-profile-service-type
                                                      home-emacs-configuration)
+                                  (service-extension home-files-service-type
+                                                     home-emacs-files)
                                   (service-extension home-shepherd-service-type
                                                      home-emacs-shepherd-service)))
                 (default-value #f)))
