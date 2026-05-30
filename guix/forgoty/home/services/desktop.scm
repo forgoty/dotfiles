@@ -89,12 +89,17 @@
    forgoty-dwmblocks
    luke-dmenu
 
+   ;; vim
+   vim-full
+   vim-surround
+   vim-airline
+   vim-commentary
+
    ;; Shell and CLI tools
    zsh-syntax-highlighting
    zsh-completions
    file
    bat
-   neovim
    lf
    git
    wget
@@ -155,7 +160,7 @@
 (define home-default-environment-variables
   '(("XINITRC" . "$XDG_CONFIG_HOME/x11/xinitrc")
     ("GTK2_RC_FILES" . "$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0")
-    ("EDITOR" . "nvim")
+    ("EDITOR" . "vim")
     ("TERMINAL" . "st")
     ("XLOCK" . "sudo slock")
     ("SHUTDOWN" . "sudo loginctl poweroff")

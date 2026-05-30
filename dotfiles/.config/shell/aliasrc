@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Use neovim for vim if present.
-[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
-
 # sudo not required for some system commands
 for command in mount umount updatedb su loginctl ; do
 	alias $command="sudo $command"
@@ -34,7 +31,6 @@ alias \
 	e="$EDITOR" \
 	v="$EDITOR" \
 	z="zathura" \
-	magit="nvim -c MagitOnly" \
 	lf="lfub" \
 
 # forgoty aliases

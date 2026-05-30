@@ -201,7 +201,7 @@ static const Key keys[] = {
 	{ MODKEY,			XK_x,		incrgaps,	{.i = -3 } },
 	{ MODKEY,			XK_c,		spawn,		{.v = (const char*[]){ "spawncerebrum", NULL } } },
 	{ MODKEY,			XK_b,		togglebar,	{0} },
-	{ MODKEY,			XK_n,		spawn,		SHCMD(TERMINAL " -e nvim ${CEREBRUM_PATH}/org/$(hostname)_scratchpad.org") },
+	{ MODKEY,			XK_n,		spawn,		SHCMD(TERMINAL " -e ${EDITOR} ${CEREBRUM_PATH}/org/$(hostname)_scratchpad.org") },
 	{ MODKEY|ShiftMask,		XK_n,		spawn,		SHCMD(TERMINAL " -e newsboat ; pkill -RTMIN+6 dwmblocks") },
 	{ MODKEY,			XK_m,		spawn,		{.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
@@ -250,7 +250,7 @@ static const Button buttons[] = {
 	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
 	{ ClkStatusText,        ShiftMask,      Button1,        sigdwmblocks,   {.i = 6} },
 #endif
-	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(TERMINAL " -e nvim ~/.local/src/dwmblocks/config.h") },
+	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(TERMINAL " -e ${EDITOR} ~/.local/src/dwmblocks/config.h") },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        defaultgaps,	{0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },

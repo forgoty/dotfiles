@@ -108,7 +108,7 @@
         libva-utils
         dxvk-next
         xf86-video-amdgpu
-        neovim))
+        vim))
 
 (define system-services
   (list (service openssh-service-type
