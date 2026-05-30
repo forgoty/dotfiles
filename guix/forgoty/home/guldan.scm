@@ -47,10 +47,13 @@
   #:use-module (forgoty home services sunshine)
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services desktop)
+  #:use-module (forgoty home services dotfiles)
   #:use-module (forgoty packages retro-gaming)
   #:use-module (forgoty packages shellutils)
   #:use-module (forgoty packages suckless)
   #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout %default-username)))
+
+(define %host "guldan")
 
 (define-public jellyfin-compose-file
   (let* ((docker-compose-jellyfin-service
@@ -195,39 +198,6 @@
                    #$docker-compose-decypharr-service
                    #$docker-compose-qbittorrent-service)))))))))))
 
-(define (home-guldan-dotfiles-configuration config)
-  (append
-    (home-dotfiles-configuration->files (home-dotfiles-configuration
-          (excluded '("README.md"
-                ".stow-local-ignore"
-                ".xinitrc"
-                ".xprofile"
-                ".emacs.d"))
-          (directories '("../../../dotfiles"))))
-    ))
-    ;; `(( ".xinitrc" ,(plain-file "xinitrc"
-    ;;   (string-append
-    ;;     "xrdb -merge ~/.Xresources\n"
-    ;;     "pcmanfm --desktop &\n"
-    ;;     "tint2 &\n"
-    ;;     "exec openbox\n")))
-    ;;   (".Xresources" ,(plain-file "xresources"
-    ;;     (string-append
-    ;;       "Xft.dpi: 96\n"
-    ;;       "Xft.autohint: 0\n"
-    ;;       "Xft.lcdfilter: lcddefault\n"
-    ;;       "Xft.hintstyle: hintfull\n"
-    ;;       "Xft.hinting: 1\n"
-    ;;       "Xft.antialias: 1\n"
-    ;;       "Xft.rgba: rgb\n"))))))
-
-(define home-guldan-dotfiles-service-type
-  (service-type (name 'home-dotfiles)
-                (description "Dotfiles configuration")
-                (extensions (list (service-extension home-files-service-type
-                                                     home-guldan-dotfiles-configuration)))
-                (default-value #f)))
-
 (define home-guldan-environment-variables
   (append (remove (lambda (var)
                     (member (car var)
@@ -330,7 +300,8 @@
                         (service home-zsh-service-type)
 
                         ;; Dotfiles
-                        (service home-guldan-dotfiles-service-type)
+                        (service home-forgoty-dotfiles-service-type
+                                 (home-forgoty-dotfiles-configuration (host %host)))
 
                         ;; Set up desktop environment
                         (service home-desktop-service-type

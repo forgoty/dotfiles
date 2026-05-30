@@ -1,0 +1,1 @@
+../../../../../../../shared/.config/claude/forgoty-marketplace/plugins/software-engineering/agents/backend-engineer-golang.md

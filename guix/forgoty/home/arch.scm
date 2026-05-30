@@ -27,6 +27,8 @@
   #:export (home-arch-packages
             home-arch-environment-variables))
 
+(define %host "arch")
+
 (define home-arch-packages
   (append (remove (lambda (pkg)
             (member pkg
@@ -69,7 +71,8 @@
            (service forgoty-direnv-service-type)
 
            ;; Dotfiles
-           (service home-forgoty-dotfiles-service-type)
+           (service home-forgoty-dotfiles-service-type
+                    (home-forgoty-dotfiles-configuration (host %host)))
 
            ;; Set up desktop environment
            (service home-desktop-service-type

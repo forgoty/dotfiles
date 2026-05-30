@@ -1,0 +1,1 @@
+../../../shared/.config/qutebrowser/gruvbox.py

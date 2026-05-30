@@ -1,0 +1,1 @@
+../../../../../shared/.config/emacs/modules/ide-modes/ide-mode-js-ts.el

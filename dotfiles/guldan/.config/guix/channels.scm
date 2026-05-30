@@ -1,0 +1,1 @@
+../../../shared/.config/guix/channels.scm

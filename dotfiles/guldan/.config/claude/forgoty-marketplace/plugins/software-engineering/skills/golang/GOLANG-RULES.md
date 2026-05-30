@@ -1,0 +1,1 @@
+../../../../../../../../shared/.config/claude/forgoty-marketplace/plugins/software-engineering/skills/golang/GOLANG-RULES.md

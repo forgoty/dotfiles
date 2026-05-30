@@ -13,7 +13,6 @@
   #:use-module (guix gexp)
   #:use-module (forgoty home services desktop)
   #:use-module (forgoty home services emacs)
-  #:use-module (forgoty home services dotfiles)
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services shellutils)
   #:use-module (forgoty home services jobs)
@@ -36,9 +35,6 @@
            ;; Shell
            (service home-zsh-service-type)
            (service forgoty-direnv-service-type)
-
-           ;; Dotfiles
-           (service home-forgoty-dotfiles-service-type)
 
            ;; Set up desktop environment
            (service home-desktop-service-type)

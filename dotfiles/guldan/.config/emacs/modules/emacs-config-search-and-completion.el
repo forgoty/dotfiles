@@ -1,0 +1,1 @@
+../../../../shared/.config/emacs/modules/emacs-config-search-and-completion.el
