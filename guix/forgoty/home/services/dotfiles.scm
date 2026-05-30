@@ -13,14 +13,14 @@
 					(excluded '("README.md"
 						    ".stow-local-ignore"
 						    ".emacs.d"))
-					(directories '("../../../../dotfiles"))))
+					(directories '("../../../../dotfiles/shared"))))
     ;; emacs configuration
-    `((".emacs.d/modules" ,(local-file "../../../../dotfiles/.config/emacs/modules" #:recursive? #t))
-    (".emacs.d/early-init.el" ,(local-file "../../../../dotfiles/.config/emacs/early-init.el"))
-    (".emacs.d/emacs.png" ,(local-file "../../../../dotfiles/.config/emacs/emacs.png"))
-    (".emacs.d/pomodoro-eaten.wav" ,(local-file "../../../../dotfiles/.config/emacs/pomodoro-eaten.wav"))
-    (".emacs.d/custom.el" ,(local-file "../../../../dotfiles/.config/emacs/custom.el"))
-    (".emacs.d/init.el" ,(local-file "../../../../dotfiles/.config/emacs/init.el")))))
+    `((".emacs.d/modules" ,(local-file "../../../../dotfiles/shared/.config/emacs/modules" #:recursive? #t))
+    (".emacs.d/early-init.el" ,(local-file "../../../../dotfiles/shared/.config/emacs/early-init.el"))
+    (".emacs.d/emacs.png" ,(local-file "../../../../dotfiles/shared/.config/emacs/emacs.png"))
+    (".emacs.d/pomodoro-eaten.wav" ,(local-file "../../../../dotfiles/shared/.config/emacs/pomodoro-eaten.wav"))
+    (".emacs.d/custom.el" ,(local-file "../../../../dotfiles/shared/.config/emacs/custom.el"))
+    (".emacs.d/init.el" ,(local-file "../../../../dotfiles/shared/.config/emacs/init.el")))))
 
 (define home-forgoty-dotfiles-service-type
   (service-type (name 'home-dotfiles)
