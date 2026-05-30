@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This script does the following:
-#	Run by itself, set the wallpaper (at X start).
+#	Run by itself, set the wallpaper.
 #	If given a file, set that as the new wallpaper.
 #	If given a directory, choose random file in it.
 #	If wal is installed, also generates a colorscheme.
@@ -36,6 +36,19 @@ else
 	[ -f "$zathuraconf.bak" ] && unlink "$zathuraconf" && mv "$zathuraconf.bak" "$zathuraconf"
 fi
 
-xwallpaper --zoom "$bgloc"
-# If running, dwm hit the key to refresh the color scheme.
-pidof dwm >/dev/null && xdotool key super+F5
+set_wallpaper_x11() {
+    xwallpaper --zoom "$bgloc"
+    # If running, dwm hit the key to refresh the color scheme.
+    pidof dwm >/dev/null && xdotool key super+F5
+}
+
+set_wallpaper_wayland() {
+    pkill swaybg 2>/dev/null
+    swaybg -i "$bgloc" -m fill
+}
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    set_wallpaper_wayland
+else
+    set_wallpaper_x11
+fi
