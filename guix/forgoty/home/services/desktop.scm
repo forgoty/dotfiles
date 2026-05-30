@@ -213,6 +213,9 @@
             (default home-default-packages))
   (shepherd-services home-desktop-configuration-shepherd-services
                      (default (list home-xcompmgr-shepherd-service)))
+  (dot-profiles home-desktop-configuration-dot-profiles
+               (default (list (plain-file "startx"
+                                    "[ $(tty) = /dev/tty1 ] && exec startx"))))
   (environment-variables home-desktop-configuration-environment-variables
                          (default home-default-environment-variables)))
 
@@ -231,15 +234,18 @@
                 ((shepherd-services svcs))
                 svcs))
 
+(define (home-dot-profiles config)
+  (match-record config <home-desktop-configuration>
+                ((dot-profiles profiles))
+                profiles))
+
 (define-public home-desktop-service-type
   (service-type (name 'home-desktop)
                 (description "Desktop environment configuration")
                 (extensions (list (service-extension home-profile-service-type
                                                      home-profile-packages)
                                   (service-extension home-shell-profile-service-type
-                                                     (const (list (plain-file
-                                                                   "startx"
-                                                                   "[ $(tty) = /dev/tty1 ] && exec startx"))))
+                                                     home-dot-profiles)
                                   (service-extension home-environment-variables-service-type
                                                      home-profile-environment-variables)
                                   (service-extension home-shepherd-service-type
