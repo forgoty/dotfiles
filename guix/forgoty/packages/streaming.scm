@@ -27,6 +27,7 @@
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages avahi)
   #:use-module (gnu packages freedesktop)
+  #:use-module (gnu packages wm)
   #:use-module (gnu packages gl)
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages libusb)
@@ -69,23 +70,28 @@
 	   #~(list
 	       "-Wno-dev"
 	       "-DBOOST_USE_STATIC=false"
-	       "-DSUNSHINE_ENABLE_CUDA=OFF"
-	       "-DBUILD_DOCS=false"
-	       "-DBUILD_TESTS=OFF"
+         "-DSUNSHINE_ENABLE_CUDA=OFF"
+         "-DBUILD_DOCS=false"
+         "-DBUILD_TESTS=OFF"
          "-DNPM_OFFLINE=ON"
+         "-DSUNSHINE_SYSTEM_WAYLAND_PROTOCOLS=ON"
          (string-append "-DOPENSSL_ROOT_DIR=" (assoc-ref %build-inputs "openssl")))
       #:phases
       #~(modify-phases %standard-phases
           (add-after 'unpack 'modify-src
-            (lambda _
+            (lambda* (#:key inputs #:allow-other-keys)
+              (substitute* "cmake/compile_definitions/linux.cmake"
+                (("\\$\\{CMAKE_SOURCE_DIR\\}/third-party/wlr-protocols")
+                 (string-append (assoc-ref inputs "wlr-protocols")
+                                "/share/wlr-protocols")))
               (substitute* "cmake/packaging/linux.cmake"
                 (("\\$\\{UDEV_RULES_INSTALL_DIR\\}")
                   (string-append #$output "/lib/udev/rules.d"))
                 (("\\$\\{SYSTEMD_USER_UNIT_INSTALL_DIR\\}")
                  "${SUNSHINE_ASSETS_DIR}/systemd/user"))
               (substitute* "src/platform/linux/publish.cpp"
-                          (("libavahi-(common|client)\\.so" all)
-                            (string-append #$avahi "/lib/" all)))
+                (("libavahi-(common|client)\\.so" all)
+                  (string-append #$avahi "/lib/" all)))
               (substitute* "src/platform/linux/x11grab.cpp"
                 (("libXrandr\\.so" all)
                 (string-append #$libxrandr "/lib/" all))
@@ -125,7 +131,6 @@
       pulseaudio
       openssl
       libva
-      libvdpau
       wayland
       libx11
       libxtst
@@ -139,6 +144,9 @@
     (native-inputs
      `(("pkg-config" ,pkg-config)
        ("tar" ,tar)
+       ("wayland" ,wayland)
+       ("wayland-protocols" ,wayland-protocols)
+       ("wlr-protocols" ,wlr-protocols)
        ("npm-offline-cache" ,(origin
                               (method url-fetch)
                               (uri (string-append "https://github.com/forgoty/sunshine-web-ui-builder/releases/download/v" version "/npm-offline-cache.tar.gz"))
@@ -148,3 +156,4 @@
     (synopsis "Self-hosted game stream host for Moonlight")
     (description "Sunshine is a self-hosted game stream host for Moonlight. Offering low latency, cloud gaming server capabilities with support for AMD, Intel, and Nvidia GPUs for hardware encoding. Software encoding is also available.")
     (license license:gpl3)))
+sunshine

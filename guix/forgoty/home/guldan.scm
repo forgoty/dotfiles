@@ -8,7 +8,6 @@
   #:use-module (gnu packages linux)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages guile)
-  #:use-module (gnu packages xorg)
   #:use-module (gnu packages fonts)
   #:use-module (gnu packages shellutils)
   #:use-module (gnu packages file)
@@ -32,7 +31,6 @@
   #:use-module (gnu packages package-management)
   #:use-module (gnu packages wget)
   #:use-module (gnu packages suckless)
-  #:use-module (gnu services xorg)
   #:use-module (gnu home services)
   #:use-module (gnu home services desktop)
   #:use-module (gnu home services sound)
@@ -51,7 +49,7 @@
   #:use-module (forgoty packages retro-gaming)
   #:use-module (forgoty packages shellutils)
   #:use-module (forgoty packages suckless)
-  #:use-module ((forgoty systems base-system) #:select (default-keyboard-layout %default-username)))
+  #:use-module ((forgoty systems base-system) #:select (%default-username)))
 
 (define %host "guldan")
 
@@ -201,36 +199,25 @@
 (define home-guldan-environment-variables
   (append (remove (lambda (var)
                     (member (car var)
-                            (list "XINITRC" "BROWSER")))
+                            (list "BROWSER")))
                   home-default-environment-variables)
-          (list '("GDK_SCALE" . "2")
-                '("GDK_DPI_SCALE" . "1")
-                '("QT_SCALE_FACTOR" . "2")
-                '("GUIX_SANDBOX_EXTRA_SHARES" . "/home/nikita/Games")
-                '("QT_AUTO_SCREEN_SCALE_FACTOR" . "0")
-                '("XINITRC" . ".xinitrc"))))
+          (list '("GUIX_SANDBOX_EXTRA_SHARES" . "/home/nikita/Games")
+                '("XKB_DEFAULT_LAYOUT" . "pl,ru")
+                '("XKB_DEFAULT_OPTIONS" . "grp:shifts_toggle,caps:escape")
+                '("XCURSOR_THEME" . "Adwaita")
+                '("XCURSOR_SIZE" . "12"))))
 
 (define guldan-packages
   (list
-    ;; Xorg
+    ;; Wayland
     util-linux
     xdg-utils
     xdg-desktop-portal
     xdg-desktop-portal-gtk
-    setxkbmap
-    xset
-    xmodmap
-    xrandr
-    xrdb
-    xauth
-    xprop
-    xwininfo
-    xf86-input-joystick
     lm-sensors
-    xdotool
-    xclip
-    xwallpaper
-    xcompmgr
+    wl-clipboard
+    swaybg
+    kanshi
     font-google-noto
     font-google-noto-emoji
     font-adobe-source-code-pro
@@ -238,9 +225,8 @@
     hicolor-icon-theme
 
     ;; Window Manager
-    openbox
-    obconf
-    tint2
+    labwc
+    waybar
     zenity
     pantheon-wallpapers
 
@@ -253,7 +239,6 @@
     git
     wget
     fzf
-    maim
     lf
     ncurses
     ripgrep
@@ -268,7 +253,7 @@
     curl
     mediainfo
     forgoty-shellutils
-    forgoty-st
+    foot
     luke-dmenu
 
     ;; Other
@@ -308,19 +293,15 @@
                                   (home-desktop-configuration
                                     (environment-variables home-guldan-environment-variables)
                                     (profile-packages guldan-packages)
+                                    (dot-profiles (list (plain-file "labwc"
+                                                                    "[ $(tty) = /dev/tty1 ] && exec labwc")))
                                     (shepherd-services '())))
 
                         (service home-dbus-service-type)
 
-                        (service home-startx-command-service-type
-                                 (xorg-configuration
-                                   (keyboard-layout default-keyboard-layout)
-                                   (resolutions '((1920 1080)))))
-
-                        (service home-x11-service-type)
-
                         (service home-sunshine-service-type
                                 (home-sunshine-configuration
+                                  (session-type 'wayland)
                                   (config-file-path (string-append "/home/" %default-username "/.config/sunshine/sunshine.conf"))))
 
                         ;; Podman

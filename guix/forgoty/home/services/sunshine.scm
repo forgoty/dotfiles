@@ -14,28 +14,33 @@
   home-sunshine-configuration make-home-sunshine-configuration
   home-sunshine-configuration?
   (config-file-path home-sunshine-config-file-path
-                 (default "~/.config/sunshine/sunshine.conf")))
+                 (default "~/.config/sunshine/sunshine.conf"))
+  (session-type home-sunshine-session-type
+                (default 'x11)))
 
 (define (home-sunshine-services config)
   "Return a <shepherd-service> for sunshine with CONFIG."
   (match-record config <home-sunshine-configuration>
-    (config-file-path)
+    (config-file-path session-type)
     (let* ((command #~(list "/run/privileged/bin/sunshine" #$config-file-path))
+           (requirement (if (eq? session-type 'x11)
+                            '(x11-display)
+                            '()))
            (log-file #~(string-append %user-log-dir "/sunshine.log")))
       (list (shepherd-service
              (documentation "Run the sunshine host.")
-             (requirement '(x11-display))
+             (requirement requirement)
              (provision '(sunshine))
              (modules '((shepherd support)
                         (srfi srfi-1)
                         (srfi srfi-26)))
              (start #~(lambda _
-              ;; use lambda to compute DISPLAY variable in runtime
-              ;; after it set by x11-display
               (fork+exec-command #$command
                 #:environment-variables
                   (append (default-environment-variables)
-                    (list (string-append "DISPLAY=" (getenv "DISPLAY"))))
+                          #$(if (eq? session-type 'x11)
+                                #~(list (string-append "DISPLAY=" (getenv "DISPLAY")))
+                                #~(list "WAYLAND_DISPLAY=wayland-0")))
                   #:log-file #$log-file)))
              (stop #~(make-kill-destructor)))))))
 
@@ -46,4 +51,5 @@
    (extensions
     (list (service-extension home-shepherd-service-type
                              home-sunshine-services)))
-   (description "Run the sunshine streaming host in user session using privileged sunshine.")))
+   (description "Run the sunshine streaming host in user session using privileged sunshine.
+Supports both X11 (requires x11-display, default) and Wayland (wlroots capture) session types.")))

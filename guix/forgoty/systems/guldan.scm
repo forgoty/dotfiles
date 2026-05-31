@@ -23,11 +23,11 @@
 
 (use-service-modules desktop
                      linux
-                     xorg
                      audio
                      ssh
                      virtualization
                      containers
+                     xorg
                      networking)
 
 (use-package-modules admin
@@ -41,7 +41,6 @@
                      shells
                      video
                      gl
-                     xorg
                      networking
                      package-management)
 (define root-fs
@@ -107,7 +106,6 @@
         libva
         libva-utils
         dxvk-next
-        xf86-video-amdgpu
         vim))
 
 (define system-services
