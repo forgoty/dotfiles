@@ -112,7 +112,6 @@
     (".emacs.d/early-init.el"   ,(local-file (string-append %emacs-config-dir "/early-init.el")))
     (".emacs.d/emacs.png"       ,(local-file (string-append %emacs-config-dir "/emacs.png")))
     (".emacs.d/pomodoro-eaten.wav" ,(local-file (string-append %emacs-config-dir "/pomodoro-eaten.wav")))
-    (".emacs.d/custom.el"       ,(local-file (string-append %emacs-config-dir "/custom.el")))
     (".emacs.d/init.el"         ,(local-file (string-append %emacs-config-dir "/init.el")))))
 
 (define (home-emacs-shepherd-service config)

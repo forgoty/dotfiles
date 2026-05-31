@@ -13,6 +13,11 @@
 ;; Make gruvbox theme default
 (load-theme 'doom-gruvbox t)
 
+;; Override faces after theme load
+(custom-set-faces
+ '(font-lock-function-name-face ((t (:foreground "#fabd2f"))))
+ '(font-lock-type-face ((t (:foreground "#d3869b")))))
+
 ;; Modeline
 (doom-modeline-mode t)
 (setq doom-modeline-highlight-modified-buffer-name t
