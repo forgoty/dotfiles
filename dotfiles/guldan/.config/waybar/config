@@ -1,0 +1,71 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+
+  "modules-left": [
+    "custom/power",
+    "custom/reboot",
+    "custom/steam",
+    "custom/pegasus-fe",
+    "custom/brave",
+    "custom/terminal",
+    "wlr/taskbar"
+  ],
+  "modules-center": [],
+  "modules-right": ["tray", "clock"],
+
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 20,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close"
+  },
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "{:%A %d %B}"
+  },
+
+  "tray": {
+    "icon-size": 24,
+    "spacing": 4
+  },
+
+  "custom/steam": {
+    "format": "Steam",
+    "tooltip": "Steam",
+    "on-click": "steam -tenfoot"
+  },
+
+  "custom/brave": {
+    "format": "🌐",
+    "tooltip": "Browser",
+    "on-click": "flatpak run --branch=stable --arch=x86_64 --command=brave --file-forwarding com.brave.Browser"
+  },
+
+  "custom/reboot": {
+    "format": "⟳",
+    "tooltip": "Reboot",
+    "on-click": "zenity --question --text=\"Are you sure you want to reboot?\" && $REBOOT"
+  },
+
+  "custom/terminal": {
+    "format": "🖥️",
+    "tooltip": "Foot Terminal",
+    "on-click": "foot"
+  },
+
+  "custom/pegasus-fe": {
+    "format": "🕹",
+    "tooltip": "Pegasus Frontend",
+    "on-click": "pegasus-fe"
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": "Power off",
+    "on-click": "zenity --question --text=\"Are you sure you want to shut down?\" && $SHUTDOWN"
+  }
+}

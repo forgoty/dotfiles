@@ -1,0 +1,61 @@
+* {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+/* Panel (Background 1 equivalent) */
+window#waybar {
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: #ffffff;
+}
+
+/* Generic module look (tasks, tray, clock, etc.) */
+#taskbar button,
+#clock,
+#tray,
+
+/* Hover (similar to tint2 hover backgrounds) */
+#taskbar button:hover {
+  background: rgba(170, 170, 170, 0.22);
+  border-color: rgba(234, 234, 234, 0.44);
+}
+
+/* Active window (Background 3 equivalent) */
+#taskbar button.active {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Urgent windows */
+#taskbar button.urgent {
+  background: rgba(170, 68, 0, 1.0);
+  border-color: rgba(170, 119, 51, 1.0);
+}
+
+
+#clock,
+#tray,
+#custom-steam,
+#custom-brave,
+#custom-reboot,
+#custom-terminal,
+#custom-pegasus-fe,
+#custom-power {
+  background: rgba(119, 119, 119, 0.20);
+  border: 1px solid rgba(119, 119, 119, 0.30);
+  border-radius: 4px;
+  padding: 0 8px;
+  margin: 2px;
+}
+
+#clock,
+#tray,
+#custom-steam:hover,
+#custom-brave:hover,
+#custom-reboot:hover,
+#custom-terminal:hover,
+#custom-pegasus-fe:hover,
+#custom-power:hover {
+  background: rgba(170, 170, 170, 0.22);
+  border-color: rgba(234, 234, 234, 0.44);
+}
