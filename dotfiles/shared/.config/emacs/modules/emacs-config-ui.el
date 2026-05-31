@@ -18,6 +18,9 @@
  '(font-lock-function-name-face ((t (:foreground "#fabd2f"))))
  '(font-lock-type-face ((t (:foreground "#d3869b")))))
 
+;; Show markers on empty lines past end-of-buffer in all buffers.
+(setq-default indicate-empty-lines t)
+
 ;; Modeline
 (doom-modeline-mode t)
 (setq doom-modeline-highlight-modified-buffer-name t
