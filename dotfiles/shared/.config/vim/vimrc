@@ -16,7 +16,7 @@ set clipboard=unnamed,unnamedplus
 set shortmess-=S
 set laststatus=2
 set showcmd
-set showmode
+set noshowmode " handled by airline
 set ruler
 set hidden
 
