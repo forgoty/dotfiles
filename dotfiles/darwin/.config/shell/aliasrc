@@ -1,1 +1,60 @@
-../../../shared/.config/shell/aliasrc
+#!/bin/sh
+
+# sudo not required for some system commands
+for command in mount umount ; do
+	alias $command="sudo $command"
+done; unset command
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	bc="bc -ql" \
+	rsync="rsync -vrPlu" \
+	mkdir="mkdir -pv" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Colorize commands when possible.
+alias \
+	ls="/opt/homebrew/opt/coreutils/libexec/gnubin/ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	g="git" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	z="zathura" \
+
+alias \
+	mkcd='_(){ mkdir -p $1; cd $1; }; _' \
+	gc="git checkout" \
+	gcm="git commit" \
+	gs="git status" \
+	gd="DELTA_FEATURES=+side-by-side git diff" \
+	gds="DELTA_FEATURES=+side-by-side git diff --cached" \
+	gaa="git add -u" \
+	ga="git add" \
+	gca="git checkout -- ." \
+	gp="git push" \
+	grm="git rm" \
+	gb='git for-each-ref --sort=committerdate refs/heads/ --format="%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))"' \
+	gf='git fetch' \
+	gpo="git push origin HEAD" \
+	gst="git stash" \
+	gstp="git stash pop" \
+	grs="git restore --staged" \
+	grsa="git restore --staged ." \
+	gl="git log" \
+	gm="git merge" \
+	gpl="git pull" \
+	gplr="git pull --rebase" \
+	gacm="git add -u && git commit -m" \
+	history="history 1" \
+	docker="$DOCKER" \
+	dcs="$DOCKER compose" \
