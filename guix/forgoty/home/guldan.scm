@@ -205,7 +205,7 @@
                 '("XKB_DEFAULT_LAYOUT" . "pl,ru")
                 '("XKB_DEFAULT_OPTIONS" . "grp:shifts_toggle,caps:escape")
                 '("XCURSOR_THEME" . "Adwaita")
-                '("XCURSOR_SIZE" . "12"))))
+                '("XCURSOR_SIZE" . "24"))))
 
 (define guldan-packages
   (list
