@@ -24,6 +24,7 @@ set hidden
 syntax on
 filetype plugin indent on
 set background=light
+set t_Co=256 " set 256bit terminal colors
 set number
 set relativenumber
 " Search
