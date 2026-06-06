@@ -1,6 +1,10 @@
 ;;; Code:
 (defun c//hooks ()
   "Call this when c-ts-mode is enabled."
+  ;; Add flymake diagnostics to mode bar
+  (add-to-list 'mode-line-misc-info
+    `(flymake-mode (" " flymake-mode-line-counters " ")))
+
   (add-hook 'before-save-hook (lambda ()
                                 (call-interactively #'eglot-format-buffer)
                                 (call-interactively #'eglot-code-action-organize-imports))))

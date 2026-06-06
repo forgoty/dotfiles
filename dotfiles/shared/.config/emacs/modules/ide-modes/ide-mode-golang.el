@@ -76,6 +76,10 @@
                               (when (and (buffer-file-name)
                                          (string-match-p "\\.pb\\.go\\'" (buffer-file-name)))
                                 (copilot-mode -1))))
+  ;; Add flymake diagnostics to mode bar
+  (add-to-list 'mode-line-misc-info
+    `(flymake-mode (" " flymake-mode-line-counters " ")))
+
   (add-hook 'eglot-managed-mode-hook #'flymake-golangci-load-backend)
   (add-hook 'before-save-hook #'format-buffer-with-eglot))
 

@@ -22,25 +22,41 @@
 (setq-default indicate-empty-lines t)
 
 ;; Modeline
-(doom-modeline-mode t)
-(setq doom-modeline-highlight-modified-buffer-name t
-      doom-modeline-height 15
-      doom-modeline-bar-width 6
-      doom-modeline-lsp t
-      doom-modeline-github nil
-      doom-modeline-mu4e nil
-      doom-modeline-irc nil
-      doom-modeline-persp-name nil
-      doom-modeline-persp-icon nil
-      doom-modeline-env-version nil
-      doom-modeline-gnus nil
-      doom-modeline-buffer-encoding t
-      doom-modeline-buffer-file-name-style 'relative-from-project
-      doom-modeline-major-mode-icon nil)
-
-;; Enable window numbers in modeline
+;;; Enable window numbers in modeline
 (winum-mode)
 (setq winum-scope 'frame-local)
+
+;;; remove evil state
+(with-eval-after-load 'evil
+  (customize-set-variable 'evil-mode-line-format nil))
+
+;;; anzu
+(require 'anzu)
+(global-anzu-mode)
+(setq anzu-cons-mode-line-p nil)
+
+(setq-default mode-line-format
+        '("%e"
+          mode-line-front-space
+          mode-line-mule-info
+          mode-line-client
+          mode-line-modified
+          mode-line-remote
+          "  "
+          mode-line-buffer-identification
+          "  "
+          mode-line-format-right-align
+          mode-line-position
+          (:eval anzu--mode-line-format)
+          "  "
+          (project-mode-line project-mode-line-format)
+          "  "
+          (vc-mode vc-mode)
+          "  "
+          mode-name
+          mode-line-misc-info
+          "  "
+          mode-line-end-spaces))
 
 ;; Golden Ratio
 (golden-ratio-mode t)

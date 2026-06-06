@@ -47,7 +47,6 @@
 (add-to-list 'package-selected-packages 'elisp-demos)
 (add-to-list 'package-selected-packages 'helpful)
 (add-to-list 'package-selected-packages 'doom-themes)
-(add-to-list 'package-selected-packages 'doom-modeline)
 (add-to-list 'package-selected-packages 'popwin)
 (add-to-list 'package-selected-packages 'tabspaces)
 (add-to-list 'package-selected-packages 'golden-ratio)

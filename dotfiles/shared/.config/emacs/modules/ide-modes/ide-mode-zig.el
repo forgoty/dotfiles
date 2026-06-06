@@ -408,6 +408,10 @@ This is written mainly to be used as `beginning-of-defun-function' for Zig."
 
 (defun zig//hooks ()
   "Call this when zig-ts-mode is enabled."
+  ;; Add flymake diagnostics to mode bar
+  (add-to-list 'mode-line-misc-info
+    `(flymake-mode (" " flymake-mode-line-counters " ")))
+
   (add-hook 'before-save-hook
             (lambda ()
               (when (eq major-mode 'zig-mode)

@@ -10,6 +10,9 @@
               '(:pylsp (:plugins (:ruff (:enabled t
                                          :formatEnabled t
                                          :lineLength 130)))))
+  ;; Add flymake diagnostics to mode bar
+  (add-to-list 'mode-line-misc-info
+    `(flymake-mode (" " flymake-mode-line-counters " ")))
   (add-hook 'before-save-hook #'format-buffer-with-eglot nil t))
 
 (with-eval-after-load 'eglot

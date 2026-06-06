@@ -97,7 +97,6 @@
         emacs-elisp-demos
         emacs-helpful
         emacs-doom-themes
-        emacs-doom-modeline
         emacs-popwin
         emacs-winum
         emacs-tabspaces
