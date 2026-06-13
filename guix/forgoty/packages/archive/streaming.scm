@@ -25,7 +25,7 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xiph)
   #:use-module (gnu packages xorg)
-  #:use-module (gnu packages avahi)
+  #:use-module (gnu packages dns)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages gl)
   #:use-module (gnu packages gtk)
