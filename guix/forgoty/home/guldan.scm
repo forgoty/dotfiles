@@ -38,7 +38,6 @@
   #:use-module (gnu home services dotfiles)
   #:use-module (gnu home services mcron)
   #:use-module (gnu home services shells)
-  #:use-module (gnu home services shells)
   #:use-module (nongnu packages game-client)
   #:use-module (nongnu packages emulators)
   #:use-module (nongnu packages video)
