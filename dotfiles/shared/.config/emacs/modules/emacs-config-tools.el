@@ -1,6 +1,6 @@
 (require 'copilot)
 (require 'tramp)
-(require 'direnv)
+(require 'ben)
 
 (defun custom/copilot-tab ()
   "Tab command that will complet with copilot if a completion is
@@ -60,7 +60,7 @@ tab-indent."
 ;; TRAMP
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
-;; direnv
-(direnv-mode)
+;; ben
+(add-hook 'after-init-hook #'ben-global-mode 99)
 
 (provide 'emacs-config-tools)

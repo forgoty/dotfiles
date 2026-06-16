@@ -22,7 +22,7 @@
         emacs-restart-emacs
         emacs-google-c-style
         emacs-copilot
-        emacs-direnv
+        emacs-ben
         emacs-editor-code-assistant
 
         ;; Search and Completion
