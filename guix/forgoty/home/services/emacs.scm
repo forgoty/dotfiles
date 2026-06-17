@@ -96,7 +96,6 @@
         emacs-golden-ratio
         emacs-elisp-demos
         emacs-helpful
-        emacs-doom-themes
         emacs-popwin
         emacs-winum
         emacs-tabspaces
@@ -108,6 +107,7 @@
 
 (define (home-emacs-files config)
   `((".emacs.d/modules"         ,(local-file (string-append %emacs-config-dir "/modules")         #:recursive? #t))
+    (".emacs.d/themes"          ,(local-file (string-append %emacs-config-dir "/themes")          #:recursive? #t))
     (".emacs.d/early-init.el"   ,(local-file (string-append %emacs-config-dir "/early-init.el")))
     (".emacs.d/emacs.png"       ,(local-file (string-append %emacs-config-dir "/emacs.png")))
     (".emacs.d/pomodoro-eaten.wav" ,(local-file (string-append %emacs-config-dir "/pomodoro-eaten.wav")))

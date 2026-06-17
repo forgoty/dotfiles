@@ -10,13 +10,10 @@
 ;; Bind extra `describe-*' commands
 (keymap-global-set "C-h K" #'describe-keymap)
 
-;; Make gruvbox theme default
-(load-theme 'doom-gruvbox t)
-
-;; Override faces after theme load
-(custom-set-faces
- '(font-lock-function-name-face ((t (:foreground "#fabd2f"))))
- '(font-lock-type-face ((t (:foreground "#d3869b")))))
+;; Make gruvbox theme default (vendored, standalone -- see themes/gruvbox-theme.el)
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "themes" user-emacs-directory))
+(load-theme 'gruvbox t)
 
 ;; Show markers on empty lines past end-of-buffer in all buffers.
 (setq-default indicate-empty-lines t)
