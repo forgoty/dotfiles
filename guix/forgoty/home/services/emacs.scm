@@ -92,7 +92,6 @@
         emacs-org-super-links
 
         ;; UI
-        emacs-nerd-icons
         emacs-golden-ratio
         emacs-elisp-demos
         emacs-helpful

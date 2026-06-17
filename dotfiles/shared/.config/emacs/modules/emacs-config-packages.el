@@ -43,7 +43,6 @@
 (add-to-list 'package-selected-packages 'zig-mode)
 
 ;; UI
-(add-to-list 'package-selected-packages 'nerd-icons) ;; after install run M-x nerd-icons-install-fonts
 (add-to-list 'package-selected-packages 'elisp-demos)
 (add-to-list 'package-selected-packages 'helpful)
 (add-to-list 'package-selected-packages 'popwin)
