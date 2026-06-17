@@ -20,7 +20,6 @@
   (list emacs
         ;; Tools
         emacs-restart-emacs
-        emacs-google-c-style
         emacs-copilot
         emacs-ben
         emacs-editor-code-assistant
@@ -44,8 +43,6 @@
         emacs-evil-anzu
         emacs-evil-surround
         emacs-evil-visualstar
-        emacs-embrace
-        emacs-evil-embrace
         emacs-evil-iedit-state
         emacs-evil-textobj-tree-sitter
 
@@ -79,12 +76,8 @@
         emacs-which-key
 
         ;; IDE
-        emacs-aggressive-indent
-        emacs-package-lint
         emacs-zig-mode
-        emacs-ibuffer-project
         emacs-protobuf-ts-mode
-        emacs-package-lint-flymake
         emacs-flymake-golangci
 
         ;; Org
@@ -93,15 +86,12 @@
 
         ;; UI
         emacs-golden-ratio
-        emacs-elisp-demos
         emacs-helpful
-        emacs-popwin
         emacs-winum
         emacs-tabspaces
 
         ;; Writing
         emacs-markdown-mode
-        emacs-pandoc-mode
         emacs-auctex))
 
 (define (home-emacs-files config)

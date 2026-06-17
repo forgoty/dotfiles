@@ -22,7 +22,6 @@
 (add-to-list 'package-selected-packages 'evil-nerd-commenter)
 (add-to-list 'package-selected-packages 'evil-anzu)
 (add-to-list 'package-selected-packages 'evil-nerd-commentary)
-(add-to-list 'package-selected-packages 'evil-embrace)
 (add-to-list 'package-selected-packages 'evil-surround)
 (add-to-list 'package-selected-packages 'evil-visualstar)
 (add-to-list 'package-selected-packages 'evil-iedit-state)
@@ -34,24 +33,17 @@
 (add-to-list 'package-selected-packages 'winum)
 
 ;; IDE
-(add-to-list 'package-selected-packages 'ibuffer-project)
 (add-to-list 'package-selected-packages 'protobuf-ts-mode)
-(add-to-list 'package-selected-packages 'aggressive-indent)
-(add-to-list 'package-selected-packages 'package-lint)
-(add-to-list 'package-selected-packages 'package-lint-flymake)
 (add-to-list 'package-selected-packages 'flymake-golangci)
 (add-to-list 'package-selected-packages 'zig-mode)
 
 ;; UI
-(add-to-list 'package-selected-packages 'elisp-demos)
 (add-to-list 'package-selected-packages 'helpful)
-(add-to-list 'package-selected-packages 'popwin)
 (add-to-list 'package-selected-packages 'tabspaces)
 (add-to-list 'package-selected-packages 'golden-ratio)
 
 ;; Writing
 (add-to-list 'package-selected-packages 'markdown-mode)
-(add-to-list 'package-selected-packages 'pandoc-mode)
 (when (executable-find "latex")
   (add-to-list 'package-selected-packages 'auctex)
   (when (executable-find "latexmk")
