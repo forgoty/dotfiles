@@ -17,7 +17,7 @@
               '(c-or-c++-mode . c-or-c++-ts-mode))
 
 
-(add-hook 'c-ts-mode-hook #'eglot-ensure)
+;;(add-hook 'c-ts-mode-hook #'eglot-ensure)
 (add-hook 'c-ts-mode-hook 'c//hooks)
 
 ;; Enable folding

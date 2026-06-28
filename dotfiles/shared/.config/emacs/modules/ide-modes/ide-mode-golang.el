@@ -97,7 +97,7 @@
 (add-hook 'project-find-functions #'project-find-go-module)
 
 (add-hook 'go-ts-mode-hook 'go//hooks)
-(add-hook 'go-ts-mode-hook #'eglot-ensure)
+;; (add-hook 'go-ts-mode-hook #'eglot-ensure)
 
 ;; Enable folding
 (add-hook 'go-ts-mode-hook #'hs-minor-mode)

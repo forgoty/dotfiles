@@ -419,7 +419,7 @@ This is written mainly to be used as `beginning-of-defun-function' for Zig."
                 (call-interactively #'eglot-code-action-organize-imports)))))
 
 
-(add-hook 'zig-ts-mode-hook #'eglot-ensure)
+;;(add-hook 'zig-ts-mode-hook #'eglot-ensure)
 (add-hook 'zig-ts-mode-hook #'hs-minor-mode)
 (add-hook 'zig-ts-mode-hook 'zig//hooks)
 
