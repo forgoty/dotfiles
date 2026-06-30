@@ -21,7 +21,7 @@
         ;; Tools
         emacs-restart-emacs
         emacs-copilot
-        emacs-ben
+        emacs-envrc
         emacs-editor-code-assistant
 
         ;; Search and Completion

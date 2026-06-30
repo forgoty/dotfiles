@@ -1,6 +1,5 @@
 (require 'copilot)
 (require 'tramp)
-(require 'ben)
 
 (defun custom/copilot-tab ()
   "Tab command that will complet with copilot if a completion is
@@ -60,7 +59,7 @@ tab-indent."
 ;; TRAMP
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
-;; ben
-(add-hook 'after-init-hook #'ben-global-mode 99)
+;; envrc
+(add-hook 'after-init-hook 'envrc-global-mode)
 
 (provide 'emacs-config-tools)
