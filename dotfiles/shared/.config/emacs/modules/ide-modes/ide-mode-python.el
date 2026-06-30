@@ -22,7 +22,7 @@
 (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
 
 (add-hook 'python-ts-mode-hook #'python//hooks)
-;; (add-hook 'python-ts-mode-hook #'eglot-ensure)
+(add-hook 'python-ts-mode-hook #'eglot-ensure)
 (add-hook 'python-ts-mode-hook #'hs-minor-mode)
 
 (provide 'ide-mode-python)
