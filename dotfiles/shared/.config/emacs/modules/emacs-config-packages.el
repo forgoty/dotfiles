@@ -2,7 +2,7 @@
 (add-to-list 'package-selected-packages 'copilot)
 (add-to-list 'package-selected-packages 'restart-emacs)
 (add-to-list 'package-selected-packages 'magit)
-(add-to-list 'package-selected-packages 'ben)
+(add-to-list 'package-selected-packages 'envrc)
 
 ;; Search and Completion
 (add-to-list 'package-selected-packages 'cape)
