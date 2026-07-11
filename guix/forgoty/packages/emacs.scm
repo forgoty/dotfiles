@@ -1050,22 +1050,24 @@ $kanji\"; $bibtex = \"pbibtex $kanji\"; $dvipdf = dvipdfmx -o %D %S'; $pdf_mode 
     (license #f)))
 
 (define-public emacs-editor-code-assistant
-  (package
-    (name "emacs-editor-code-assistant")
-    (version "0.9.1")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/editor-code-assistant/eca-emacs")
-             (commit version)))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "053qqrwlrnaa306kq8fz9s2dlaavgd71frxikkyq7ph6gnj2p6wf"))))
-    (build-system emacs-build-system)
-    (home-page "https://github.com/editor-code-assistant/eca-emacs")
-    (propagated-inputs (list emacs-compat emacs-dash emacs-f
-                             emacs-markdown-mode))
-    (synopsis "Editor Code Assistant for Emacs")
-    (description "Editor Code Assistant (ECA) integration for Emacs.")
-    (license license:asl2.0)))
+  (let ((commit "351e5aad87de787b5b87915c921726ad7a90ed7f")
+        (revision "0"))
+    (package
+      (name "emacs-editor-code-assistant")
+      (version (git-version "0.9.1" revision commit))
+      (source
+      (origin
+        (method git-fetch)
+        (uri (git-reference
+              (url "https://github.com/editor-code-assistant/eca-emacs")
+              (commit commit)))
+        (file-name (git-file-name name version))
+        (sha256
+          (base32 "05pmzb5nb9fdqwzczxi6d4lw5v532z6xj7v172g91jgb6n5bdbps"))))
+      (build-system emacs-build-system)
+      (home-page "https://github.com/editor-code-assistant/eca-emacs")
+      (propagated-inputs (list emacs-compat emacs-dash emacs-f
+                              emacs-markdown-mode))
+      (synopsis "Editor Code Assistant for Emacs")
+      (description "Editor Code Assistant (ECA) integration for Emacs.")
+      (license license:asl2.0))))
