@@ -196,11 +196,11 @@
                       (org-agenda-prefix-format "")
                       (org-agenda-sorting-strategy '(timestamp-down))
                       (org-agenda-overriding-header "Inbox")))
-          (tags "CLOSED>=\"<-1d>\""
+          (tags "CLOSED>=\"<-1w>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(timestamp-down))
-                 (org-agenda-overriding-header "Completed Recently (Last 24h)")))))
+                 (org-agenda-overriding-header "Completed in a week")))))
         ("c" "Tasks"
           ((todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
