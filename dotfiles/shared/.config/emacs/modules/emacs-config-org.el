@@ -19,6 +19,7 @@
 (setq reading-list-file (expand-file-name "lists/reading-list.org" org-directory))
 (setq important-dates-file (expand-file-name "lists/important-dates.org" org-directory))
 (setq observations-file (expand-file-name "observations.org" org-directory))
+(setq ideas-file (expand-file-name "ideas.org" org-directory))
 
 ;; Save org buffers on org-agenda-redo (redraw agenda)
 (advice-add 'org-agenda-redo :after 'org-save-all-org-buffers)
@@ -267,7 +268,8 @@
       '((org-default-notes-file :maxlevel . 1)
         (backlog-file :maxlevel . 1)
         (projects-file :maxlevel . 2)
-        (recycle-bin-file :maxlevel . 1)))
+        (recycle-bin-file :maxlevel . 1)
+        (ideas-file :maxlevel . 1)))
 
 ;; Archive settings
 (setq archive-directory (expand-file-name "archive" org-directory))
@@ -298,6 +300,11 @@
         ("o" "New Observation" entry
          (file observations-file)
          "* %U \n%?\n"
+         :empty-lines 1)
+        ("I" "New Idea" entry
+         (file ideas-file)
+         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"
+         :jump-to-captured t
          :empty-lines 1)))
 
 (provide 'emacs-config-org)
