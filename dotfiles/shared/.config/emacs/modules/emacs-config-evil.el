@@ -5,6 +5,8 @@
 (customize-set-variable 'evil-respect-visual-line-mode t)
 ;; C-h is backspace in insert state
 (customize-set-variable 'evil-want-C-h-delete t)
+;; Set undo-system
+(customize-set-variable 'evil-undo-system 'undo-redo)
 
 ;; Load Evil and enable it globally
 (require 'evil)
@@ -34,7 +36,7 @@
                 term-mode))
   (add-to-list 'evil-emacs-state-modes mode))
 
-;;; Evil Collection
+;; Evil Collection
 (evil-collection-init)
 
 (provide 'emacs-config-evil)
