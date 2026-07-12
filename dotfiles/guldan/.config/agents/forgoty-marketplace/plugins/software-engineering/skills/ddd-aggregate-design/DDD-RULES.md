@@ -1,0 +1,1 @@
+../../../../../../../../shared/.config/agents/forgoty-marketplace/plugins/software-engineering/skills/ddd-aggregate-design/DDD-RULES.md

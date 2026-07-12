@@ -1,1 +1,0 @@
-../../../../../../../shared/.config/claude/forgoty-marketplace/plugins/software-engineering/commands/golang-gen-app-test.md

@@ -1,1 +1,0 @@
-../../../../../../../../shared/.config/claude/forgoty-marketplace/plugins/software-engineering/skills/httpyac/HTTPYAC-RULES.md

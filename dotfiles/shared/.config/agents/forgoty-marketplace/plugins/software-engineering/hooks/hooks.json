@@ -1,0 +1,16 @@
+{
+  "description": "Useful hooks for working with Golang files",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file_path=$(jq -r '.tool_input.file_path'); if echo \"$file_path\" | grep -q '\\.go$'; then if command -v gofumpt >/dev/null 2>&1; then gofumpt -l -w \"$file_path\"; else go fmt \"$file_path\"; fi; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

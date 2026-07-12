@@ -1,9 +1,15 @@
 {
   "$schema": "https://eca.dev/config.json",
+  "chatRetentionDays": 365,
+  "autoCompactPercentage": 90,
+  "extraConfigs": [
+      "~/.config/eca/config.local.json"
+  ],
+  "defaultModel": "github-copilot/gpt-4.1",
 
   "mcpServers": {
     "github": {
-      "command": "docker",
+      "command": "podman",
       "args": [
         "run",
         "-i",
@@ -18,15 +24,12 @@
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp"]
-    },
-    "atlassian": {
-      "url": "https://mcp.atlassian.com/v1/mcp"
     }
   },
 
   "plugins": {
     "forgoty-marketplace": {
-      "source": "/home/nikita/.config/eca/forgoty-marketplace"
+      "source": "/home/nikita/.config/agents/forgoty-marketplace"
     },
     "install": ["software-engineering"]
   },

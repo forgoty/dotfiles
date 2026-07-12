@@ -1,0 +1,1 @@
+../../../../../../../shared/.config/agents/forgoty-marketplace/plugins/software-engineering/commands/golang-gen-app-test.md
