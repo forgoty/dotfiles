@@ -27,6 +27,8 @@ set background=light
 set t_Co=256 " set 256bit terminal colors
 set number
 set relativenumber
+set display+=lastline
+
 " Search
 set hlsearch
 set incsearch
