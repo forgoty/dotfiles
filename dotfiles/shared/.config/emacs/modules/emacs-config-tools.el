@@ -1,5 +1,6 @@
 (require 'copilot)
 (require 'tramp)
+(require 'eca)
 
 (defun custom/copilot-tab ()
   "Tab command that will complet with copilot if a completion is
@@ -61,5 +62,10 @@ tab-indent."
 
 ;; envrc
 (add-hook 'after-init-hook 'envrc-global-mode)
+
+;; eca
+(setq eca-chat-hide-markdown-markup nil
+      eca-chat-diff-tool 'ediff
+      eca-chat-use-side-window nil)
 
 (provide 'emacs-config-tools)
