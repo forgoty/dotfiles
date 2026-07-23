@@ -218,13 +218,14 @@
   "se" '(iedit-mode :which-key "iedit"))
 (my-leader-def
   "b"  '(:ignore t :which-key "buffers")
-  "bs" '(save-buffer :which-key "save file")
+  "bs" '(save-buffer :which-key "save buffer")
   "bD" '(custom/kill-other-buffers :which-key "kill other buffers")
   "bb" '(consult-buffer :which-key "list buffers")
   "bn" '(evil-next-buffer :which-key "next buffer")
   "bp" '(evil-prev-buffer :which-key "previous buffer")
   "bh" '((lambda () (interactive) (switch-to-buffer "*Home*")) :which-key "home buffer")
   "bm" '((lambda () (interactive) (switch-to-buffer "*Messages*")) :which-key "message buffer")
+  "br" '(revert-buffer :which-key "revert buffer")
   "ba" '(org-agenda :which-key "agenda")
   "bd" '(kill-current-buffer t :which-key "delete buffer"))
 (my-leader-def
