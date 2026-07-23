@@ -224,7 +224,7 @@
   "bn" '(evil-next-buffer :which-key "next buffer")
   "bp" '(evil-prev-buffer :which-key "previous buffer")
   "bh" '((lambda () (interactive) (switch-to-buffer "*Home*")) :which-key "home buffer")
-  "bm" '((lambda () (interactive) (switch-to-buffer "*Message*")) :which-key "message buffer")
+  "bm" '((lambda () (interactive) (switch-to-buffer "*Messages*")) :which-key "message buffer")
   "ba" '(org-agenda :which-key "agenda")
   "bd" '(kill-current-buffer t :which-key "delete buffer"))
 (my-leader-def
