@@ -13,7 +13,6 @@
     (icomplete-mode -1)
     (icomplete-vertical-mode -1)))
 
-
 ;;; Marginalia
 (when (require 'marginalia nil :noerror)
   ;; Configure Marginalia
