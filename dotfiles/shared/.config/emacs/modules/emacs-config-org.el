@@ -274,6 +274,8 @@
 ;; Archive settings
 (setq archive-directory (expand-file-name "archive" org-directory))
 (setq org-archive-location (concat archive-directory "/%s_archive::"))
+(setq org-agenda-text-search-extra-files
+      (directory-files-recursively archive-directory "\\.org_archive"))
 
 ;; Stucked projects
 (setq org-stuck-projects
