@@ -5,7 +5,8 @@
 (require 'emacs-config-search-and-completion)
 (require 'emacs-config-ui)
 (require 'emacs-config-ide)
-(require 'emacs-config-org)
+(when (not (equal system-type 'darwin))
+  (require 'emacs-config-org))
 (require 'emacs-config-writing)
 (require 'emacs-config-input)
 
