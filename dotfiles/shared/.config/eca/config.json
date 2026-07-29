@@ -82,19 +82,22 @@
         "eca__shell_command": {
           "argsMatchers": {
             "command": [
-              ".*\\bgit\\b.*\\b(push|commit|add|rebase|checkout|pull|fetch|merge|reset)\\b.*$"
+              ".*\\bgit\\b.*\\b(push|commit|add|rebase|checkout|pull|merge|reset|stash)\\b.*$"
             ]
           }
         },
         "eca__git": {
           "argsMatchers": {
             "operation": [
-              "commit",
               "push",
-              "merge",
+              "commit",
+              "add",
               "rebase",
-              "stash",
-              "checkout"
+              "checkout",
+              "pull",
+              "merge",
+              "reset",
+              "stash"
             ]
           }
         }
