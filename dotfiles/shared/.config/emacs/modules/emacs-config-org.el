@@ -236,6 +236,7 @@
         ("p" "Projects"
          ((todo ""
                 ((org-agenda-prefix-format "%t")
+                 (org-agenda-files (list projects-file))
                  (org-super-agenda-groups '((:auto-parent t)))))))
         ("B" "Backlog Items"
          ((tags "LEVEL=1+backlog"
