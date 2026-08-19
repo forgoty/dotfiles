@@ -12,7 +12,7 @@
 (define-public eca
   (package
    (name "eca")
-   (version "0.149.1")
+   (version "0.154.2")
    (source
     (origin
      (method url-fetch)
@@ -20,7 +20,7 @@
            "https://github.com/editor-code-assistant/eca/releases/download/"
            version "/eca-native-linux-amd64.zip"))
      (sha256
-      (base32 "0l7j3yzxxaxi3f9nl44k5fyhzlqr8ygp3zay5xyh2hjqs85227rh"))))
+      (base32 "1a883z5bmsxm7ngygliyd4xrnhql6bj9w19rh7wq38wv9rhjvlzi"))))
    (build-system binary-build-system)
    (native-inputs (list unzip))
    (inputs (list glibc zlib))
