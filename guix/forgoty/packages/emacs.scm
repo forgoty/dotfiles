@@ -850,29 +850,6 @@ Mendler] <https://github.com/minad> [Clemens Radermacher]
 Kaleem] <https://github.com/mohkale>.")
     (license license:gpl3+)))
 
-(define-public emacs-copilot
-  (package
-    (name "emacs-copilot")
-    (version "v0.2.0")
-    (source
-     (origin
-       (method git-fetch)
-       (uri (git-reference
-             (url "https://github.com/copilot-emacs/copilot.el.git")
-             (commit "11b0739da1f74285dd661914c0ef92e24f9c4aa7")))
-       (file-name (git-file-name name version))
-       (sha256
-        (base32 "1pf5j3xhhcrv4dj2cgp7627s67wsw4hm308szqyr4f58snlkx044"))))
-    (build-system emacs-build-system)
-    (arguments
-       `(#:include (cons "^dist\\/" %default-include)))
-    (propagated-inputs (list emacs-s emacs-dash emacs-editorconfig
-                             emacs-jsonrpc emacs-f node-lts))
-    (home-page "https://github.com/copilot-emacs/copilot.el")
-    (synopsis "An unofficial Copilot plugin")
-    (description "An unofficial Copilot plugin for Emacs.")
-    (license #f)))
-
 (define-public emacs-evil-iedit-state
   (package
     (name "emacs-evil-iedit-state")

@@ -1,30 +1,5 @@
-(require 'copilot)
 (require 'tramp)
 (require 'eca)
-
-(defun custom/copilot-tab ()
-  "Tab command that will complet with copilot if a completion is
-available. Otherwise will try normal
-tab-indent."
-  (interactive)
-  (if (copilot--overlay-visible)
-      (copilot-accept-completion))
-  (copilot-complete))
-
-(define-key copilot-mode-map (kbd "<backtab>") 'custom/copilot-tab)
-(define-key copilot-mode-map (kbd "M-k") #'copilot-next-completion)
-(define-key copilot-mode-map (kbd "M-j") #'copilot-previous-completion)
-(setq copilot-max-char-warning-disable t)
-(setq copilot-indent-offset-warning-disable t)
-
-(defun copilot-mode-custom-hook ()
-  (unless (member major-mode '(org-mode))
-    (copilot-mode 1)))
-
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (add-hook 'text-mode-hook #'copilot-mode-custom-hook)
-            (add-hook 'prog-mode-hook #'copilot-mode-custom-hook)))
 
 ;; Other
 (defun copy-file-path ()
@@ -67,5 +42,8 @@ tab-indent."
 (setq eca-chat-hide-markdown-markup nil
       eca-chat-diff-tool 'ediff
       eca-chat-use-side-window nil)
+(add-hook 'emacs-startup-hook (lambda ()
+  (add-hook 'text-mode-hook #'eca-completion-mode)
+  (add-hook 'prog-mode-hook #'eca-completion-mode)))
 
 (provide 'emacs-config-tools)

@@ -158,6 +158,9 @@
   (interactive)
   (save-some-buffers t))
 
+;; eca
+(define-key eca-completion-map (kbd "<backtab>") 'eca-completion-accept)
+
 ;; same as previous but this keybindings shouldn't be overriden by any modes
 ;; for example as dired-mode
 (general-define-key

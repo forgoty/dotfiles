@@ -20,7 +20,6 @@
   (list emacs
         ;; Tools
         emacs-restart-emacs
-        emacs-copilot
         emacs-envrc
         emacs-editor-code-assistant
 

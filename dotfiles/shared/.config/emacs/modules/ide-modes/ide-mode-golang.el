@@ -71,11 +71,6 @@
   "Call this when go-ts-mode is enabled."
   (setq-local tab-width go-tab-width)
   (setq-local evil-shift-width go-tab-width)
-  ;; Turn off copilot mode for protobuf files
-  (add-hook 'find-file-hook (lambda ()
-                              (when (and (buffer-file-name)
-                                         (string-match-p "\\.pb\\.go\\'" (buffer-file-name)))
-                                (copilot-mode -1))))
   ;; Add flymake diagnostics to mode bar
   (add-to-list 'mode-line-misc-info
     `(flymake-mode (" " flymake-mode-line-counters " ")))

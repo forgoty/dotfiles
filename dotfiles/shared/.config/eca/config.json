@@ -6,7 +6,9 @@
       "~/.config/eca/config.local.json"
   ],
   "defaultModel": "github-copilot/gpt-4.1",
-
+  "completion": {
+    "model": "github-copilot/gpt-4.1"
+  },
   "mcpServers": {
     "github": {
       "command": "podman",

@@ -1,5 +1,4 @@
 ;; Tools
-(add-to-list 'package-selected-packages 'copilot)
 (add-to-list 'package-selected-packages 'restart-emacs)
 (add-to-list 'package-selected-packages 'magit)
 (add-to-list 'package-selected-packages 'envrc)
