@@ -241,6 +241,8 @@
   "en" '(flymake-goto-next-error :which-key "next error")
   "ep" '(flymake-goto-prev-error :which-key "prev errors"))
 (my-leader-def
+  "a"  '(eca-transient-menu t :which-key "agent"))
+(my-leader-def
   "z"  '(:ignore t :which-key "zoom/narrow")
   "zi" '(text-scale-increase :which-key "zoom in")
   "zo" '(text-scale-decrease :which-key "zoom out")
