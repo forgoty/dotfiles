@@ -1,5 +1,7 @@
+(require 'transient)
+
 ;; SPC map
-(defconst my-leader-key "SPC" "The leader prefix key for Evil users.")
+(defconst leader-key "SPC" "The leader prefix key for Evil users.")
 
 ;; Which key
 (which-key-mode t)
@@ -122,29 +124,10 @@
           (lambda ()
             (org-agenda-redo)))  ;; Refresh the agenda view
 
-;; general package config
-(general-evil-setup t)
-(general-create-definer my-leader-def
-  :keymaps '(normal visual emacs)
-  :prefix my-leader-key)
-
 ;; Iedit
 (setq iedit-current-symbol-default t
       iedit-only-at-symbol-boundaries t
       iedit-toggle-key-default nil)
-
-(my-leader-def
-  "TAB" '(evil-switch-to-windows-last-buffer :which-key "switch to previous window")
-  "SPC" '(execute-extended-command :which-key "M-x")
-  "1" '(winum-select-window-1 :which-key "select window 1")
-  "2" '(winum-select-window-2 :which-key "select window 2")
-  "3" '(winum-select-window-3 :which-key "select window 3")
-  "4" '(winum-select-window-4 :which-key "select window 4")
-  "5" '(winum-select-window-5 :which-key "select window 5")
-  "6" '(winum-select-window-6 :which-key "select window 6")
-  "7" '(winum-select-window-7 :which-key "select window 7")
-  "8" '(winum-select-window-8 :which-key "select window 8")
-  "9" '(winum-select-window-9 :which-key "select window 9"))
 
 ;; Kill all other buffers.
 (defun custom/kill-other-buffers ()
@@ -161,116 +144,210 @@
 ;; eca
 (define-key eca-completion-map (kbd "<backtab>") 'eca-completion-accept)
 
-;; same as previous but this keybindings shouldn't be overriden by any modes
-;; for example as dired-mode
-(general-define-key
-:states 'normal
-:keymaps 'override
-:prefix my-leader-key
-  "TAB" '(evil-switch-to-windows-last-buffer :which-key "switch to previous window")
-  "SPC" '(execute-extended-command :which-key "M-x")
-  "1" '(winum-select-window-1 :which-key "select window 1")
-  "2" '(winum-select-window-2 :which-key "select window 2")
-  "3" '(winum-select-window-3 :which-key "select window 3")
-  "4" '(winum-select-window-4 :which-key "select window 4")
-  "5" '(winum-select-window-5 :which-key "select window 5")
-  "6" '(winum-select-window-6 :which-key "select window 6")
-  "7" '(winum-select-window-7 :which-key "select window 7")
-  "8" '(winum-select-window-8 :which-key "select window 8")
-  "9" '(winum-select-window-9 :which-key "select window 9"))
+(set (if (boundp 'transient-show-menu) 'transient-show-menu 'transient-show-popup) 0.2)
 
-(my-leader-def
-  "q"  '(:ignore t :which-key "quit/restart")
-  "qq" '(evil-quit :which-key "quit")
-  "qr" '(restart-emacs :which-key "restart"))
-(my-leader-def
-  "y"  '(:ignore t :which-key "toggles")
-  "yt" '(load-theme t :which-key "choose theme"))
-(my-leader-def
-  "f"  '(:ignore t :which-key "files")
-  "ft" '(dired-other-window :which-key "dired")
-  "ff" '(find-file :which-key "find-file")
-  "fs" '(save-buffer :which-key "save file")
-  "fd" '(delete-file :which-key "delete file")
-  "fr" '(rename-file :which-key "rename file")
-  "fc" '(copy-file :which-key "copy file")
-  "fS" '(save-all :which-key "save all"))
-(my-leader-def
-  "p"  '(:keymap project-prefix-map :package project))
-(my-leader-def
-  "t"       '(:keymap tabspaces-command-map :which-key "workspaces")
-  "t1"      '(tab-bar-select-tab 1 :which-key "select workspace 1")
-  "t2"      '(tab-bar-select-tab 2 :which-key "select workspace 2")
-  "t3"      '(tab-bar-select-tab 3 :which-key "select workspace 3")
-  "t4"      '(tab-bar-select-tab 4 :which-key "select workspace 4")
-  "t5"      '(tab-bar-select-tab 5 :which-key "select workspace 5")
-  "t6"      '(tab-bar-select-tab 6 :which-key "select workspace 6")
-  "t7"      '(tab-bar-select-tab 7 :which-key "select workspace 7")
-  "t8"      '(tab-bar-select-tab 8 :which-key "select workspace 8")
-  "t9"      '(tab-bar-select-tab 9 :which-key "select workspace 9")
-  "tn"      '(tab-bar-switch-to-next-tab :which-key "next workspace")
-  "tr"      '(tab-bar-rename-tab :which-key "rename workspace")
-  "t <tab>" '(tab-bar-switch-to-recent-tab :which-key "recent workspace")
-  "tp"      '(tab-bar-switch-to-prev-tab :which-key "prev workspace"))
-(my-leader-def
-  "w"  '(evil-window-map t :which-key "windows")
-  "wd" '(evil-window-delete t :which-key "window delete"))
-(my-leader-def
-  "s"  '(:ignore t :which-key "search/symbol")
-  "sc" '(evil-ex-nohighlight :which-key "clear highlight")
-  "se" '(iedit-mode :which-key "iedit"))
-(my-leader-def
-  "b"  '(:ignore t :which-key "buffers")
-  "bs" '(save-buffer :which-key "save buffer")
-  "bD" '(custom/kill-other-buffers :which-key "kill other buffers")
-  "bb" '(consult-buffer :which-key "list buffers")
-  "bn" '(evil-next-buffer :which-key "next buffer")
-  "bp" '(evil-prev-buffer :which-key "previous buffer")
-  "bh" '((lambda () (interactive) (switch-to-buffer "*Home*")) :which-key "home buffer")
-  "bm" '((lambda () (interactive) (switch-to-buffer "*Messages*")) :which-key "message buffer")
-  "br" '(revert-buffer :which-key "revert buffer")
-  "ba" '(org-agenda :which-key "agenda")
-  "bd" '(kill-current-buffer t :which-key "delete buffer"))
-(my-leader-def
-  "g"  '(:ignore t :which-key "git")
-  "gb" '(magit-blame-addition :which-key "blame"))
-(my-leader-def
-  "e"  '(:ignore t :which-key "errors")
-  "eb" '(flymake-show-buffer-diagnostics :which-key "buffer errors")
-  "el" '(toggle-flymake-diagnostics-buffer :which-key "list project errors")
-  "en" '(flymake-goto-next-error :which-key "next error")
-  "ep" '(flymake-goto-prev-error :which-key "prev errors"))
-(my-leader-def
-  "a"  '(eca-transient-menu t :which-key "agent"))
-(my-leader-def
-  "z"  '(:ignore t :which-key "zoom/narrow")
-  "zi" '(text-scale-increase :which-key "zoom in")
-  "zo" '(text-scale-decrease :which-key "zoom out")
-  "zn"  '(:ignore t :which-key "narrow")
-  "zni" '(narrow-to-region :which-key "narrow in")
-  "zno" '(narrow-to-page :which-key "narrow out"))
+(keymap-set transient-base-map "<escape>" 'transient-quit-all)
 
-;; Mode dependent leader keybindings
-(general-create-definer mode-dependent-leader-def
-  :states 'normal
-  :keymaps 'override
-  :prefix "SPC m")
+(defun custom/keymap-suffixes (keymap &optional strip per-column)
+  "Return bindings of KEYMAP as transient suffix column vectors.
+STRIP is a command-name prefix removed from descriptions.
+PER-COLUMN is how many suffixes to put in each column."
+  (let (suffixes)
+    (map-keymap
+     (lambda (event def)
+       (when (and (commandp def) (characterp event))
+         (let ((name (symbol-name def)))
+           (push (list (key-description (vector event))
+                       (replace-regexp-in-string
+                        "-" " "
+                        (if (and strip (string-prefix-p strip name))
+                            (substring name (length strip))
+                          name))
+                       def)
+                 suffixes))))
+     (keymap-canonicalize keymap))
+    (mapcar #'vconcat
+            (seq-partition (sort (nreverse suffixes)
+                                 (lambda (a b) (string< (car a) (car b))))
+                           (or per-column 12)))))
 
-(my-leader-def
-  "m"  '(:ignore t :which-key "mode dependent leader"))
-(mode-dependent-leader-def eglot-mode-map
-  "r" '(eglot-rename :which-key "rename")
-  "=" '(format-buffer-with-eglot :which-key "format buffer"))
-(mode-dependent-leader-def go-ts-mode-map
-  "i" '(go-import-add :which-key "add import"))
-(mode-dependent-leader-def org-mode-map
-  "l" '(org-super-links-quick-insert-drawer-link :which-key "org insert link")
-  "o" '(org-open-at-point :which-key "org open at point")
-  "s" '(org-search-view :which-key "search")
-  "t"  '(:ignore t :which-key "org toggles")
-  "tc" '(org-toggle-checkbox :which-key "org toggle checkbox"))
+(transient-define-prefix leader-quit-menu ()
+  "Quit/restart."
+  [["Quit"
+    ("q" "quit" evil-quit)
+    ("r" "restart" restart-emacs)]])
 
-(mode-dependent-leader-def org-agenda-mode-map
-  "l" '(org-super-links-agenda-insert-link :which-key "org insert link"))
+(transient-define-prefix leader-toggles-menu ()
+  "Toggles."
+  [["Toggles"
+    ("t" "choose theme" load-theme)]])
+
+(transient-define-prefix leader-files-menu ()
+  "Files."
+  [["Find"
+    ("f" "find-file" find-file)
+    ("t" "dired" dired-other-window)]
+   ["Save"
+    ("s" "save file" save-buffer)
+    ("S" "save all" save-all)]
+   ["Manage"
+    ("d" "delete file" delete-file)
+    ("r" "rename file" rename-file)
+    ("c" "copy file" copy-file)]])
+
+(transient-define-prefix leader-search-menu ()
+  "Search/symbol."
+  [["Search"
+    ("c" "clear highlight" evil-ex-nohighlight)
+    ("e" "iedit" iedit-mode)]])
+
+(transient-define-prefix leader-buffers-menu ()
+  "Buffers."
+  [["Switch"
+    ("b" "list buffers" consult-buffer)
+    ("n" "next buffer" evil-next-buffer)
+    ("p" "previous buffer" evil-prev-buffer)
+    ("h" "home buffer" (lambda () (interactive) (switch-to-buffer "*Home*")))
+    ("m" "message buffer" (lambda () (interactive) (switch-to-buffer "*Messages*")))
+    ("a" "agenda" org-agenda)]
+   ["Manage"
+    ("s" "save buffer" save-buffer)
+    ("r" "revert buffer" revert-buffer)
+    ("d" "delete buffer" kill-current-buffer)
+    ("D" "kill other buffers" custom/kill-other-buffers)]])
+
+(transient-define-prefix leader-git-menu ()
+  "Git."
+  [["Git"
+    ("b" "blame" magit-blame-addition)]])
+
+(transient-define-prefix leader-errors-menu ()
+  "Errors."
+  [["Errors"
+    ("b" "buffer errors" flymake-show-buffer-diagnostics)
+    ("l" "list project errors" toggle-flymake-diagnostics-buffer)
+    ("n" "next error" flymake-goto-next-error)
+    ("p" "prev errors" flymake-goto-prev-error)]])
+
+(transient-define-prefix leader-zoom-menu ()
+  "Zoom/narrow."
+  [["Zoom"
+    ("i" "zoom in" text-scale-increase)
+    ("o" "zoom out" text-scale-decrease)]
+   ["Narrow"
+    ("n i" "narrow in" narrow-to-region)
+    ("n o" "narrow out" narrow-to-page)]])
+
+(transient-define-prefix leader-project-menu ()
+  "Project."
+  [:class transient-columns
+   :setup-children
+   (lambda (_)
+     (transient-parse-suffixes
+      'leader-project-menu
+      (custom/keymap-suffixes project-prefix-map "project-" 7)))])
+
+(transient-define-prefix leader-windows-menu ()
+  "Windows."
+  [:class transient-columns
+   :setup-children
+   (lambda (_)
+     (transient-parse-suffixes
+      'leader-windows-menu
+      (append (custom/keymap-suffixes evil-window-map "evil-window-" 11)
+              (list (vector '("d" "window delete" evil-window-delete))))))])
+
+(transient-define-prefix leader-workspaces-menu ()
+  "Workspaces."
+  [["Select"
+    ("1" "workspace 1" (lambda () (interactive) (tab-bar-select-tab 1)))
+    ("2" "workspace 2" (lambda () (interactive) (tab-bar-select-tab 2)))
+    ("3" "workspace 3" (lambda () (interactive) (tab-bar-select-tab 3)))
+    ("4" "workspace 4" (lambda () (interactive) (tab-bar-select-tab 4)))
+    ("5" "workspace 5" (lambda () (interactive) (tab-bar-select-tab 5)))
+    ("6" "workspace 6" (lambda () (interactive) (tab-bar-select-tab 6)))
+    ("7" "workspace 7" (lambda () (interactive) (tab-bar-select-tab 7)))
+    ("8" "workspace 8" (lambda () (interactive) (tab-bar-select-tab 8)))
+    ("9" "workspace 9" (lambda () (interactive) (tab-bar-select-tab 9)))]
+   ["Switch"
+    ("n" "next workspace" tab-bar-switch-to-next-tab)
+    ("p" "prev workspace" tab-bar-switch-to-prev-tab)
+    ("TAB" "recent workspace" tab-bar-switch-to-recent-tab)
+    ("r" "rename workspace" tab-bar-rename-tab)]
+   ["Tabspaces"
+    ("s" "switch or create" tabspaces-switch-or-create-workspace)
+    ("o" "open project" tabspaces-open-or-create-project-and-workspace)
+    ("b" "switch to buffer" tabspaces-switch-to-buffer)
+    ("t" "buffer and tab" tabspaces-switch-buffer-and-tab)
+    ("d" "close workspace" tabspaces-close-workspace)
+    ("k" "kill buffers, close" tabspaces-kill-buffers-close-workspace)
+    ("R" "remove selected buffer" tabspaces-remove-selected-buffer)
+    ("C" "clear buffers" tabspaces-clear-buffers)]])
+
+(transient-define-prefix leader-mode-menu ()
+  "Mode dependent leader."
+  [["LSP"
+    :if (lambda () (bound-and-true-p eglot--managed-mode))
+    ("r" "rename" eglot-rename)
+    ("=" "format buffer" format-buffer-with-eglot)]
+   ["Go"
+    :if (lambda () (derived-mode-p 'go-ts-mode))
+    ("i" "add import" go-import-add)]
+   ["Org"
+    :if (lambda () (derived-mode-p 'org-mode))
+    ("l" "org insert link" org-super-links-quick-insert-drawer-link)
+    ("o" "org open at point" org-open-at-point)
+    ("s" "search" org-search-view)
+    ("t c" "org toggle checkbox" org-toggle-checkbox)]
+   ["Agenda"
+    :if (lambda () (derived-mode-p 'org-agenda-mode))
+    ("l" "org insert link" org-super-links-agenda-insert-link)]])
+
+(transient-define-prefix leader-menu ()
+  "Leader."
+  [["Windows"
+    ("1" "select window 1" winum-select-window-1)
+    ("2" "select window 2" winum-select-window-2)
+    ("3" "select window 3" winum-select-window-3)
+    ("4" "select window 4" winum-select-window-4)
+    ("5" "select window 5" winum-select-window-5)
+    ("6" "select window 6" winum-select-window-6)
+    ("7" "select window 7" winum-select-window-7)
+    ("8" "select window 8" winum-select-window-8)
+    ("9" "select window 9" winum-select-window-9)]
+   ["Menus"
+    ("b" "buffers" leader-buffers-menu)
+    ("e" "errors" leader-errors-menu)
+    ("f" "files" leader-files-menu)
+    ("g" "git" leader-git-menu)
+    ("m" "mode dependent leader" leader-mode-menu)
+    ("p" "project" leader-project-menu)
+    ("q" "quit/restart" leader-quit-menu)
+    ("s" "search/symbol" leader-search-menu)
+    ("t" "workspaces" leader-workspaces-menu)
+    ("w" "windows" leader-windows-menu)
+    ("y" "toggles" leader-toggles-menu)
+    ("z" "zoom/narrow" leader-zoom-menu)]
+   ["Actions"
+    ("SPC" "M-x" execute-extended-command)
+    ("TAB" "switch to previous window" evil-switch-to-windows-last-buffer)
+    ("a" "agent" eca-transient-menu)]])
+
+(defvar leader-override-map (make-sparse-keymap)
+  "Keymap holding the leader key, with override precedence.")
+
+(define-minor-mode leader-override-mode
+  "Global minor mode giving the leader key override precedence."
+  :global t
+  :group 'convenience
+  :keymap leader-override-map)
+
+(leader-override-mode 1)
+
+(add-to-list 'emulation-mode-map-alists
+             `((leader-override-mode . ,leader-override-map)))
+
+(evil-define-key '(normal visual motion emacs) leader-override-map
+  (kbd leader-key) 'leader-menu)
 
 (provide 'emacs-config-input)

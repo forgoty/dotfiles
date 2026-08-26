@@ -70,10 +70,6 @@
         tree-sitter-zig
         tree-sitter-yaml
 
-        ;; Input
-        emacs-general
-        emacs-which-key
-
         ;; IDE
         emacs-zig-mode
         emacs-protobuf-ts-mode

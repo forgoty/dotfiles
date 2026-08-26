@@ -27,7 +27,6 @@
 (add-to-list 'package-selected-packages 'evil-textobj-tree-sitter)
 
 ;; Input
-(add-to-list 'package-selected-packages 'general)
 (add-to-list 'package-selected-packages 'which-key)
 (add-to-list 'package-selected-packages 'winum)
 
