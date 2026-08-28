@@ -214,6 +214,7 @@ PER-COLUMN is how many suffixes to put in each column."
     ("s" "save buffer" save-buffer)
     ("r" "revert buffer" revert-buffer)
     ("d" "delete buffer" kill-current-buffer)
+    ("y" "copy file path" copy-file-path)
     ("D" "kill other buffers" custom/kill-other-buffers)]])
 
 (transient-define-prefix leader-git-menu ()
@@ -245,7 +246,8 @@ PER-COLUMN is how many suffixes to put in each column."
    (lambda (_)
      (transient-parse-suffixes
       'leader-project-menu
-      (custom/keymap-suffixes project-prefix-map "project-" 7)))])
+      (append (custom/keymap-suffixes project-prefix-map "project-" 7)
+              (list (vector '("y" "copy git relative path" copy-git-relative-file-path))))))])
 
 (transient-define-prefix leader-windows-menu ()
   "Windows."
