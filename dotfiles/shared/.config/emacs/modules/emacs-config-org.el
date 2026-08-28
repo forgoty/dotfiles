@@ -17,6 +17,8 @@
 (setq projects-file (expand-file-name "projects.org" org-directory))
 (setq habits-file (expand-file-name "habits.org" org-directory))
 (setq reading-list-file (expand-file-name "lists/reading-list.org" org-directory))
+(setq videos-list-file (expand-file-name "lists/videos.org" org-directory))
+(setq podcasts-list-file (expand-file-name "lists/podcasts.org" org-directory))
 (setq important-dates-file (expand-file-name "lists/important-dates.org" org-directory))
 (setq observations-file (expand-file-name "observations.org" org-directory))
 (setq ideas-file (expand-file-name "ideas.org" org-directory))
@@ -297,7 +299,14 @@
          "* %?\n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
          :jump-to-captured t
          :empty-lines 1)
-        ("r" "To Reading List" entry (file reading-list-file)
+        ("l" "Lists")
+        ("lr" "To Reading List" entry (file reading-list-file)
+         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         :empty-lines 1)
+        ("lv" "To Video List" entry (file videos-list-file)
+         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         :empty-lines 1)
+        ("lp" "To Podcasts List" entry (file podcasts-list-file)
          "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
          :empty-lines 1)
         ("o" "New Observation" entry
