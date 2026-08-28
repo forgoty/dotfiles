@@ -330,7 +330,7 @@ PER-COLUMN is how many suffixes to put in each column."
     ("z" "zoom/narrow" leader-zoom-menu)]
    ["Actions"
     ("SPC" "M-x" execute-extended-command)
-    ("TAB" "switch to previous window" evil-switch-to-windows-last-buffer)
+    ("<tab>" "switch to previous window" evil-switch-to-windows-last-buffer)
     ("a" "agent" eca-transient-menu)]])
 
 (defvar leader-override-map (make-sparse-keymap)
