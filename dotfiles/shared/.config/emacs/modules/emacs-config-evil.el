@@ -37,6 +37,7 @@
   (add-to-list 'evil-emacs-state-modes mode))
 
 ;; Evil Collection
+(setq evil-collection-key-blacklist '("SPC"))
 (evil-collection-init)
 
 (provide 'emacs-config-evil)

@@ -1,27 +1,20 @@
 (require 'transient)
 
-;; SPC map
-(defconst leader-key "SPC" "The leader prefix key for Evil users.")
-
-;; Which key
-(which-key-mode t)
-(setq which-key-idle-delay 0.2)
-
-(defun custom/evil-shift-left-visual ()
+(defun evil-shift-left-visual ()
   (interactive)
   (evil-shift-left (region-beginning) (region-end))
   (evil-normal-state)
   (evil-visual-restore))
 
-(defun custom/evil-shift-right-visual ()
+(defun evil-shift-right-visual ()
   (interactive)
   (evil-shift-right (region-beginning) (region-end))
   (evil-normal-state)
   (evil-visual-restore))
 
 ; Overload shifts so that they don't lose the selection
-(evil-define-key 'visual global-map "<" 'custom/evil-shift-left-visual)
-(evil-define-key 'visual global-map ">" 'custom/evil-shift-right-visual)
+(evil-define-key 'visual global-map "<" 'evil-shift-left-visual)
+(evil-define-key 'visual global-map ">" 'evil-shift-right-visual)
 
 ;; vertico keybindings
 (keymap-set vertico-map "C-j" 'vertico-next)
@@ -130,7 +123,7 @@
       iedit-toggle-key-default nil)
 
 ;; Kill all other buffers.
-(defun custom/kill-other-buffers ()
+(defun kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
@@ -144,33 +137,7 @@
 ;; eca
 (define-key eca-completion-map (kbd "<backtab>") 'eca-completion-accept)
 
-(set (if (boundp 'transient-show-menu) 'transient-show-menu 'transient-show-popup) 0.2)
-
-(keymap-set transient-base-map "<escape>" 'transient-quit-all)
-
-(defun custom/keymap-suffixes (keymap &optional strip per-column)
-  "Return bindings of KEYMAP as transient suffix column vectors.
-STRIP is a command-name prefix removed from descriptions.
-PER-COLUMN is how many suffixes to put in each column."
-  (let (suffixes)
-    (map-keymap
-     (lambda (event def)
-       (when (and (commandp def) (characterp event))
-         (let ((name (symbol-name def)))
-           (push (list (key-description (vector event))
-                       (replace-regexp-in-string
-                        "-" " "
-                        (if (and strip (string-prefix-p strip name))
-                            (substring name (length strip))
-                          name))
-                       def)
-                 suffixes))))
-     (keymap-canonicalize keymap))
-    (mapcar #'vconcat
-            (seq-partition (sort (nreverse suffixes)
-                                 (lambda (a b) (string< (car a) (car b))))
-                           (or per-column 12)))))
-
+;; transient key menu
 (transient-define-prefix leader-quit-menu ()
   "Quit/restart."
   [["Quit"
@@ -215,7 +182,7 @@ PER-COLUMN is how many suffixes to put in each column."
     ("r" "revert buffer" revert-buffer)
     ("d" "delete buffer" kill-current-buffer)
     ("y" "copy file path" copy-file-path)
-    ("D" "kill other buffers" custom/kill-other-buffers)]])
+    ("D" "kill other buffers" kill-other-buffers)]])
 
 (transient-define-prefix leader-git-menu ()
   "Git."
@@ -241,23 +208,47 @@ PER-COLUMN is how many suffixes to put in each column."
 
 (transient-define-prefix leader-project-menu ()
   "Project."
-  [:class transient-columns
-   :setup-children
-   (lambda (_)
-     (transient-parse-suffixes
-      'leader-project-menu
-      (append (custom/keymap-suffixes project-prefix-map "project-" 7)
-              (list (vector '("y" "copy git relative path" copy-git-relative-file-path))))))])
+  [[("&" "async shell command" project-async-shell-command)
+    ("C-b" "list buffers" project-list-buffers)
+    ("D" "dired" project-dired)
+    ("F" "or external find file" project-or-external-find-file)
+    ("G" "or external find regexp" project-or-external-find-regexp)
+    ("b" "switch to buffer" project-switch-to-buffer)]
+   [("c" "compile" project-compile)
+    ("d" "find dir" project-find-dir)
+    ("e" "eshell" project-eshell)
+    ("f" "find file" project-find-file)
+    ("g" "find regexp" project-find-regexp)
+    ("k" "kill buffers" project-kill-buffers)]
+   [("p" "switch project" project-switch-project)
+    ("r" "query replace regexp" project-query-replace-regexp)
+    ("s" "shell" project-shell)
+    ("v" "vc dir" project-vc-dir)
+    ("x" "execute extended command" project-execute-extended-command)]
+   [("y" "copy git relative path" copy-git-relative-file-path)]])
 
 (transient-define-prefix leader-windows-menu ()
   "Windows."
-  [:class transient-columns
-   :setup-children
-   (lambda (_)
-     (transient-parse-suffixes
-      'leader-windows-menu
-      (append (custom/keymap-suffixes evil-window-map "evil-window-" 11)
-              (list (vector '("d" "window delete" evil-window-delete))))))])
+  [[
+    ("H" "move far left" evil-window-move-far-left)
+    ("J" "move very bottom" evil-window-move-very-bottom)
+    ("K" "move very top" evil-window-move-very-top)
+    ("L" "move far right" evil-window-move-far-right)
+    ("R" "rotate upwards" evil-window-rotate-upwards)
+    ("S" "split" evil-window-split)]
+   [("W" "prev" evil-window-prev)
+    ("h" "left" evil-window-left)
+    ("j" "down" evil-window-down)
+    ("k" "up" evil-window-up)
+    ("l" "right" evil-window-right)
+    ("n" "new" evil-window-new)
+    ("o" "delete other windows" delete-other-windows)]
+   [("r" "rotate downwards" evil-window-rotate-downwards)
+    ("s" "split" evil-window-split)
+    ("t" "top left" evil-window-top-left)
+    ("v" "vsplit" evil-window-vsplit)
+    ("w" "next" evil-window-next)]
+   [("d" "window delete" evil-window-delete)]])
 
 (transient-define-prefix leader-workspaces-menu ()
   "Workspaces."
@@ -316,8 +307,10 @@ PER-COLUMN is how many suffixes to put in each column."
     ("6" "select window 6" winum-select-window-6)
     ("7" "select window 7" winum-select-window-7)
     ("8" "select window 8" winum-select-window-8)
-    ("9" "select window 9" winum-select-window-9)]
+    ("9" "select window 9" winum-select-window-9)
+    ("<tab>" "switch to previous window" evil-switch-to-windows-last-buffer)]
    ["Menus"
+    ("a" "agent" eca-transient-menu)
     ("b" "buffers" leader-buffers-menu)
     ("e" "errors" leader-errors-menu)
     ("f" "files" leader-files-menu)
@@ -331,25 +324,10 @@ PER-COLUMN is how many suffixes to put in each column."
     ("y" "toggles" leader-toggles-menu)
     ("z" "zoom/narrow" leader-zoom-menu)]
    ["Actions"
-    ("SPC" "M-x" execute-extended-command)
-    ("<tab>" "switch to previous window" evil-switch-to-windows-last-buffer)
-    ("a" "agent" eca-transient-menu)]])
+    ("SPC" "M-x" execute-extended-command)]])
 
-(defvar leader-override-map (make-sparse-keymap)
-  "Keymap holding the leader key, with override precedence.")
-
-(define-minor-mode leader-override-mode
-  "Global minor mode giving the leader key override precedence."
-  :global t
-  :group 'convenience
-  :keymap leader-override-map)
-
-(leader-override-mode 1)
-
-(add-to-list 'emulation-mode-map-alists
-             `((leader-override-mode . ,leader-override-map)))
-
-(evil-define-key '(normal visual motion emacs) leader-override-map
-  (kbd leader-key) 'leader-menu)
+(setq transient-show-menu 0.2)
+(keymap-set transient-base-map "<escape>" 'transient-quit-all)
+(evil-define-key '(normal visual motion emacs) 'global (kbd "SPC") 'leader-menu)
 
 (provide 'emacs-config-input)
