@@ -35,7 +35,6 @@
 (add-to-list 'package-selected-packages 'zig-mode)
 
 ;; UI
-(add-to-list 'package-selected-packages 'helpful)
 (add-to-list 'package-selected-packages 'tabspaces)
 (add-to-list 'package-selected-packages 'golden-ratio)
 

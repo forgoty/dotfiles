@@ -81,7 +81,6 @@
 
         ;; UI
         emacs-golden-ratio
-        emacs-helpful
         emacs-winum
         emacs-tabspaces
 

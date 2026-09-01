@@ -1,12 +1,3 @@
-(when (require 'helpful nil :noerror)
-  (keymap-set helpful-mode-map "<remap> <revert-buffer>" #'helpful-update)
-  (keymap-global-set "<remap> <describe-command>"        #'helpful-command)
-  (keymap-global-set "<remap> <describe-function>"       #'helpful-callable)
-  (keymap-global-set "<remap> <describe-key>"            #'helpful-key)
-  (keymap-global-set "<remap> <describe-symbol>"         #'helpful-symbol)
-  (keymap-global-set "<remap> <describe-variable>"       #'helpful-variable)
-  (keymap-global-set "C-h F"                             #'helpful-function))
-
 ;; Bind extra `describe-*' commands
 (keymap-global-set "C-h K" #'describe-keymap)
 
