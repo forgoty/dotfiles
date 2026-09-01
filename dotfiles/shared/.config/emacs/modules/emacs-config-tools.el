@@ -42,7 +42,7 @@
 (setq eca-chat-hide-markdown-markup nil
       eca-chat-diff-tool 'ediff
       eca-chat-use-side-window nil)
-(add-hook 'eglot-managed-mode-hook (lambda ()
+(add-hook 'eglot-server-initialized-hook (lambda (&rest _)
                                      (call-interactively #'eca)))
 (add-hook 'emacs-startup-hook (lambda ()
   (add-hook 'text-mode-hook #'eca-completion-mode)
