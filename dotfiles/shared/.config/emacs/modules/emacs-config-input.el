@@ -166,6 +166,7 @@
   "Search/symbol."
   [["Search"
     ("c" "clear highlight" evil-ex-nohighlight)
+    ("l" "fuzzy search line" consult-line)
     ("e" "iedit" iedit-mode)]])
 
 (transient-define-prefix leader-buffers-menu ()
