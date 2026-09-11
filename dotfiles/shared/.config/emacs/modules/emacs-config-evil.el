@@ -38,6 +38,6 @@
 
 ;; Evil Collection
 (setq evil-collection-key-blacklist '("SPC"))
-(evil-collection-init)
+(evil-collection-init '(dired help ediff))
 
 (provide 'emacs-config-evil)
