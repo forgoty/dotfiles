@@ -1,1 +1,8 @@
-{}
+{
+  "providers": {
+    "ollama": {
+      "type": "ollama",
+      "url": "http://guldan.lan:11434"
+    }
+  }
+}
