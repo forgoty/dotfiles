@@ -14,7 +14,7 @@
   #:use-module (gnu packages rust-apps)
   #:use-module (gnu packages disk)
   #:use-module (gnu packages version-control)
-  #:use-module (gnu packages wm)
+  #:use-module (gnu packages window-management)
   #:use-module (gnu packages terminals)
   #:use-module (gnu packages compression)
   #:use-module (gnu packages moreutils)
