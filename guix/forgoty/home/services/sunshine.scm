@@ -25,7 +25,7 @@
     (let* ((command #~(list "/run/privileged/bin/sunshine" #$config-file-path))
            (requirement (if (eq? session-type 'x11)
                             '(x11-display)
-                            '()))
+                            '(wayland-display)))
            (log-file #~(string-append %user-log-dir "/sunshine.log")))
       (list (shepherd-service
              (documentation "Run the sunshine host.")
@@ -40,7 +40,7 @@
                   (append (default-environment-variables)
                           #$(if (eq? session-type 'x11)
                                 #~(list (string-append "DISPLAY=" (getenv "DISPLAY")))
-                                #~(list "WAYLAND_DISPLAY=wayland-0")))
+                                #~(list (string-append "WAYLAND_DISPLAY=" (getenv "WAYLAND_DISPLAY")))))
                   #:log-file #$log-file)))
              (stop #~(make-kill-destructor)))))))
 

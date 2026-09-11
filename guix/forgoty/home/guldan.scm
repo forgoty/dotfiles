@@ -288,6 +288,7 @@
                                  (home-forgoty-dotfiles-configuration (host %host)))
 
                         ;; Set up desktop environment
+                        (service home-wayland-service-type)
                         (service home-desktop-service-type
                                   (home-desktop-configuration
                                     (environment-variables home-guldan-environment-variables)
