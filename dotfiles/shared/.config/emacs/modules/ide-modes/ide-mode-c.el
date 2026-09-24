@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; Code:
 (defun c//hooks ()
   "Call this when c-ts-mode is enabled."

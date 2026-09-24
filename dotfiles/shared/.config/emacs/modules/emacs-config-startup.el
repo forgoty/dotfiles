@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defgroup emacs-config-startup '()
   "Startup configuration for Emacs"
   :tag "Startup"

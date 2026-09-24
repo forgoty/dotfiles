@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; Initial phase
 
 ;; Load custom.el

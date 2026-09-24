@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defconst python-indent-level 4)
 
 (defun python//hooks ()

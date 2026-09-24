@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (require 'org-super-agenda)
 (require 'org-habit)
 (require 'notifications)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; Vertico
 (when (require 'vertico nil :noerror)
   (require 'vertico-directory)

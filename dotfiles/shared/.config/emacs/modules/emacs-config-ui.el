@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Bind extra `describe-*' commands
 (keymap-global-set "C-h K" #'describe-keymap)
 

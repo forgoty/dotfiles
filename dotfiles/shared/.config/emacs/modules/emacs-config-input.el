@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (require 'transient)
 
 (defun evil-shift-left-visual ()

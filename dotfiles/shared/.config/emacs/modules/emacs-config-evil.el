@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Set some variables that must be configured before loading the package
 (customize-set-variable 'evil-want-integration t)
 (customize-set-variable 'evil-want-keybinding nil)

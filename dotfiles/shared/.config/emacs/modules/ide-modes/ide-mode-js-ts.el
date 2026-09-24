@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun js-ts//hooks ()
   ;; Add flymake diagnostics to mode bar
   (add-to-list 'mode-line-misc-info

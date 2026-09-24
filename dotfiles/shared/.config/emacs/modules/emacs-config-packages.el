@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Tools
 (add-to-list 'package-selected-packages 'restart-emacs)
 (add-to-list 'package-selected-packages 'magit)

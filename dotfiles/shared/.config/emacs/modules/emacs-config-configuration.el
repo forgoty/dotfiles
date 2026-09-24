@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (require 'emacs-config-default)
 (require 'emacs-config-startup)
 (require 'emacs-config-evil)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Revert Dired and other buffers
 (customize-set-variable 'global-auto-revert-non-file-buffers t)
 

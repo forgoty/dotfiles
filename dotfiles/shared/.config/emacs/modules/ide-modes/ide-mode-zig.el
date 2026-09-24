@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Associated zig files with zig-ts-mode
 (require 'treesit)
 

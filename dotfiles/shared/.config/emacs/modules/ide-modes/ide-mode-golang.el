@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (require 'flymake-golangci)
 
 (defconst go-tab-width 8)
@@ -79,7 +81,7 @@
   (add-hook 'before-save-hook #'format-buffer-with-eglot))
 
 (defun project-find-go-module (dir)
-  (when-let ((root (locate-dominating-file dir "go.mod")))
+  (when-let* ((root (locate-dominating-file dir "go.mod")))
     (cons 'go-module root)))
 
 (cl-defmethod project-root ((project (head go-module)))

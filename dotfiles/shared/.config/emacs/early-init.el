@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;; Configures `package.el'
 (require 'package)
 

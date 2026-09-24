@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; MacOS workarounds
 ;; fix shell PATH
 ;; See: https://github.com/d12frosted/homebrew-emacs-plus/issues/720
