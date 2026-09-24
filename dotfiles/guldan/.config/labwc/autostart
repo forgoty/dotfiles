@@ -1,4 +1,5 @@
-kanshi &
+mkdir -p "${XDG_STATE_HOME:-$HOME/.local/state}/kanshi"
+kanshi > "${XDG_STATE_HOME:-$HOME/.local/state}/kanshi/kanshi.log" 2>&1 &
 setbg /home/nikita/.guix-home/profile/share/backgrounds/ &
 waybar &
 steam -tenfoot &

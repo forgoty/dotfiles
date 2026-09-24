@@ -294,7 +294,9 @@
                                     (environment-variables home-guldan-environment-variables)
                                     (profile-packages guldan-packages)
                                     (dot-profiles (list (plain-file "labwc"
-                                                                    "[ $(tty) = /dev/tty1 ] && exec labwc")))
+                                                                    (string-append "[ $(tty) = /dev/tty1 ] && "
+                                                                                   "mkdir -p \"${XDG_STATE_HOME:-$HOME/.local/state}/labwc\" && "
+                                                                                   "exec labwc >\"${XDG_STATE_HOME:-$HOME/.local/state}/labwc/labwc.log\" 2>&1"))))
                                     (shepherd-services '())))
 
                         (service home-dbus-service-type)
