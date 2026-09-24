@@ -19,6 +19,7 @@
   #:use-module (forgoty home guldan)
   #:use-module ((forgoty substitute-keys) #:prefix substitute-keys:)
   #:use-module (forgoty packages streaming)
+  #:use-module (forgoty packages firmware)
   #:use-module ((forgoty systems base-system) #:select (%default-username)))
 
 (use-service-modules desktop
@@ -152,6 +153,7 @@
     (firmware (list
                 linux-firmware
                 amdgpu-firmware
+                mt7927-bt-firmware
                 amd-microcode))
     (sudoers-file sudoers-file)
     (users (append
