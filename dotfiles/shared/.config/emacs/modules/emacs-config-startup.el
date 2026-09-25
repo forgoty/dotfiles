@@ -169,8 +169,6 @@ starts.  See the variable documenation for
         (erase-buffer)
         (setq default-directory command-line-default-directory)
         (make-local-variable 'emacs-config-startup-screen-inhibit-startup-screen)
-        (if pure-space-overflow
-            (insert pure-space-overflow-message))
         (unless concise
           (emacs-config-startup-splash-head))            ;; display the logo
         (apply #'fancy-splash-insert                ;; insert welcome text
