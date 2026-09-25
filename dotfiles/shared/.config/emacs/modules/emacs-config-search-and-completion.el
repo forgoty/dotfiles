@@ -24,7 +24,6 @@
                             nil))
   (marginalia-mode 1))
 
-
 ;;; Consult
 ;; Since Consult doesn't need to be required, we assume the user wants these
 ;; setting if it is installed (regardless of the installation method).
@@ -35,7 +34,6 @@
 
   (setq completion-in-region-function #'consult-completion-in-region))
 
-
 ;;; Orderless
 (when (require 'orderless nil :noerror)
   ;; Set up Orderless for better fuzzy matching
@@ -43,7 +41,6 @@
   (customize-set-variable 'completion-category-overrides
                           '((file (styles . (partial-completion))))))
 
-
 ;;; Embark
 (when (require 'embark nil :noerror)
 
@@ -57,14 +54,8 @@
     (with-eval-after-load 'embark-consult
       (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))))
 
-
 ;;; Corfu
 (when (require 'corfu nil :noerror)
-
-  (unless (display-graphic-p)
-    (when (require 'corfu-terminal nil :noerror)
-      (corfu-terminal-mode +1)))
-
   ;; Setup corfu for popup like completion
   (customize-set-variable 'corfu-cycle t)        ; Allows cycling through candidates
   (customize-set-variable 'corfu-auto t)         ; Enable auto completion
@@ -81,7 +72,6 @@
     (keymap-set corfu-map "M-n" #'corfu-popupinfo-scroll-up)
     (keymap-set corfu-map "M-d" #'corfu-popupinfo-toggle)))
 
-
 ;;; Cape
 
 (when (require 'cape nil :noerror)
