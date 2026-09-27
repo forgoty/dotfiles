@@ -31,6 +31,7 @@
   #:use-module (gnu packages moreutils)
   #:use-module (gnu packages suckless)
   #:use-module (gnu packages admin)
+  #:use-module (gnu packages pantheon)
   #:use-module (gnu packages ocr)
   #:use-module (gnu packages dictionaries)
   #:use-module (gnu packages pdf)
@@ -83,6 +84,7 @@
    xcompmgr
    dunst
    slock
+   pantheon-wallpapers
    font-adobe-source-han-sans
    font-google-noto
    font-google-noto-emoji
@@ -176,6 +178,7 @@
     ("ZDOTDIR" . "$XDG_CONFIG_HOME/zsh")
     ("CARGO_HOME" . "$XDG_DATA_HOME/cargo")
     ("GOPATH" . "$XDG_DATA_HOME/go")
+    ("BG_LOCATION" . "$HOME/.guix-home/profile/share/backgrounds/")
     ("GOMODCACHE" . "$XDG_CACHE_HOME/go/mod")
     ("PYTHONSTARTUP" . "$XDG_CONFIG_HOME/python/pythonrc")
     ("CEREBRUM_PATH" . "$HOME/cerebrum")
