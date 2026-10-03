@@ -31,7 +31,6 @@
         emacs-corfu-terminal
         emacs-embark
         emacs-embark-consult
-        emacs-marginalia
         emacs-orderless
         emacs-vertico
 

@@ -15,15 +15,6 @@
     (icomplete-mode -1)
     (icomplete-vertical-mode -1)))
 
-;;; Marginalia
-(when (require 'marginalia nil :noerror)
-  ;; Configure Marginalia
-  (customize-set-variable 'marginalia-annotators
-                          '(marginalia-annotators-heavy
-                            marginalia-annotators-light
-                            nil))
-  (marginalia-mode 1))
-
 ;;; Consult
 ;; Since Consult doesn't need to be required, we assume the user wants these
 ;; setting if it is installed (regardless of the installation method).
