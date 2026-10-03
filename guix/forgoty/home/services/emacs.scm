@@ -29,8 +29,6 @@
         emacs-consult
         emacs-corfu
         emacs-corfu-terminal
-        emacs-embark
-        emacs-embark-consult
         emacs-orderless
         emacs-vertico
 

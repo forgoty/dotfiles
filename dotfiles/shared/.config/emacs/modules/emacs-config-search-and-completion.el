@@ -32,19 +32,6 @@
   (customize-set-variable 'completion-category-overrides
                           '((file (styles . (partial-completion))))))
 
-;;; Embark
-(when (require 'embark nil :noerror)
-
-  (keymap-global-set "<remap> <describe-bindings>" #'embark-bindings)
-  (keymap-global-set "C-." 'embark-act)
-
-  ;; Use Embark to show bindings in a key prefix with `C-h`
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  (when (require 'embark-consult nil :noerror)
-    (with-eval-after-load 'embark-consult
-      (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))))
-
 ;;; Corfu
 (when (require 'corfu nil :noerror)
   ;; Setup corfu for popup like completion
