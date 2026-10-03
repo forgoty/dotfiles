@@ -152,7 +152,6 @@
 
    ;; Apps
    qutebrowser
-   neomutt
    zathura
    zathura-pdf-mupdf
    mpv
