@@ -274,7 +274,10 @@
         (backlog-file :maxlevel . 1)
         (projects-file :maxlevel . 2)
         (recycle-bin-file :maxlevel . 1)
-        (ideas-file :maxlevel . 1)))
+        (videos-list-file :maxlevel . 1)
+        (reading-list-file :maxlevel . 1)
+        (podcasts-list-file :maxlevel . 1)
+        (ideas-file :maxlevel . 2)))
 
 ;; Archive settings
 (setq archive-directory (expand-file-name "archive" org-directory))
@@ -317,7 +320,7 @@
          :empty-lines 1)
         ("I" "New Idea" entry
          (file ideas-file)
-         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"
+         "* %?\n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
          :jump-to-captured t
          :empty-lines 1)))
 
