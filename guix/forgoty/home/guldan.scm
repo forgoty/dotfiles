@@ -45,6 +45,7 @@
   #:use-module (forgoty home services containers)
   #:use-module (forgoty home services desktop)
   #:use-module (forgoty home services dotfiles)
+  #:use-module (forgoty home services jobs)
   #:use-module (forgoty packages retro-gaming)
   #:use-module (forgoty packages shellutils)
   #:use-module (forgoty packages suckless)
@@ -305,6 +306,10 @@
                                 (home-sunshine-configuration
                                   (session-type 'wayland)
                                   (config-file-path (string-append "/home/" %default-username "/.config/sunshine/sunshine.conf"))))
+
+                        ;; Background cron jobs
+                        (service home-mcron-service-type
+                                 (home-mcron-configuration (jobs (list shutdown-job))))
 
                         ;; Podman
                         (service podman-service-type)

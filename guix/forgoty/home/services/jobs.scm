@@ -12,3 +12,10 @@
            (system* #$(file-append git-sync "/bin/git-sync") "sync"))
          "git-sync-cerebrum"
          #:user #$%default-username))
+
+(define-public shutdown-job
+  #~(job '(next-hour '(3))
+         (lambda ()
+           (system (or (getenv "SHUTDOWN") "sudo loginctl poweroff")))
+         "shutdown-at-3am"
+         #:user #$%default-username))
