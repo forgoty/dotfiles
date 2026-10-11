@@ -171,7 +171,19 @@
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Waiting (on hold)")))
-          (todo "NEXT"
+          (tags-todo "TODO=\"NEXT\"+today"
+                ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))
+                 (org-agenda-files (list projects-file))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
+                 (org-agenda-overriding-header "Today Focus (max 3 Tasks)")))
+          (tags-todo "TODO=\"NEXT\"+this_week-today"
+                ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))
+                 (org-agenda-files (list projects-file))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
+                 (org-agenda-overriding-header "Weekly Focus")))
+          (tags-todo "TODO=\"NEXT\"-today-this_week"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))
                  (org-agenda-files (list projects-file))
