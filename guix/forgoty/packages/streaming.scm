@@ -18,6 +18,7 @@
   #:use-module (gnu packages upnp)
   #:use-module (gnu packages node)
   #:use-module (gnu packages tls)
+  #:use-module (gnu packages qt)
   #:use-module (gnu packages networking)
   #:use-module (gnu packages video)
   #:use-module (gnu packages curl)
@@ -59,7 +60,7 @@
 (define-public sunshine
   (package
     (name "sunshine")
-    (version "2026.516.143833")
+    (version "2026.914.233613")
     (source
      (origin
        (method git-fetch)
@@ -68,7 +69,7 @@
              (commit (string-append "v" version))
              (recursive? #t)))
        (sha256
-        (base32 "1b87qnwmwycz5w9avg85jiwi346fk4yx6y6nfpwaqimm4lxs2ayz"))))
+        (base32 "1nscxl03yfp1p7ss7k3l04aagjh4mhkwbc3kvsc4izfppg0fr9hy"))))
     (build-system cmake-build-system)
     (arguments
      (list
@@ -135,7 +136,8 @@
                                             (readlink bin))))
                           (find-files "node_modules/.bin" ".*"))))))))
     (inputs (list eudev
-                  libappindicator
+                  qtbase
+                  qtsvg
                   boost
                   libcap
                   curl
@@ -178,7 +180,7 @@
                                  version "/npm-offline-cache.tar.gz"))
                            (file-name "npm-offline-cache.tar.gz")
                            (sha256 (base32
-                                    "12g7dc9p407cdicp3zkb4s95jngf0jp4k2nkfvfd2kw6ynl2g7ln")))))
+                                    "1mb1j3frpxa9w5wxyzqzfn9zk29skdd36pvxd8p84yxmcmavjm6g")))))
     (home-page "https://app.lizardbyte.dev/Sunshine/")
     (synopsis "Self-hosted game stream host for Moonlight")
     (description
