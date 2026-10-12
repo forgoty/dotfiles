@@ -261,7 +261,7 @@
                   (org-agenda-prefix-format "")
                   (org-agenda-todo-ignore-with-date t)))))
         ("N" "Notes"
-         ((tags "*"
+         ((tags "LEVEL=1"
                 ((org-agenda-overriding-header "Notes")
                   (org-agenda-files (list org-default-notes-file))
                   (org-agenda-prefix-format "")))))
