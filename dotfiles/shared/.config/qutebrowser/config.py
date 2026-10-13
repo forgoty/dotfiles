@@ -51,5 +51,5 @@ c.url.searchengines = {
 
 ## keybindings
 config.unbind("d")
-config.bind(';V', 'spawn mpv {url}')
-config.bind(';v', 'hint links spawn mpv {hint-url}')
+config.bind(';V', 'spawn mpv --ytdl-format="bestvideo[height<=?720]+bestaudio/best" {url}')
+config.bind(';v', 'hint links spawn mpv  --ytdl-format="bestvideo[height<=?720]+bestaudio/best" {hint-url}')
