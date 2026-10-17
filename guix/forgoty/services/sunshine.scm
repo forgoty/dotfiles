@@ -25,7 +25,7 @@
     (($ <sunshine-configuration> package)
      (list (privileged-program
                      (program (file-append package "/bin/sunshine"))
-                     (capabilities "cap_sys_admin+p"))))))
+                     (capabilities "cap_sys_admin,cap_sys_nice+p"))))))
 
 (define sunshine-service-type
   (service-type

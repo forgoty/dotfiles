@@ -213,6 +213,7 @@
     util-linux
     xdg-utils
     xdg-desktop-portal
+    xdg-desktop-portal-wlr
     xdg-desktop-portal-gtk
     lm-sensors
     wl-clipboard

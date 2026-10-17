@@ -134,10 +134,17 @@
                 (for-each (lambda (bin)
                             (patch-shebang (string-append "node_modules/.bin/"
                                             (readlink bin))))
-                          (find-files "node_modules/.bin" ".*"))))))))
+                          (find-files "node_modules/.bin" ".*")))))
+          (add-after 'install 'wrap-qt-plugins
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let ((out (assoc-ref outputs "out"))
+                   (plugin-path (getenv "QT_PLUGIN_PATH")))
+               (wrap-program (string-append out "/bin/sunshine")
+                 `("QT_PLUGIN_PATH" suffix (,plugin-path)))))))))
     (inputs (list eudev
                   qtbase
                   qtsvg
+                  qtwayland
                   boost
                   libcap
                   curl
