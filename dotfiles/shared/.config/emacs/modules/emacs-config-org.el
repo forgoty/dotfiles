@@ -20,6 +20,7 @@
 (setq habits-file (expand-file-name "habits.org" org-directory))
 (setq reading-list-file (expand-file-name "lists/reading-list.org" org-directory))
 (setq videos-list-file (expand-file-name "lists/videos.org" org-directory))
+(setq books-list-file (expand-file-name "lists/books.org" org-directory))
 (setq podcasts-list-file (expand-file-name "lists/podcasts.org" org-directory))
 (setq important-dates-file (expand-file-name "lists/important-dates.org" org-directory))
 (setq observations-file (expand-file-name "observations.org" org-directory))
@@ -324,6 +325,9 @@
          "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
          :empty-lines 1)
         ("lp" "To Podcasts List" entry (file podcasts-list-file)
+         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         :empty-lines 1)
+        ("lb" "To Book List" entry (file books-list-file)
          "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
          :empty-lines 1)
         ("o" "New Observation" entry
