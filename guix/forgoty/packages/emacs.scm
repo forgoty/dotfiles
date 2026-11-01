@@ -187,7 +187,7 @@ $kanji\"; $bibtex = \"pbibtex $kanji\"; $dvipdf = dvipdfmx -o %D %S'; $pdf_mode 
     (license #f)))
 
 (define-public emacs-editor-code-assistant
-  (let ((commit "c4c30b53b0bbec2b41bd7e1a7f31f8381018f38e")
+  (let ((commit "d08930b63ec91898019a931f13556deca7433828")
         (revision "0"))
     (package
       (name "emacs-editor-code-assistant")
@@ -200,7 +200,7 @@ $kanji\"; $bibtex = \"pbibtex $kanji\"; $dvipdf = dvipdfmx -o %D %S'; $pdf_mode 
               (commit commit)))
         (file-name (git-file-name name version))
         (sha256
-          (base32 "1c1rg3rc6zdkz2fmijyxf6xkraacx4zdnck065wcx59x1lly98k5"))))
+          (base32 "0d1arns4dc8sr8g8kqxl6a9qk8v1ihmip7bxfks9w3bljf9kjn78"))))
       (build-system emacs-build-system)
       (home-page "https://github.com/editor-code-assistant/eca-emacs")
       (propagated-inputs (list emacs-compat emacs-dash emacs-f
