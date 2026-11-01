@@ -302,33 +302,97 @@
 (setq org-stuck-projects
       '("PROJECT" ("NEXT" "IN-PROGRESS") nil ""))
 
+;; Capture templates
+(defconst idea-capture-template
+  (concat
+    "* %?\n"
+    ":PROPERTIES:\n"
+    ":CREATED: %U\n"
+    ":ID: %(org-id-new)\n"
+    ":END:\n\n"
+    "** What will happen if I do it?\n"
+    "  Benefits of taking action.\n"
+    "  Example: Increased revenue, brand growth, new opportunities.\n\n"
+    "** What will happen if I don't do it?\n"
+    "  Benefits of not taking action.\n"
+    "  Example: More resources for existing projects, less risk, maintaining focus.\n\n"
+    "** What won't happen if I do it?\n"
+    "  Drawbacks of taking action.\n"
+    "  Example: Less free time, fewer resources for other projects, additional expenses.\n\n"
+    "** What won't happen if I don't do it?\n"
+    "   Drawbacks of not taking action.\n"
+    "   Example: Missed growth opportunities, lost potential revenue, stagnation.\n\n"
+    "** Brief\n"))
+
+(defconst project-capture-template
+  (concat
+   "* %^{Project Name} %^g:PROJECT:\n"
+   ":PROPERTIES:\n"
+   ":CREATED: %U\n"
+   ":DESCRIPTION: %^{Brief Description}\n"
+   ":DEFINITION-OF-DONE: %^{Definition of Done}\n"
+   ":ID: %(org-id-new)\n"
+   ":END:\n"))
+
+(defconst url-list-item-capture-template
+  (concat
+   "* TODO [[%^{URL}][%^{Title}]]\n"
+   ":PROPERTIES:\n"
+   ":ADDED: %U\n"
+   ":ID: %(org-id-new)\n"
+   ":END:\n"))
+
+(defconst inbox-capture-template
+  (concat
+   "* TODO %?\n"
+   ":PROPERTIES:\n"
+   ":CREATED: %U\n"
+   ":ID: %(org-id-new)\n"
+   ":END:"))
+
+(defconst calendar-event-capture-template
+  (concat
+   "* %?\n%^{DateTime}T\n"
+   ":PROPERTIES:\n"
+   ":CREATED: %U\n"
+   ":ID: %(org-id-new)\n"
+   ":END:"))
+
+(defconst note-capture-template
+  (concat
+   "* %?\n"
+   ":PROPERTIES:\n"
+   ":CREATED: %U\n"
+   ":ID: %(org-id-new)\n"
+   ":END:"))
+
 (setq org-capture-templates
       '(("i" "New Inbox" entry (file inbox-file)
-         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
+         (function (lambda () inbox-capture-template))
          :empty-lines 1)
-        ("m" "New Agenda Event" entry (file inbox-file)
-         "* %?\n%^{DateTime}T\n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
+        ("m" "New Calendar Event" entry (file inbox-file)
+         (function (lambda () calendar-event-capture-template))
          :empty-lines 1)
         ("p" "New Project" entry
          (file projects-file)
-         "* %^{Project Name} %^g:PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:DESCRIPTION: %^{Brief Description}\n:DEFINITION-OF-DONE: %^{Definition of Done}\n:ID: %(org-id-new)\n:END:"
+         (function (lambda () project-capture-template))
          :empty-lines 1)
         ("n" "New Note" entry (file org-default-notes-file)
-         "* %?\n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
+         (function (lambda () note-capture-template))
          :jump-to-captured t
          :empty-lines 1)
         ("l" "Lists")
         ("lr" "To Reading List" entry (file reading-list-file)
-         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         (function (lambda () url-list-item-capture-template))
          :empty-lines 1)
         ("lv" "To Video List" entry (file videos-list-file)
-         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         (function (lambda () url-list-item-capture-template))
          :empty-lines 1)
         ("lp" "To Podcasts List" entry (file podcasts-list-file)
-         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         (function (lambda () url-list-item-capture-template))
          :empty-lines 1)
         ("lb" "To Book List" entry (file books-list-file)
-         "* TODO [[%^{URL}][%^{Title}]]\n:PROPERTIES:\n:ADDED: %U\n:ID: %(org-id-new)\n:END:\n"
+         (function (lambda () url-list-item-capture-template))
          :empty-lines 1)
         ("o" "New Observation" entry
          (file observations-file)
@@ -336,8 +400,26 @@
          :empty-lines 1)
         ("I" "New Idea" entry
          (file ideas-file)
-         "* %?\n:PROPERTIES:\n:CREATED: %U\n:ID: %(org-id-new)\n:END:"
+         (function (lambda () idea-capture-template))
          :jump-to-captured t
          :empty-lines 1)))
+
+;; Org tools
+(defun idea-rating ()
+  "Test an idea using time, cost, difficulty, and expected effect."
+  (interactive)
+  (let* ((time (read-number "Time (0 = short, 1 = moderate, 2 = long): "))
+         (cost (read-number "Cost (0 = low, 1 = moderate, 2 = high): "))
+         (difficulty (read-number "Difficulty (0 = easy, 1 = moderate, 2 = difficult): "))
+         (effect (read-number "Expected effect (0 = high value, 1 = medium value, 2 = no value): "))
+         (score (+ (* 0.2 time)
+                   (* 0.1 cost)
+                   (* 0.2 difficulty)
+                   (* 0.5 effect)))
+         (result (cond
+                  ((< score 0.66) "Take action!")
+                  ((< score 1.32) "Think again.")
+                  (t "Don't even think about it!"))))
+    (message "%s (Score: %.2f)" result score)))
 
 (provide 'emacs-config-org)
