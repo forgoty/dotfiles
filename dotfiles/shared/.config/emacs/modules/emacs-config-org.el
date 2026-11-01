@@ -285,7 +285,7 @@
 (setq org-refile-targets
       '((org-default-notes-file :maxlevel . 1)
         (backlog-file :maxlevel . 1)
-        (projects-file :maxlevel . 2)
+        (projects-file :maxlevel . 3)
         (recycle-bin-file :maxlevel . 1)
         (videos-list-file :maxlevel . 1)
         (reading-list-file :maxlevel . 1)
