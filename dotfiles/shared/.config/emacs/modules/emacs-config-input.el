@@ -57,67 +57,8 @@
 ;; Evil-org
 (evil-set-initial-state 'org-agenda-mode 'normal)
 (evil-define-key 'normal org-agenda-mode-map
-  ;; open
-  (kbd "RET") 'org-agenda-switch-to
-  (kbd "M-RET") 'org-agenda-recenter
-
-  ;; motion
-  "j" 'org-agenda-next-item
-  "k" 'org-agenda-previous-item
   "J" 'org-agenda-todo-prev
-  "K" 'org-agenda-todo-next
-  "gj" 'org-agenda-next-line
-  "gk" 'org-agenda-previous-line
-
-  ;; priority
-  "p" 'org-agenda-priority-up
-
-  ;; operations
-  "a" 'org-agenda-add-note
-  "u" 'org-agenda-undo
-  "q" 'org-agenda-exit
-
-  ;; actions
-  "D" 'org-agenda-kill
-  "t" 'org-agenda-set-tags
-  "e" 'org-agenda-set-effort
-  "T" 'org-timer-set-timer
-  "A" 'org-agenda-append-agenda
-  "C" 'org-agenda-capture
-
-  ;; mark
-  "m" 'org-agenda-bulk-toggle
-  "~" 'org-agenda-bulk-toggle-all
-  "*" 'org-agenda-bulk-mark-all
-  "%" 'org-agenda-bulk-mark-regexp
-  "M" 'org-agenda-bulk-unmark-all
-  "x" 'org-agenda-bulk-action
-
-  ;; refresh
-  "r" 'org-agenda-redo
-  "R" 'org-agenda-redo-all
-
-  ;; filter
-  "sc" 'org-agenda-filter-by-category
-  "sr" 'org-agenda-filter-by-regexp
-  "se" 'org-agenda-filter-by-effort
-  "st" 'org-agenda-filter-by-tag
-  "s^" 'org-agenda-filter-by-top-headline
-  "ss" 'org-agenda-limit-interactively
-  "S" 'org-agenda-filter-remove-all
-
-  ;; go and show
-  "gC" 'org-agenda-convert-date
-  "gd" 'org-agenda-goto-date
-  "gt" 'org-agenda-show-tags
-
-  ;; clock
-  "I" 'org-agenda-clock-in ; Original binding
-  "O" 'org-agenda-clock-out) ; Original binding
-
-(add-hook 'org-agenda-after-show-hook
-          (lambda ()
-            (org-agenda-redo)))  ;; Refresh the agenda view
+  "K" 'org-agenda-todo-next)
 
 ;; Iedit
 (setq iedit-current-symbol-default t

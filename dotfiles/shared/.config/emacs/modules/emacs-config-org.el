@@ -275,6 +275,10 @@
                    (org-agenda-overriding-header "Important Dates")
                    (org-agenda-prefix-format "%t")))))))
 
+(add-hook 'org-agenda-after-show-hook
+          (lambda ()
+            (org-agenda-redo)))  ;; Refresh the agenda view
+
 ;; Refile settings
 ;;; refile to the top level
 (setq org-refile-use-outline-path 'file)
