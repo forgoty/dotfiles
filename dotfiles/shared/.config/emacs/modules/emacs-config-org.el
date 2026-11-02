@@ -172,6 +172,18 @@
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Waiting (on hold)")))
+          (agenda ""
+                  ((org-agenda-entry-types '(:deadline))
+                   (org-deadline-warning-days 0)
+                   (org-agenda-span 'year)
+                   (org-agenda-prefix-format default-agenda-prefix-format)
+                   (org-agenda-show-all-dates nil)
+                   (org-agenda-remove-tags t)
+                   (org-agenda-files (list projects-file))
+                   (org-agenda-sorting-strategy '(priority-down timestamp-down))
+                   (org-agenda-skip-function
+                    '(org-agenda-skip-entry-if 'todo 'done))
+                   (org-agenda-overriding-header "Deadlines")))
           (tags-todo "TODO=\"NEXT\"+today"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))
@@ -195,18 +207,6 @@
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "In Progress")))
-          (agenda ""
-                  ((org-agenda-entry-types '(:deadline))
-                   (org-deadline-warning-days 0)
-                   (org-agenda-span 'year)
-                   (org-agenda-prefix-format default-agenda-prefix-format)
-                   (org-agenda-show-all-dates nil)
-                   (org-agenda-remove-tags t)
-                   (org-agenda-files (list projects-file))
-                   (org-agenda-sorting-strategy '(priority-down timestamp-down))
-                   (org-agenda-skip-function
-                    '(org-agenda-skip-entry-if 'todo 'done))
-                   (org-agenda-overriding-header "Deadlines")))
           (tags "inbox"
                      ((org-agenda-files (list inbox-file))
                       (org-agenda-remove-tags t)
