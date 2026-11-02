@@ -158,24 +158,25 @@
                    (org-habit-show-done-already nil)
                    (org-agenda-overriding-header "Habits for the Next 2 Days")
                    (org-agenda-files (list habits-file))))
+          (todo "IN-PROGRESS"
+                ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-files (list projects-file))
+                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
+                 (org-agenda-overriding-header "In Progress")))
           (agenda ""
                   ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'todo '("DONE")))
                   (org-deadline-warning-days 0)
                   (org-agenda-start-on-weekday nil)
+                  (org-agenda-use-time-grid nil)
                   (org-agenda-span 3)
                   (org-agenda-files (list projects-file important-dates-file))
                   (org-agenda-remove-tags t)
                   (org-agenda-prefix-format default-agenda-prefix-format)))
-          (todo "WAITING"
-                ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                 (org-agenda-files (list projects-file))
-                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
-                 (org-agenda-overriding-header "Waiting (on hold)")))
           (agenda ""
                   ((org-agenda-entry-types '(:deadline))
                    (org-deadline-warning-days 0)
                    (org-agenda-span 'year)
+                   (org-agenda-use-time-grid nil)
                    (org-agenda-prefix-format default-agenda-prefix-format)
                    (org-agenda-show-all-dates nil)
                    (org-agenda-remove-tags t)
@@ -202,11 +203,12 @@
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Ready to Pick Up")))
-          (todo "IN-PROGRESS"
+          (todo "WAITING"
                 ((org-agenda-prefix-format default-agenda-prefix-format)
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
-                 (org-agenda-overriding-header "In Progress")))
+                 (org-agenda-overriding-header "Waiting (on hold)")))
           (tags "inbox"
                      ((org-agenda-files (list inbox-file))
                       (org-agenda-remove-tags t)
