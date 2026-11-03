@@ -156,6 +156,7 @@
          ((agenda ""
                   ((org-agenda-span 2)
                    (org-habit-show-done-already nil)
+                   (org-agenda-use-time-grid nil)
                    (org-agenda-overriding-header "Habits for the Next 2 Days")
                    (org-agenda-files (list habits-file))))
           (todo "IN-PROGRESS"
