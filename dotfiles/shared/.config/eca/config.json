@@ -5,17 +5,6 @@
   "extraConfigs": [
       "~/.config/eca/config.local.json"
   ],
-  "defaultModel": "github-copilot/gpt-4.1",
-  "completion": {
-    "model": "github-copilot/gpt-4.1"
-  },
-  "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"]
-    }
-  },
-
   "plugins": {
     "forgoty-marketplace": {
       "source": "/home/nikita/.config/agents/forgoty-marketplace"
