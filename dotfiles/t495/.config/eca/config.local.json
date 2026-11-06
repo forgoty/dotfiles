@@ -2,7 +2,41 @@
   "providers": {
     "ollama": {
       "type": "ollama",
-      "url": "http://guldan.lan:11434"
+      "url": "http://guldan.lan:11434",
+      "models": {
+        "qwen3.5:9b": {
+          "toolCalling": true,
+          "vision": true,
+          "limit": {
+            "context": 65536,
+            "output": 8192
+          },
+          "extraPayload": {
+            "options": {
+              "num_ctx": 65536,
+              "temperature": 0.3
+            }
+          }
+        },
+        "qwen2.5-coder:3b": {
+          "toolCalling": false,
+          "vision": false,
+          "limit": {
+            "context": 8192,
+            "output": 256
+          },
+          "extraPayload": {
+            "think": false,
+            "options": {
+              "num_ctx": 8192,
+              "temperature": 0.1
+            }
+          }
+        }
+      }
     }
+  },
+  "completion": {
+    "model": "ollama/qwen2.5-coder:3b"
   }
 }
