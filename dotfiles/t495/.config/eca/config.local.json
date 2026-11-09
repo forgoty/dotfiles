@@ -32,6 +32,20 @@
               "temperature": 0.1
             }
           }
+        },
+	"qwen3.5:4b": {
+          "toolCalling": true,
+          "vision": true,
+          "limit": {
+            "context": 262144,
+            "output": 8192
+          },
+          "extraPayload": {
+            "options": {
+              "num_ctx": 262144,
+              "temperature": 0.2
+            }
+          }
         }
       }
     }
