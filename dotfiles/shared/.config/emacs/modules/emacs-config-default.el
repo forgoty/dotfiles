@@ -113,14 +113,7 @@
                (display-buffer-reuse-window display-buffer-pop-up-window)
                (inhibit-same-window . t)))
 
-(add-to-list 'display-buffer-alist
-             '("\\*Completions\\*"
-               (display-buffer-reuse-window display-buffer-pop-up-window)
-               (inhibit-same-window . t)
-               (window-height . 10)))
-
 ;;; Miscellaneous
-
 ;; Load source (.el) or the compiled (.elc or .eln) file whichever is
 ;; newest
 (customize-set-variable 'load-prefer-newer t)

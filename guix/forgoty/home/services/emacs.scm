@@ -22,15 +22,11 @@
         emacs-restart-emacs
         emacs-envrc
         emacs-editor-code-assistant
+        emacs-magit
 
         ;; Search and Completion
-        emacs-magit
-        emacs-cape
         emacs-consult
-        emacs-corfu
-        emacs-corfu-terminal
         emacs-orderless
-        emacs-vertico
 
         ;; Evil
         emacs-evil

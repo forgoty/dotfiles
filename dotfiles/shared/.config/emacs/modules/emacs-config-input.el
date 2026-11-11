@@ -18,10 +18,14 @@
 (evil-define-key 'visual global-map "<" 'evil-shift-left-visual)
 (evil-define-key 'visual global-map ">" 'evil-shift-right-visual)
 
-;; vertico keybindings
-(keymap-set vertico-map "C-j" 'vertico-next)
-(keymap-set vertico-map "C-k" 'vertico-previous)
-(keymap-set vertico-map "M-h" 'vertico-directory-up)
+;; completion minibuffer keybindings
+(keymap-set minibuffer-local-completion-map "SPC" nil) ; let orderless get real spaces
+(keymap-set minibuffer-local-completion-map "TAB" 'minibuffer-next-completion)
+(keymap-set minibuffer-local-completion-map "<backtab>" 'minibuffer-previous-completion)
+(keymap-set minibuffer-local-completion-map "C-n" 'minibuffer-next-completion)
+(keymap-set minibuffer-local-completion-map "C-p" 'minibuffer-previous-completion)
+(keymap-set minibuffer-local-must-match-map "C-j" 'minibuffer-next-completion)
+(keymap-set minibuffer-local-completion-map "C-k" 'minibuffer-previous-completion)
 
 ; Custom evil-textobj-tree-sitter
 ;; bind `function.outer`(entire function block) to `f` for use in things like `vaf`, `yaf`
