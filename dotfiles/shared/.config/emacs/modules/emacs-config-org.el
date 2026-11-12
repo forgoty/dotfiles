@@ -407,7 +407,11 @@
          :jump-to-captured t
          :empty-lines 1)))
 
-;; Org tools
+;; Misc
+;;; Turn on line wrapping
+(setq org-startup-truncated nil)
+
+;; Org custom tools
 (defun idea-rating ()
   "Test an idea using time, cost, difficulty, and expected effect."
   (interactive)
