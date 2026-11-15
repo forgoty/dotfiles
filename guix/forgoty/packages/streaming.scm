@@ -82,6 +82,7 @@
               "-DBUILD_TESTS=OFF"
               "-DNPM_OFFLINE=ON"
               "-DSUNSHINE_SYSTEM_WAYLAND_PROTOCOLS=ON"
+              "-DSUNSHINE_ENABLE_TRAY=OFF"
               "-DGLAD_SKIP_PIP_INSTALL=ON"
               (string-append "-DFFMPEG_PREPARED_BINARIES="
                              (assoc-ref %build-inputs "build-deps"))
@@ -134,17 +135,8 @@
                 (for-each (lambda (bin)
                             (patch-shebang (string-append "node_modules/.bin/"
                                             (readlink bin))))
-                          (find-files "node_modules/.bin" ".*")))))
-          (add-after 'install 'wrap-qt-plugins
-           (lambda* (#:key outputs #:allow-other-keys)
-             (let ((out (assoc-ref outputs "out"))
-                   (plugin-path (getenv "QT_PLUGIN_PATH")))
-               (wrap-program (string-append out "/bin/sunshine")
-                 `("QT_PLUGIN_PATH" suffix (,plugin-path)))))))))
+                          (find-files "node_modules/.bin" ".*"))))))))
     (inputs (list eudev
-                  qtbase
-                  qtsvg
-                  qtwayland
                   boost
                   libcap
                   curl
