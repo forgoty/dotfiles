@@ -237,11 +237,6 @@
                  (org-agenda-files (list projects-file))
                  (org-agenda-sorting-strategy '(priority-down timestamp-down))
                  (org-agenda-overriding-header "Next TODO")))
-          (todo "IN-PROGRESS"
-                ((org-agenda-prefix-format default-agenda-prefix-format)
-                 (org-agenda-files (list projects-file))
-                 (org-agenda-sorting-strategy '(priority-down timestamp-down))
-                 (org-agenda-overriding-header "In-Progress")))
           (tags "CLOSED>=\"<today>\""
                 ((org-agenda-prefix-format default-agenda-prefix-format)
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
