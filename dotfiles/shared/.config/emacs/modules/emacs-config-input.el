@@ -63,7 +63,9 @@
 (evil-define-key 'normal org-agenda-mode-map
   "J" 'org-agenda-todo-prev
   "K" 'org-agenda-todo-next
-  "C" 'org-agenda-capture)
+  "C" 'org-agenda-capture
+  "a" 'org-agenda-add-note
+  "n" 'evil-search-next)
 
 ;; Iedit
 (setq iedit-current-symbol-default t
