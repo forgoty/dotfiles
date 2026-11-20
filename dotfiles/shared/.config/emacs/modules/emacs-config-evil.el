@@ -21,18 +21,7 @@
 ;; Turn on Evil Nerd Commenter
 (evilnc-default-hotkeys)
 
-;; Make C-g revert to normal state
-(keymap-set evil-insert-state-map "C-g" 'evil-normal-state)
-
-;; Rebind `universal-argument' to 'C-M-u' since 'C-u' now scrolls the buffer
-(keymap-global-set "C-M-u" 'universal-argument)
-
-;; Use visual line motions even outside of visual-line-mode buffers
-(evil-global-set-key 'motion "j" 'evil-next-visual-line)
-(evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
 ;; Make sure some modes start in Emacs state
-;; TODO: Split this out to other configuration modules?
 (dolist (mode '(custom-mode
                 eshell-mode
                 term-mode))
