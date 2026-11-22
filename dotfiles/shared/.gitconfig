@@ -5,6 +5,15 @@
 [core]
 	pager = delta
 
+[gpg]
+  format = ssh
+
+[commit]
+  gpgsign = true
+
+[tag]
+  gpgsign = true
+
 [interactive]
 	diffFilter = delta --color-only
 

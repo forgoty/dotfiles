@@ -42,6 +42,7 @@ alias \
 	mkcd='_(){ mkdir -p $1; cd $1; }; _' \
 	gc="git checkout" \
 	gcm="git commit" \
+	gcms="git commit -S" \
 	gs="git status" \
 	gd="DELTA_FEATURES=+side-by-side git diff" \
 	gds="DELTA_FEATURES=+side-by-side git diff --cached" \
