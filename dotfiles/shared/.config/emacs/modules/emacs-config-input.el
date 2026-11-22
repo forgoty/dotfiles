@@ -66,6 +66,11 @@
   "C" 'org-agenda-capture
   "a" 'org-agenda-add-note
   "n" 'evil-search-next)
+(with-eval-after-load 'org-super-agenda
+  (define-key org-super-agenda-header-map "j" 'evil-next-visual-line)
+  (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
+  (define-key org-super-agenda-header-map "a" 'org-agenda-add-note)
+  (define-key org-super-agenda-header-map "n" 'evil-search-next))
 
 ;; Iedit
 (setq iedit-current-symbol-default t
