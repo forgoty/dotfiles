@@ -27,7 +27,6 @@ alias \
 alias \
 	ka="killall" \
 	g="git" \
-	trem="transmission-remote" \
 	e="$EDITOR" \
 	v="$EDITOR" \
 	z="zathura" \
