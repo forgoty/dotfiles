@@ -292,6 +292,7 @@
         (videos-list-file :maxlevel . 1)
         (reading-list-file :maxlevel . 1)
         (podcasts-list-file :maxlevel . 1)
+        (books-list-file :maxlevel . 1)
         (ideas-file :maxlevel . 2)))
 
 ;; Archive settings
